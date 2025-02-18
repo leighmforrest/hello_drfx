@@ -1,0 +1,74 @@
+/* General Styles */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    padding: 1rem;
+  }
+  
+  /* Brand Logo */
+  .brand a {
+    font-size: 2rem;
+    color: white;
+    text-decoration: none;
+  }
+  
+  /* Mobile Menu (Hidden by Default) */
+  .menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #222;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  
+    /* Animation properties */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  }
+  
+  /* Show menu when active */
+  .menu.open {
+    max-height: 300px; /* Adjust based on content */
+    opacity: 1;
+  }
+  
+  .menu li {
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+  
+  /* Nav Links */
+  .navLink {
+    color: white;
+    text-decoration: none;
+    font-size: 2.4rem;
+  }
+  
+  /* ============= */
+  /* 📌 Desktop View (768px and Up) */
+  /* ============= */
+  @media (min-width: 768px) {
+    .menu {
+      display: flex;
+      flex-direction: row;
+      position: static;
+      background: none;
+      width: auto; /* Auto width on desktop */
+      max-height: none; /* No max-height limit */
+      opacity: 1; /* Fully visible */
+      transition: none;
+    }
+  
+    .menu li {
+      padding: 0 1rem; /* Horizontal spacing */
+    }
+  
+  }
+  
