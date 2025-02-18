@@ -29,7 +29,7 @@ DJANGO_APPS = [
     "django.contrib.sites"
 ]
 
-THIRD_PARTY_APPS = ["rest_framework", "debug_toolbar"]
+THIRD_PARTY_APPS = ["rest_framework", "debug_toolbar", 'djoser',]
 
 LOCAL_APPS = ["apps.accounts"]
 
@@ -129,7 +129,12 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 
 
 # REST FRAMEWORK SETTINGS
-REST_FRAMEWORK = {}
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
+}
 
 
 # DJOSER SETTINGS

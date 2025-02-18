@@ -1,7 +1,12 @@
 const HomePage = () => {
   return (
-    <div>HomePage</div>
-  )
-}
+    <>
+      <section>
+        <p>Home Page</p>
+      </section>
+      <section style={{ backgroundColor: "seashell" }}>Place Ad Here</section>
+    </>
+  );
+};
 
-export default HomePage
+export default HomePage;

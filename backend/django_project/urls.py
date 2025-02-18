@@ -7,7 +7,8 @@ from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/v1/", include("apps.api.urls"))
 ]
 
 if settings.DEBUG:
-    urlpatterns + debug_toolbar_urls()
+    urlpatterns += debug_toolbar_urls()
