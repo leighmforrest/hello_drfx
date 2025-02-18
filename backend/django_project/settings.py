@@ -29,9 +29,9 @@ DJANGO_APPS = [
     "django.contrib.sites"
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = ["rest_framework", "debug_toolbar"]
 
-LOCAL_APPS = []
+LOCAL_APPS = ["apps.accounts"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -43,6 +43,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware"
 ]
 
 ROOT_URLCONF = "django_project.urls"
@@ -50,7 +51,7 @@ ROOT_URLCONF = "django_project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -121,6 +122,22 @@ STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# AUTH SETTINGS
+AUTH_USER_MODEL = "accounts.CustomUser"
+
+
+# REST FRAMEWORK SETTINGS
+REST_FRAMEWORK = {}
+
+
+# DJOSER SETTINGS
+DJOSER = {}
+
+
+# SIMPLE JWT SETTINGS
+SIMPLE_JWT = {}
 
 
 # DEBUG SETTINGS
