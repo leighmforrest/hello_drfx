@@ -34,6 +34,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "debug_toolbar",
     "djoser",
+    "rest_framework_simplejwt.token_blacklist",
 ]
 
 LOCAL_APPS = ["apps.accounts"]
