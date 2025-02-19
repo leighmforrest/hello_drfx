@@ -3,7 +3,7 @@
     --height-footer: 8rem;
     /* COLOR PALETTE */
     --color-border: hsl(0, 0%, 50%);
-    --border-radius: 5px;
+    --border-radius: .5rem;
     --value0: hsl(0, 0%, 0%);
     --value1: hsl(0, 0%, 11%);
     --value2: hsl(0, 0%, 22%);
@@ -40,7 +40,7 @@ body {
 
 header {
     display: flex;
-    background-color: var(--value5);
+    background-color: var(--value6);
     height: var(--height-header);
     flex-shrink: 0;
 }

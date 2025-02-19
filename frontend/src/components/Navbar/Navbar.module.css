@@ -6,12 +6,13 @@
     position: relative;
     width: 100%;
     padding: 1rem;
+    border-bottom: .2rem solid var(--color-border);
   }
   
   /* Brand Logo */
   .brand a {
     font-size: 2rem;
-    color: var(--value8);
+    color: var(--value3);
     text-decoration: none;
   }
   
@@ -21,10 +22,11 @@
     top: 100%;
     left: 0;
     width: 100%;
-    background-color: var(--value6);
+    background-color: var(--value7);
     padding: 0;
     margin: 0;
     list-style: none;
+    box-shadow: .4rem .5rem .1rem var(--color-border);
   
     /* Animation properties */
     max-height: 0;
@@ -46,16 +48,17 @@
   
   /* Nav Links */
   .navLink {
-    color: var(--value8);
+    color: var(--value3);
     text-decoration: none;
     font-size: 2.4rem;
   }
   
   /* ============= */
-  /* 📌 Desktop View (768px and Up) */
+  /* Desktop View (768px and Up) */
   /* ============= */
   @media (min-width: 768px) {
     .menu {
+      box-shadow: none;
       display: flex;
       flex-direction: row;
       position: static;
