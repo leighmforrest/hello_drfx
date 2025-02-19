@@ -1,5 +1,5 @@
 import axios from "axios"
-import { applyAuthTokenInterceptor, clearAuthTokens, getBrowserLocalStorage, setAuthTokens } from "axios-jwt"
+import { applyAuthTokenInterceptor, clearAuthTokens, setAuthTokens } from "axios-jwt"
 
 const BASE_URL = import.meta.env.VITE_BASE_API_URL
 
