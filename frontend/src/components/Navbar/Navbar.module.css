@@ -52,6 +52,12 @@
     text-decoration: none;
     font-size: 2.4rem;
   }
+
+  .smallNavLink {
+    color: var(--value5);
+    text-decoration: none;
+    font-size: 1.8rem;
+  }
   
   /* ============= */
   /* Desktop View (768px and Up) */
@@ -72,6 +78,9 @@
     .menu li {
       padding: 0 1rem; /* Horizontal spacing */
     }
-  
+    
+    .navLink, .smallNavLink {
+      color: var(--value7);
+    }
   }
   

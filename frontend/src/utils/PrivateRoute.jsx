@@ -1,8 +1,8 @@
 import { Outlet, Navigate } from "react-router";
+import { useAuth } from "../contexts/AuthContext";
 
 const PrivateRoute = () => {
-  // TODO: tap into AuthContext; destructure user
-  const user = 1;
+  const { user } = useAuth();
 
   return user ? <Outlet /> : <Navigate to="/login" />;
 };
