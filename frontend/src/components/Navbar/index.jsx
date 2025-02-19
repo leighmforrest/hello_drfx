@@ -7,7 +7,8 @@ import { useAuth } from "../../contexts/AuthContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useAuth();
+
+  const { user, loading, logout } = useAuth();
 
   const handleClick = () => setIsOpen(!isOpen);
 
@@ -21,17 +22,26 @@ const Navbar = () => {
         </div>
         <ul className={`${styles.menu} ${isOpen ? styles.open : ""}`}>
           {user ? (
-            <>
-              <li>
-                <NavLink
-                  to="/"
-                  className={styles.navLink}
-                  onClick={handleLinkClick}
-                >
-                  Home
-                </NavLink>
-              </li>
-            </>
+            loading ? (
+              <p>Loading...</p>
+            ) : (
+              <>
+                <li>
+                  <NavLink
+                    to="/"
+                    className={styles.navLink}
+                    onClick={handleLinkClick}
+                  >
+                    Home
+                  </NavLink>
+                </li>
+                <li>
+                  <button className={styles.navLinkButton} onClick={logout}>
+                    Log Out
+                  </button>
+                </li>
+              </>
+            )
           ) : (
             <>
               <li>

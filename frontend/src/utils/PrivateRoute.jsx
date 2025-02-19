@@ -1,10 +1,20 @@
+import { useEffect, useState } from "react";
 import { Outlet, Navigate } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
 
 const PrivateRoute = () => {
-  const { user } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const [authStatus, setAuthStatus] = useState(null);
 
-  return user ? <Outlet /> : <Navigate to="/login" />;
+  useEffect(() => {
+    (async () => {
+      setAuthStatus(await isAuthenticated());
+    })();
+  }, [isAuthenticated]);
+
+  if (authStatus === null) return null; // Show nothing (or loading spinner) while checking
+
+  return authStatus ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

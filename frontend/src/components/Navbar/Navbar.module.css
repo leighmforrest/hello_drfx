@@ -53,6 +53,14 @@
     font-size: 2.4rem;
   }
 
+  .navLinkButton {
+    background-color: transparent;
+    border: none;
+    color: var(--value5);
+    text-decoration: none;
+    font-size: 2.4rem;
+  }
+
   .smallNavLink {
     color: var(--value5);
     text-decoration: none;
@@ -79,7 +87,7 @@
       padding: 0 1rem; /* Horizontal spacing */
     }
     
-    .navLink, .smallNavLink {
+    .navLink, .smallNavLink, .navLinkButton {
       color: var(--value7);
     }
   }

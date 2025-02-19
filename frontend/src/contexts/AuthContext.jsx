@@ -1,51 +1,73 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { setAuthTokens, clearAuthTokens, getAccessToken } from "axios-jwt";
+import { useReducer, createContext, useContext, useEffect } from "react";
+import authReducer, { initialState } from "../reducers/authReducer";
 import httpService, { login as httpLogin, logout as httpLogout } from "../services/httpService";
+import { getRefreshToken } from "axios-jwt";
+import { useNavigate } from "react-router";
 
-const AuthContext = createContext(null)
-
+const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser ] = useState(null)
-    useEffect(() => {
-        (async ()=> {
-            try {
-                const access = await getAccessToken();
-                if (!access) {
-                    console.log("ANONYMOUS USER");
-                    setUser(null)
-                return;
-                }
-                const { data } = await httpService.get("/auth/users/me")
-                setUser(data)
-                console.log(data)
-            } catch {
-                console.log("Something went wrong.")
-            }
-            
-        })()
-    }, [])
+  const [state, dispatch] = useReducer(authReducer, initialState);
+  const navigate = useNavigate();
 
-    const login = async (email, password) => {
-        try {
-            await httpLogin({email, password})
+  const loadUser = async () => {
+    try {
+      const hasToken = !!(await getRefreshToken());
 
-            const { user } = await httpService.get("/auth/users/me")
-            console.log(user)
-            setUser(user)
-        } catch (error) {
-            console.log("LOGIN FAILED: ", error)
-        }
-        
+      if (!hasToken) {
+        dispatch({ type: "AUTH_REQUEST_FAILURE" });
+        return;
       }
-      
-      const logout = async () => clearAuthTokens()
 
-    return <AuthContext.Provider value={{ user, login, logout }}>
-        { children }
+      dispatch({ type: "AUTH_REQUEST_INIT" });
+      const response = await httpService.get("/auth/users/me/");
+      dispatch({ type: "USER_FETCH_SUCCESS", payload: response.data });
+    } catch (e) {
+      dispatch({ type: "AUTH_REQUEST_FAILURE" });
+      console.error("Error loading user:", e);
+      await logout();
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      await loadUser();
+    })();
+  }, []);
+
+  const login = async (email, password) => {
+    try {
+      dispatch({ type: "AUTH_REQUEST_INIT" });
+      await httpLogin({ email, password });
+      await loadUser();
+      dispatch({ type: "USER_LOGIN_SUCCESS" });
+      navigate("/");
+    } catch (error) {
+      console.error("Login failed:", error);
+      dispatch({ type: "AUTH_REQUEST_FAILURE" });
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await httpLogout();
+      dispatch({ type: "USER_LOGOUT" });
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
+  // Derive isAuthenticated dynamically based on refresh token presence
+  const isAuthenticated = async () => !!(await getRefreshToken());
+
+  return (
+    <AuthContext.Provider value={{ ...state, isAuthenticated, login, logout }}>
+      {children}
     </AuthContext.Provider>
-}
+  );
+};
 
 export default AuthProvider;
 
-export const useAuth = () => useContext(AuthContext)
+export const useAuth = () => useContext(AuthContext);
