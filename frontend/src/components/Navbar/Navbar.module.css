@@ -11,7 +11,7 @@
   /* Brand Logo */
   .brand a {
     font-size: 2rem;
-    color: white;
+    color: var(--value8);
     text-decoration: none;
   }
   
@@ -21,7 +21,7 @@
     top: 100%;
     left: 0;
     width: 100%;
-    background-color: hsl(0, 7%, 26%);;
+    background-color: var(--value6);
     padding: 0;
     margin: 0;
     list-style: none;
@@ -46,7 +46,7 @@
   
   /* Nav Links */
   .navLink {
-    color: white;
+    color: var(--value8);
     text-decoration: none;
     font-size: 2.4rem;
   }

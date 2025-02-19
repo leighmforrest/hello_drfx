@@ -1,9 +1,25 @@
 :root {
     --height-header: 6rem;
     --height-footer: 8rem;
+    /* COLOR PALETTE */
+    --color-border: hsl(0, 0%, 50%);
+    --border-radius: 5px;
+    --value0: hsl(0, 0%, 0%);
+    --value1: hsl(0, 0%, 11%);
+    --value2: hsl(0, 0%, 22%);
+    --value3: hsl(0, 0%, 33%);
+    --value4: hsl(0, 0%, 44%);
+    --value5: hsl(0, 0%, 55%);
+    --value6: hsl(0, 0%, 66%);
+    --value7: hsl(0, 0%, 77%);
+    --value8: hsl(0, 0%, 88%);
+    --value9: hsl(0, 0%, 100%);
+    --text: 0;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -24,7 +40,7 @@ body {
 
 header {
     display: flex;
-    background-color: rgb(119, 96, 96);
+    background-color: var(--value5);
     height: var(--height-header);
     flex-shrink: 0;
 }
@@ -33,19 +49,19 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: hsl(0, 7%, 26%);
-    color: gainsboro;
+    background-color: var(--value8);
+    color: var(--value3);
     height: var(--height-footer);
     flex-shrink: 0;
 }
 
 main {
     min-height: calc(100vh - var(--height-header) - var(--height-footer));
-    background-color: steelblue;
+    background-color: var(--value7);
     padding: .5rem;
 }
 
-main > section {
+main>section {
     width: 100%;
     min-height: 10rem;
     align-items: center;
