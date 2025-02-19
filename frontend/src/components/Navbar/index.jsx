@@ -14,6 +14,15 @@ const Navbar = () => {
 
   const handleLinkClick = () => setIsOpen(false);
 
+  const handleLogoutClick = async () => {
+    try {
+      await logout()
+      setIsOpen(false);
+    } catch {
+      console.log("Logout failed.")
+    }
+  }
+
   return (
     <header>
       <nav className={styles.nav}>
@@ -36,7 +45,7 @@ const Navbar = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <button className={styles.navLinkButton} onClick={logout}>
+                  <button className={styles.navLinkButton} onClick={handleLogoutClick}>
                     Log Out
                   </button>
                 </li>

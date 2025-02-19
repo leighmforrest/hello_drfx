@@ -1,4 +1,5 @@
 import { useAuth } from "../contexts/AuthContext";
+import LoginForm from "../components/forms/LoginForm"
 
 const LoginPage = () => {
   const { login } = useAuth();
@@ -12,11 +13,7 @@ const LoginPage = () => {
   return (
     <section>
       <h2>Login Page</h2>
-      <form onSubmit={loginFormHandler}>
-        <input type="text" name="username" placeholder="Enter Username" />
-        <input type="password" name="password" placeholder="Enter Password" />
-        <button type="submit">Login</button>
-      </form>
+      <LoginForm onLoginSubmit={loginFormHandler}/>
     </section>
   );
 };
