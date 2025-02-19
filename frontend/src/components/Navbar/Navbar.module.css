@@ -12,7 +12,7 @@
   /* Brand Logo */
   .brand a {
     font-size: 2rem;
-    color: var(--value3);
+    color: var(--value7);
     text-decoration: none;
   }
   
@@ -48,7 +48,7 @@
   
   /* Nav Links */
   .navLink {
-    color: var(--value3);
+    color: var(--value5);
     text-decoration: none;
     font-size: 2.4rem;
   }

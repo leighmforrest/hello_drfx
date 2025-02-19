@@ -40,7 +40,7 @@ body {
 
 header {
     display: flex;
-    background-color: var(--value6);
+    background-color: var(--value4);
     height: var(--height-header);
     flex-shrink: 0;
 }
