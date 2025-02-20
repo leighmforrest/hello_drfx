@@ -62,15 +62,6 @@ const Navbar = () => {
                   Login
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to="/password/reset/"
-                  className={styles.smallNavLink}
-                  onClick={handleLinkClick}
-                >
-                  password reset
-                </NavLink>
-              </li>
             </>
           )}
         </ul>

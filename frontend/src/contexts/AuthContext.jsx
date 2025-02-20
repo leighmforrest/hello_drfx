@@ -7,7 +7,10 @@ import { useNavigate } from "react-router";
 const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, initialState);
+  const [state, dispatch] = useReducer(authReducer, {
+    ...initialState,
+    isAuthenticated: false, // Add isAuthenticated to state
+  });
   const navigate = useNavigate();
 
   const loadUser = async () => {
@@ -31,7 +34,11 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      await loadUser();
+      const tokenExists = !!(await getRefreshToken());
+      dispatch({ type: "SET_AUTH_STATUS", payload: tokenExists }); // Set isAuthenticated state
+      if (tokenExists) {
+        await loadUser();
+      }
     })();
   }, []);
 
@@ -39,12 +46,12 @@ const AuthProvider = ({ children }) => {
     try {
       dispatch({ type: "AUTH_REQUEST_INIT" });
       await httpLogin({ email, password });
+      dispatch({ type: "SET_AUTH_STATUS", payload: true }); // User is authenticated
       await loadUser();
       dispatch({ type: "USER_LOGIN_SUCCESS" });
       navigate("/");
     } catch (error) {
-      const { data } = error.response;
-      console.error("Login failed:", data.detail);
+      console.error("Login failed:", error.response?.data?.detail ?? "An error occurred");
       dispatch({ type: "AUTH_REQUEST_FAILURE" });
     }
   };
@@ -53,17 +60,15 @@ const AuthProvider = ({ children }) => {
     try {
       await httpLogout();
       dispatch({ type: "USER_LOGOUT" });
+      dispatch({ type: "SET_AUTH_STATUS", payload: false }); // User is not authenticated
       navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);
     }
   };
 
-  // Derive isAuthenticated dynamically based on refresh token presence
-  const isAuthenticated = async () => !!(await getRefreshToken());
-
   return (
-    <AuthContext.Provider value={{ ...state, isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ ...state, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
