@@ -1,0 +1,79 @@
+import { createContext, useContext } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import httpService, { login as httpLogin, logout as httpLogout } from "../services/httpService";
+import { getRefreshToken } from "axios-jwt";
+import { useNavigate } from "react-router";
+
+const AuthContext = createContext(null);
+
+const useUserQuery = () => {
+  return useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const hasToken = !!(await getRefreshToken());
+      if (!hasToken) throw new Error("No refresh token");
+      const response = await httpService.get("/auth/users/me/");
+      return response.data;
+    },
+    retry: false,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+};
+
+const useTokenQuery = () => {
+  return useQuery({
+    queryKey: ["authToken"],
+    queryFn: async () => {
+      const token = await getRefreshToken();
+      return !!token; // Returns true if token exists, false otherwise
+    },
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+};
+
+const AuthProvider = ({ children }) => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const { data: user, error, isLoading } = useUserQuery();
+  const { data: hasToken } = useTokenQuery();
+
+  const loginMutation = useMutation({
+    mutationFn: async ({ email, password }) => {
+      await httpLogin({ email, password });
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["user"] });
+      await queryClient.invalidateQueries({ queryKey: ["authToken"] });
+      navigate("/");
+    },
+  });
+
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      await httpLogout();
+    },
+    onSuccess: async () => {
+      queryClient.removeQueries({ queryKey: ["user"] });
+      queryClient.removeQueries({ queryKey: ["authToken"] });
+      navigate("/login");
+    },
+  });
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user && hasToken,
+        isLoading,
+        login: loginMutation.mutate,
+        logout: logoutMutation.mutate,
+        error,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export default AuthProvider;
+export const useAuth = () => useContext(AuthContext);
