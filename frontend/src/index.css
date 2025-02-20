@@ -88,9 +88,10 @@ form {
 @media (min-width: 768px) {
     main {
         align-items: center;
+        justify-content: center;
     }
 
     section {
-        max-width: 80%;
+        max-width: 65rem;
     }
 }

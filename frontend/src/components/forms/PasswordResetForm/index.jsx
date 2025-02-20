@@ -1,28 +1,47 @@
 import { useForm } from "react-hook-form";
-import httpService from "../../../services/httpService";
 import { toast } from "react-toastify";
 
+const PasswordResetForm = ({ onFormSubmit }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm();
 
-const PasswordResetForm = () => {
-  const { register, handleSubmit, formState: { errors}, reset} = useForm()
-
-  const PasswordResetFormHandler = async (data) => {
+  const handleFormSubmit = async (data) => {
     try {
-        const { email } = data;
-        const response = await httpService.post("/auth/users/reset_password/", {email})
-        console.log(response)
-        reset()
-        toast("Please check your email for reset link.")
+      await onFormSubmit(data);
+      toast.success("Check your email for the reset link.");
+      reset();
     } catch (error) {
-        toast("Your email address could not be found.")
+      toast.error("The email could not be found.");
     }
-        };
+  };
 
-  return(
-  <form onSubmit={handleSubmit(PasswordResetFormHandler)}>
-    <input type="text" {...register("email")} />
-    <button type="submit">Reset Password</button>
-  </form>
-)};
+  return (
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
+      <div>
+        <input
+          type="email"
+          {...register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Invalid email address",
+            },
+          })}
+          placeholder="Enter your email"
+          aria-label="Email"
+          aria-describedby="email-error"
+        />
+        {errors.email && <p id="email-error">{errors.email.message}</p>}
+      </div>
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Processing..." : "Reset Password"}
+      </button>
+    </form>
+  );
+};
 
 export default PasswordResetForm;
