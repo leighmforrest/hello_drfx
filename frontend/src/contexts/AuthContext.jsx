@@ -51,7 +51,7 @@ const AuthProvider = ({ children }) => {
       dispatch({ type: "USER_LOGIN_SUCCESS" });
       navigate("/");
     } catch (error) {
-      console.error("Login failed:", error.response?.data?.detail ?? "An error occurred");
+      console.error("Login failed:", error.response.data.detail);
       dispatch({ type: "AUTH_REQUEST_FAILURE" });
     }
   };

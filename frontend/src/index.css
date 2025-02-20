@@ -34,8 +34,6 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 header {
@@ -67,7 +65,7 @@ main {
     padding-top: 2rem;
 }
 
-section {
+main > section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -85,6 +83,7 @@ form {
     padding: 1rem;
     margin-bottom: 2rem;
 }
+
 
 @media (min-width: 768px) {
     main {

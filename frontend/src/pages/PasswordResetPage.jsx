@@ -1,7 +1,10 @@
+import PasswordResetForm from "../components/forms/PasswordResetForm"
+
 const PasswordResetPage = () => {
   return (
     <section>
-        <p>Password Reset</p>
+        <h2>Password Reset</h2>
+        <PasswordResetForm />
     </section>
   )
 }

@@ -1,19 +1,11 @@
 import { useAuth } from "../contexts/AuthContext";
 import LoginForm from "../components/forms/LoginForm"
 
-const LoginPage = () => {
-  const { login } = useAuth();
-  const loginFormHandler = async (e) => {
-    e.preventDefault();
-    const { username, password } = e.target;
-    console.log(username.value, password.value)
-    await login(username.value,password.value);
-  };
-
+const LoginPage = () => {  
   return (
-    <section style={{ maxWidth: "60%"}}>
-      <h2>Login Page</h2>
-      <LoginForm onLoginSubmit={loginFormHandler}/>
+    <section>
+      <h2>Login</h2>
+      <LoginForm />
     </section>
   );
 };
