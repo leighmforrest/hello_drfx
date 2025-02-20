@@ -59,6 +59,7 @@
     color: var(--value5);
     text-decoration: none;
     font-size: 2.4rem;
+    cursor: pointer;
   }
 
   .smallNavLink {
