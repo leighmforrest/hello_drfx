@@ -11,7 +11,7 @@ const LoginPage = () => {
   };
 
   return (
-    <section>
+    <section style={{ maxWidth: "60%"}}>
       <h2>Login Page</h2>
       <LoginForm onLoginSubmit={loginFormHandler}/>
     </section>
