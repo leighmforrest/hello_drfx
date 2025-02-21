@@ -3,6 +3,8 @@ import { NavLink } from "react-router";
 import styles from "./Navbar.module.css";
 import { useState } from "react";
 import NavbarButton from "../NavbarButton";
+import NavbarLinkButton from "../NavbarLinkButton"
+import NavbarLink from "../NavbarLink";
 import { useAuth } from "../../contexts/AuthContext";
 
 const Navbar = () => {
@@ -45,22 +47,19 @@ const Navbar = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <button className={styles.navLinkButton} onClick={handleLogoutClick}>
-                    Log Out
-                  </button>
+                  <NavbarLinkButton text="Log Out"/>
                 </li>
               </>
             )
           ) : (
             <>
               <li>
-                <NavLink
-                  to="/login"
-                  className={styles.navLink}
-                  onClick={handleLinkClick}
-                >
-                  Login
-                </NavLink>
+                <NavbarLink
+                  route="/login"
+                  // className={styles.navLink}
+                  onLinkClick={handleLinkClick}
+                  text="Login"
+                />
               </li>
             </>
           )}

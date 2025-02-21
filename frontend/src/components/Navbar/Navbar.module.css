@@ -47,13 +47,13 @@
   }
   
   /* Nav Links */
-  .navLink {
+  .menu li a {
     color: var(--value5);
     text-decoration: none;
     font-size: 2.4rem;
   }
 
-  .navLinkButton {
+  .menu li button {
     background-color: transparent;
     border: none;
     color: var(--value5);
@@ -88,8 +88,12 @@
       padding: 0 1rem; /* Horizontal spacing */
     }
     
-    .navLink, .smallNavLink, .navLinkButton {
+    .menu li a, .menu li button {
       color: var(--value7);
+    }
+
+    .menu li a:hover, .menu li button:hover {
+      color: var(--value9);
     }
   }
   
