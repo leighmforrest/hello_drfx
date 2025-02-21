@@ -8,7 +8,7 @@ const PublicRoute = () => {
     return <div>Loading...</div>; // Show a loading spinner or message
   }
 
-  return !isAuthenticated  ? <Outlet /> : <Navigate to="/" />;};
+  return !isAuthenticated ? <Outlet /> : <Navigate to="/" />;
+};
 
 export default PublicRoute;
-

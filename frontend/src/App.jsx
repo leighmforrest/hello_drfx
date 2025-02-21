@@ -20,7 +20,10 @@ const App = () => {
             <Route element={<PublicRoute />}>
               <Route path="/login" element={<LoginPage />} />
               <Route path="/password/reset/" element={<PasswordResetPage />} />
-              <Route path="/password/reset/:uid/:token" element={<PasswordResetConfirmPage />}/>
+              <Route
+                path="/password/reset/:uid/:token"
+                element={<PasswordResetConfirmPage />}
+              />
             </Route>
           </Route>
         </Routes>

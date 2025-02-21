@@ -1,6 +1,9 @@
 import { useReducer, createContext, useContext, useEffect } from "react";
 import authReducer, { initialState } from "../reducers/authReducer";
-import httpService, { login as httpLogin, logout as httpLogout } from "../services/httpService";
+import httpService, {
+  login as httpLogin,
+  logout as httpLogout,
+} from "../services/httpService";
 import { getRefreshToken } from "axios-jwt";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
@@ -50,7 +53,9 @@ const AuthProvider = ({ children }) => {
       toast.success(`The user '${email}' is logged in!`);
       navigate("/");
     } catch (error) {
-      toast.error(error.response?.data?.detail || "Login failed. Please try again.");
+      toast.error(
+        error.response?.data?.detail || "Login failed. Please try again.",
+      );
       dispatch({ type: "AUTH_REQUEST_FAILURE" });
     }
   };

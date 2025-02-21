@@ -5,20 +5,14 @@ const HomePage = () => {
   const [notes, setNotes] = useState(null);
   useEffect(() => {
     (async () => {
-      const response = await httpService.get("/")
-      setNotes(response.data)
-    })()
-    
-  }, [])
-  
+      const response = await httpService.get("/");
+      setNotes(response.data);
+    })();
+  }, []);
+
   return (
     <>
-      <section>
-        <p>Home Page</p>
-      </section>
-      <section style={{ backgroundColor: "seashell" }}>
-        {notes}
-      </section>
+      <section style={{ backgroundColor: "seashell" }}>{notes}</section>
     </>
   );
 };

@@ -18,7 +18,10 @@
 
 /* Style for the button */
 .form button {
-    margin-top: 1rem;
+    padding: 1.2rem;
+    font-size: 1.6rem;
+    border-radius: .5rem;
+
 }
 
 /* ============= */
@@ -46,9 +49,7 @@
         width: 100%;
     }
 
-    .form button,
-    .form a {
-        grid-column: span 2; /* Make them span both columns */
-        justify-self: start;
+    .form button{
+        grid-column: 2/-1; /* Make them span both columns */
     }
 }

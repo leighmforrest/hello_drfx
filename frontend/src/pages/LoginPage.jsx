@@ -4,12 +4,10 @@ import { useAuth } from "../contexts/AuthContext";
 import Form from "../components/Form";
 import Input from "../components/Input";
 
-
 const defaultValues = {
   email: "",
-  password: ""
-}
-
+  password: "",
+};
 
 const LoginPage = () => {
   const { login, isAuthenticated } = useAuth();
@@ -17,7 +15,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (isAuthenticated && formRef.current) {
-      formRef.current.reset()
+      formRef.current.reset();
     }
   }, [isAuthenticated]);
 
@@ -29,9 +27,13 @@ const LoginPage = () => {
   return (
     <section>
       <h2>Login</h2>
-      <Form ref={formRef} onSubmit={handleFormSubmit} defaultValues={defaultValues}>
-        <Input name="email" label="Email Address"/>
-        <Input name="password" label="Password" type="password"/>
+      <Form
+        ref={formRef}
+        onSubmit={handleFormSubmit}
+        defaultValues={defaultValues}
+      >
+        <Input name="email" label="Email Address" />
+        <Input name="password" label="Password" type="password" />
         <button type="submit">Login</button>
         <Link to="/password/reset/">Forgot password?</Link>
       </Form>

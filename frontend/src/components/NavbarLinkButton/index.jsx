@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const index = ({onButtonClick, text}) => <button onClick={onButtonClick}>
-{text}
-</button>
+const NavbarLinkButton = ({ onButtonClick, text }) => (
+  <button onClick={onButtonClick}>{text}</button>
+);
 
-export default index
+export default NavbarLinkButton;
