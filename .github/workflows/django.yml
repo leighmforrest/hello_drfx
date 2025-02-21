@@ -13,6 +13,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.PRIVATE_KEY }}
           port: 22
-          source: ${{ secrets.SOURCE }}
+          source: "."
           target: ${{ secrets.APP_DIRECTORY }}
        
