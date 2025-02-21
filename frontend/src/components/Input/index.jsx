@@ -1,5 +1,8 @@
 import { useFormContext } from "react-hook-form"
 
+import styles from "./Input.module.css";
+
+
 const Input = ({
     name, label, type = "text"
 }) => {
@@ -8,7 +11,7 @@ const Input = ({
   return (
     <div>
         <label htmlFor={name}>{label}</label>
-        <input {...register(name)} type={type} />
+        <input {...register(name)} type={type} className={styles.input} />
     </div>
   )
 }

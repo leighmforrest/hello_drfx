@@ -1,0 +1,23 @@
+.input {
+    width: 100%;
+    background-color: var(--value8);
+    padding: 1.2rem 2rem;
+    font-size: 2rem;
+    border-radius: 0.5rem;
+    border: 2px solid transparent;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focus State */
+.input:focus {
+    border: 2px solid #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+/* Responsive Font Size */
+@media (max-width: 768px) {
+    .input {
+        font-size: 1.5rem; /* Smaller font size on smaller screens */
+    }
+}

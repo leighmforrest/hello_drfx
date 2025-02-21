@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 import styles from "./Navbar.module.css";
 import { useState } from "react";
 import NavbarButton from "../NavbarButton";
-import NavbarLinkButton from "../NavbarLinkButton"
+import NavbarLinkButton from "../NavbarLinkButton";
 import NavbarLink from "../NavbarLink";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -18,12 +18,12 @@ const Navbar = () => {
 
   const handleLogoutClick = async () => {
     try {
-      await logout()
+      await logout();
       setIsOpen(false);
     } catch {
-      console.log("Logout failed.")
+      console.log("Logout failed.");
     }
-  }
+  };
 
   return (
     <header>
@@ -47,7 +47,10 @@ const Navbar = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavbarLinkButton text="Log Out"/>
+                  <NavbarLinkButton
+                    text="Log Out"
+                    onButtonClick={handleLogoutClick}
+                  />
                 </li>
               </>
             )
@@ -56,7 +59,6 @@ const Navbar = () => {
               <li>
                 <NavbarLink
                   route="/login"
-                  // className={styles.navLink}
                   onLinkClick={handleLinkClick}
                   text="Login"
                 />
