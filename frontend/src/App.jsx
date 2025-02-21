@@ -1,11 +1,12 @@
-import { BrowserRouter, Routes, Route } from "react-router";
-import PrivateRoute from "./utils/PrivateRoute";
-import PublicRoute from "./utils/PublicRoute";
-import LoginPage from "./pages/LoginPage";
-import HomePage from "./pages/HomePage";
-import PasswordResetPage from "./pages/PasswordResetPage";
+import { BrowserRouter, Route, Routes } from "react-router";
 import BaseLayout from "./components/layout/BaseLayout";
 import AuthProvider from "./contexts/AuthContext";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import PasswordResetConfirmPage from "./pages/PasswordResetConfirmPage";
+import PasswordResetPage from "./pages/PasswordResetPage";
+import PrivateRoute from "./utils/PrivateRoute";
+import PublicRoute from "./utils/PublicRoute";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             <Route element={<PublicRoute />}>
               <Route path="/login" element={<LoginPage />} />
               <Route path="/password/reset/" element={<PasswordResetPage />} />
+              <Route path="/password/reset/:uid/:token" element={<PasswordResetConfirmPage />}/>
             </Route>
           </Route>
         </Routes>

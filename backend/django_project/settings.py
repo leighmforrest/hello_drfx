@@ -148,8 +148,9 @@ REST_FRAMEWORK = {
 
 # DJOSER SETTINGS
 DJOSER = {
-    "PASSWORD_RESET_CONFIRM_URL": "/password/reset/{uid}/{token}",
-    "PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND": True
+    "PASSWORD_RESET_CONFIRM_URL": "password/reset/{uid}/{token}",
+    "PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND": True,
+    "PASSWORD_RESET_CONFIRM_RETYPE": False
 }
 
 

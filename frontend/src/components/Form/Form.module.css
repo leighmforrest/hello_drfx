@@ -1,0 +1,23 @@
+.form {
+    display: grid;
+    grid-template-columns: [labels] auto [inputs] 1fr;
+    gap: 1rem;
+}
+
+.form > div {
+    display: contents;
+}
+
+.form > div > label {
+    grid-column: labels;
+    text-align: right;
+}
+
+.form > div > input {
+    grid-column: inputs;
+    width: 100%;
+}
+
+.form button, form a {
+    grid-column: span 2;
+}

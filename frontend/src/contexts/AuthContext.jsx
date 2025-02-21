@@ -8,16 +8,12 @@ import { toast } from "react-toastify";
 const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, {
-    ...initialState,
-    isAuthenticated: false, // Add isAuthenticated to state
-  });
+  const [state, dispatch] = useReducer(authReducer, initialState);
   const navigate = useNavigate();
 
   const loadUser = async () => {
     try {
       const hasToken = !!(await getRefreshToken());
-
       if (!hasToken) {
         dispatch({ type: "AUTH_REQUEST_FAILURE" });
         return;
@@ -27,33 +23,34 @@ const AuthProvider = ({ children }) => {
       const response = await httpService.get("/auth/users/me/");
       dispatch({ type: "USER_FETCH_SUCCESS", payload: response.data });
     } catch (e) {
-      dispatch({ type: "AUTH_REQUEST_FAILURE" });
       console.error("Error loading user:", e);
-      await logout();
+      dispatch({ type: "AUTH_REQUEST_FAILURE" });
     }
   };
 
   useEffect(() => {
-    (async () => {
+    const checkAuth = async () => {
       const tokenExists = !!(await getRefreshToken());
-      dispatch({ type: "SET_AUTH_STATUS", payload: tokenExists }); // Set isAuthenticated state
+      dispatch({ type: "SET_AUTH_STATUS", payload: tokenExists });
+
       if (tokenExists) {
         await loadUser();
       }
-    })();
+    };
+
+    checkAuth();
   }, []);
 
   const login = async (email, password) => {
     try {
       dispatch({ type: "AUTH_REQUEST_INIT" });
       await httpLogin({ email, password });
-      dispatch({ type: "SET_AUTH_STATUS", payload: true }); // User is authenticated
       await loadUser();
       dispatch({ type: "USER_LOGIN_SUCCESS" });
-      toast.success(`The user '${email}' is logged in!`)
+      toast.success(`The user '${email}' is logged in!`);
       navigate("/");
     } catch (error) {
-      toast.error(`${error.response.data.detail}`);
+      toast.error(error.response?.data?.detail || "Login failed. Please try again.");
       dispatch({ type: "AUTH_REQUEST_FAILURE" });
     }
   };
@@ -62,7 +59,6 @@ const AuthProvider = ({ children }) => {
     try {
       await httpLogout();
       dispatch({ type: "USER_LOGOUT" });
-      dispatch({ type: "SET_AUTH_STATUS", payload: false }); // User is not authenticated
       navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);
