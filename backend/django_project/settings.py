@@ -37,6 +37,10 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "debug_toolbar",
     "django_extensions",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "dj_rest_auth.registration"
 ]
 
 LOCAL_APPS = ["apps.accounts", "apps.posts"]
@@ -47,6 +51,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -69,6 +74,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.request", # new
             ],
         },
     },
@@ -150,9 +156,17 @@ REST_FRAMEWORK = {
 
 # REST AUTH SETTINGS 
 REST_AUTH = {
-    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
-    'PASSWORD_RESET_CONFIRM_RETYPE': False,
+    'PASSWORD_RESET_USE_SITES_DOMAIN': True,
 }
+
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_LOGIN_METHODS = { "email"}
+ACCOUNT_USER_MODEL_USERNAME_FIELD = "email"
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_UNIQUE_EMAIL = True
+CUSTOM_PASSWORD_RESET_CONFIRM = 'desired URL'
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 
 # DEBUG SETTINGS
 if DEBUG:
