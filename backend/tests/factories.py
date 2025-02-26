@@ -21,7 +21,7 @@ class CustomUserFactory(factory.django.DjangoModelFactory):
 class PostFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Post
-    
+
     title = factory.Faker("sentence", nb_words=5)
     body = factory.Faker("paragraph", nb_sentences=5)
     author = factory.SubFactory(CustomUserFactory)

@@ -7,6 +7,7 @@ CustomUser = get_user_model()
 
 pytestmark = pytest.mark.django_db
 
+
 class TestCustomUser:
     def test_user_created(self, test_user):
         assert isinstance(test_user, CustomUser)
@@ -14,15 +15,18 @@ class TestCustomUser:
         assert test_user.is_active
         assert not test_user.is_staff
         assert not test_user.is_superuser
-    
-    def test_create_user(self):
-        result = CustomUser.objects.create_user(email="testuser@example.com", password="P&$$W3rd123")
-        assert result.email == "testuser@example.com"
-    
-    def test_create_superuser(self):
-        result = CustomUser.objects.create_superuser(email="clarke@dailyplanet.com", password="P&$$W3rd123")
-        assert result.email == "clarke@dailyplanet.com"
 
+    def test_create_user(self):
+        result = CustomUser.objects.create_user(
+            email="testuser@example.com", password="P&$$W3rd123"
+        )
+        assert result.email == "testuser@example.com"
+
+    def test_create_superuser(self):
+        result = CustomUser.objects.create_superuser(
+            email="clarke@dailyplanet.com", password="P&$$W3rd123"
+        )
+        assert result.email == "clarke@dailyplanet.com"
 
     def test_superuser_created(self, test_superuser):
         assert isinstance(test_superuser, CustomUser)
