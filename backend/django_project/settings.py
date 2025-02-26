@@ -29,11 +29,17 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = ["rest_framework",
+THIRD_PARTY_APPS = [
+    "rest_framework",
     "corsheaders",
-    "debug_toolbar",]
-    
-LOCAL_APPS = ["apps.accounts",]
+    "debug_toolbar",
+    "django_extensions",
+]
+
+LOCAL_APPS = [
+    "apps.accounts",
+    "apps.posts"
+]
 
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -125,6 +131,8 @@ CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Always use IPython for shell_plus
+SHELL_PLUS = "ipython"
 
 # AUTH SETTINGS
 AUTH_USER_MODEL = "accounts.CustomUser"
