@@ -20,24 +20,34 @@ DEBUG = env("DEBUG", default=False)
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 SITE_ID = env.int("SITE_ID", default=1)
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "apps.accounts",
 ]
+
+THIRD_PARTY_APPS = ["rest_framework",
+    "corsheaders",
+    "debug_toolbar",]
+    
+LOCAL_APPS = ["apps.accounts",]
+
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "django_project.urls"
@@ -118,3 +128,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # AUTH SETTINGS
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+# DEBUG SETTINGS
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    INTERNAL_IPS = ["127.0.0.1", "localhost"]
+else:
+    EMAIL_BACKEND = env.str(
+        "EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend"
+    )

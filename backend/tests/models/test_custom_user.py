@@ -26,7 +26,7 @@ class TestCustomUser:
 
     def test_superuser_created(self, test_superuser):
         assert isinstance(test_superuser, CustomUser)
-        assert len(test_superuser.email) > 0
+        assert test_superuser.email == "clarke@dailyplanet.com"
         assert test_superuser.is_active
         assert test_superuser.is_staff
         assert test_superuser.is_superuser
