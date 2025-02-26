@@ -27,7 +27,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div>
+    <section>
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {!loading && !error && (
@@ -37,7 +37,8 @@ const HomePage = () => {
           ))}
         </ul>
       )}
-    </div>
+    </section>
+    
   );
 };
 
