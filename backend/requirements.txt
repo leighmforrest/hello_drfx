@@ -1,6 +1,7 @@
 asgiref==3.8.1
 asttokens==3.0.0
 decorator==5.2.1
+dj-rest-auth==7.0.1
 Django==5.1.6
 django-cors-headers==4.7.0
 django-debug-toolbar==5.0.1
