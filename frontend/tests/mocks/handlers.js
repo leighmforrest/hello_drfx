@@ -5,22 +5,25 @@ export const handlers = [
   http.get(urls.index, () => {
     return HttpResponse.json([
       {
-        userId: 1,
-        id: 2,
-        title: "qui est esse",
-        body: "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla",
+        pk: 1,
+        author: 1,
+        title: "First Post",
+        body: "Hello World!",
+        created: "February 25, 2025 07:40 PM",
       },
       {
-        userId: 1,
-        id: 3,
-        title: "ea molestias quasi exercitationem repellat qui ipsa sit aut",
-        body: "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut",
+        pk: 3,
+        author: 1,
+        title: "Second Sighting",
+        body: "This is so out of sight!",
+        created: "February 25, 2025 08:16 PM",
       },
       {
-        userId: 1,
-        id: 4,
-        title: "Some Example Title",
-        body: "Example body text to replace the placeholder text.",
+        pk: 4,
+        author: 1,
+        title: "Third Post",
+        body: "This is the third post!",
+        created: "February 25, 2025 08:18 PM",
       },
     ]);
   }),

@@ -1,18 +1,22 @@
-import { screen, render, waitFor } from "@testing-library/react"
+import { screen, render } from "@testing-library/react"
 
-import App from "./App"
+import HomePage from "./pages/HomePage"
 import { expect } from "vitest"
 
-describe('App', () => {
+describe('HomePage', () => {
     const renderComponent = () => {
-        render(<App />)
+        render(<HomePage />)
     } 
 
     it("should be true", async () => {
         renderComponent();
-        const paragraphs = await screen.findAllByText(/./); // Finds non-empty text elements
+        const listItems = await screen.findAllByRole("listitem"); // Finds non-empty text elements
 
+        expect(listItems).toHaveLength(3);
+    })
 
-        expect(paragraphs).toHaveLength(3);
+    it("should show loading if in loading state", () => {
+        renderComponent()
+        expect(screen.getByText(/loading/i)).toBeInTheDocument()
     })
  })
