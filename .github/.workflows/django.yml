@@ -15,3 +15,13 @@ jobs:
           port: 22
           source: "."
           target: ${{ secrets.APP_DIRECTORY }}
+      - name: update requirements and migrate database via ssh
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+              host: ${{ secrets.SERVER_IP }}
+              username: ${{ secrets.USERNAME }}
+              key: ${{ secrets.PRIVATE_KEY }}
+              port: 22
+              script: | 
+                cd ${{ secrets.APP_DIRECTORY }}/frontend
+                npm run build
