@@ -4,7 +4,8 @@ const App = () => {
   return (
     <div>
       <h1>Hello World!</h1>
-      <p>This is a journey into sound! JEKK JEKK JEKK</p>
+      <p>This is a journey into sound!</p>
+      <p>If you can read this, nginx should be up and running!</p>
     </div>
   )
 }
