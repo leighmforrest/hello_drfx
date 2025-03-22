@@ -35,6 +35,6 @@ jobs:
           port: 22
           script: | 
             cd ${{ secrets.APP_DIRECTORY }}/backend
-            echo ${{ secrets.SUDO_PASSWORD }} | sudo -S source .venv/bin/activate
-            echo ${{ secrets.SUDO_PASSWORD }} | sudo -S pip install -r requirements.txt
-            echo ${{ secrets.SUDO_PASSWORD }} | sudo -S ./manage.py collectstatic --noinput
+            source .venv/bin/activate
+            sudo -S pip install -r requirements.txt
+            sudo -S ./manage.py collectstatic --noinput
