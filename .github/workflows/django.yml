@@ -37,4 +37,4 @@ jobs:
             cd ${{ secrets.APP_DIRECTORY }}/backend
             source .venv/bin/activate
             sudo -S pip install -r requirements.txt
-            sudo -S ./manage.py collectstatic --noinput
+            sudo -S ./manage.py collectstatic --noinput 
