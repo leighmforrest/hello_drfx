@@ -39,7 +39,7 @@ jobs:
             pip install -r requirements.txt
             ./manage.py collectstatic --noinput --clear
             deactivate
-      - name: update requirements and migrate database via ssh
+      - name: restart gunicorn and nginx via ssh
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_IP }}
