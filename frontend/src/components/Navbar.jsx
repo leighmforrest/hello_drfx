@@ -24,8 +24,8 @@ const Navbar = () => {
           className={`absolute top-14 left-0 w-full md:w-auto bg-gray-800 md:bg-transparent md:static md:flex items-center gap-x-2 transition-all duration-500 ease-in-out
             ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none md:opacity-100 md:scale-100 md:pointer-events-auto"}`}
         >
-          <li className="py-2 md:py-0 text-center md:text-left"><a href="#" className="block px-4 py-2 hover:text-amber-400 transition">Home</a></li>
-          <li className="py-2 md:py-0 text-center md:text-left"><a href="#" className="block px-4 py-2 hover:text-amber-400 transition">About</a></li>
+          <li className="py-2 md:py-0 text-center md:text-left"><a href="#" className="block py-1 px-2 hover:text-amber-400 transition">Home</a></li>
+          <li className="py-2 md:py-0 text-center md:text-left"><a href="#" className="block py-1 hover:text-amber-400 transition">About</a></li>
         </ul>
       </nav>
     </header>
