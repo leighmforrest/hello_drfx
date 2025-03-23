@@ -55,3 +55,14 @@ Both the frontend and the backend have their own environment variables needed to
 | Variable  | Description   |
 |---|---|
 | VITE_API_BASE_URL | The url for the backend used to make api calls e.g. `http://127.0.0.1:8000/api` The `/api` endpoint is the base endpoint for this project's backend.|
+
+#### Github Actions Secrets
+
+To push the code to the server and serve it up fresh, certain Github Actions secrets need to be set up in your repo under `settings`.
+| Variable  | Description   |
+|---|---|
+| APP_DIRECTORY | Full path of the directory where the project lives.|
+| PRIVATE_KEY | The private key used to SSH into the server. The file's contents start with `BEGIN OPENSSH PRIVATE KEY`.|
+| SERVER_IP | The IP address of your VPS.|
+| SUDO_PASSWORD | The password used to make sudo commands. |
+| USERNAME |  username on the server of your sudo user.|
