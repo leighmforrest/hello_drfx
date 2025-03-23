@@ -1,13 +1,19 @@
-import React from 'react'
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router";
+import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
+import BaseLayout from "./components/layouts/BaseLayout";
 
 const App = () => {
   return (
-    <div>
-      <h1>Hello World!</h1>
-      <p>This is a journey into sound!</p>
-      <p>If you can read this, nginx should be up and running!</p>
-    </div>
-  )
-}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<BaseLayout />}>
+          <Route index element={<HomePage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-export default App
+export default App;
