@@ -11,6 +11,7 @@ It is intended for this full-stack web application to be deployed on a Linux VPS
  - Nginx
  - GitHub Actions
  - Supervisor
+ - Tailwindcss
  - Djoser
  - React Hook Form
  - React Router
@@ -37,3 +38,20 @@ It is intended for this full-stack web application to be deployed on a Linux VPS
     sudo chown sudo_user:www-data /run/hello
     sudo chmod 775 /run/hello
     sudo chmod 775 /run/hello
+
+### Environment Variables
+
+Both the frontend and the backend have their own environment variables needed to make the application function. Each has a .env that needs to be set up where their respective directories are located.
+
+#### Backend Variables
+| Variable  | Description   |
+|---|---|
+| SECRET_KEY | A string for signing things cryptographically. There is no default value and it must be generated for each project.|
+| ALLOWED_HOSTS  | A list of strings representing the host/domain names that your Django site can serve. This is a list of all of the backend urls in a comma-delimited string.   |
+| CORS_ALLOWED_ORIGINS | Set the url of the non-domain origins that are allowed to make requests to the backend. Set this to all of the front end urls used to make contact, in a comma-delimited string.   |
+| DJANGO_DEBUG | Determines whether backend is run in debug mode or not. Can be set `on` or `off`  |
+
+#### Frontend Variables
+| Variable  | Description   |
+|---|---|
+| VITE_API_BASE_URL | The url for the backend used to make api calls e.g. `http://127.0.0.1:8000/api` The `/api` endpoint is the base endpoint for this project's backend.|
