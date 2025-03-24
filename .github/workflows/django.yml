@@ -38,6 +38,7 @@ jobs:
             source .venv/bin/activate
             pip install -r requirements.txt
             ./manage.py collectstatic --noinput --clear
+            ./manage.py migrate
             deactivate
       - name: restart gunicorn and nginx via ssh
         uses: appleboy/ssh-action@v0.1.7
