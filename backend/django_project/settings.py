@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "corsheaders",
-    "apps.api"
+    "apps.api",
+    "apps.accounts"
 ]
 
 MIDDLEWARE = [
@@ -119,3 +120,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # DRF SETTINGS
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=[])
+
+# AUTH SETTINGS
+AUTH_USER_MODEL = "accounts.CustomUser"

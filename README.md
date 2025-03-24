@@ -2,6 +2,13 @@
 
 It is intended for this full-stack web application to be deployed on a Linux VPS, using Supervisor, NGINX and Vite. A developer should be able to get the new code up and running using only `git push`, nothing more.
 
+### Prerequisites for the Server
+- Python 3.13+
+- PIP
+- Python Virtual Environment
+- Node 22.14+
+- SSH
+
 ### Techonologies Used
  - Django
  - Django Rest Framework
