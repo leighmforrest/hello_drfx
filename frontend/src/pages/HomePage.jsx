@@ -21,7 +21,7 @@ const HomePage = () => {
 
   return (
     <section className="min-h-[calc(100vh-7rem)] flex items-center justify-center">
-      <div className="w-full m-1.5 md:w-8/12 md:m-0 bg-amber-50 text-center p-8 rounded-lg shadow-md">
+      <div className="w-full m-1.5 md:w-8/12 md:m-0 bg-amber-50 dark:bg-gray-700 dark:text-amber-50 text-center p-8 rounded-lg shadow-md">
         {isLoading ? (
           <h1 className="text-2xl font-bold animate-pulse">Loading...</h1>
         ) : isError ? (

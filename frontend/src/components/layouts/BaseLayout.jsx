@@ -6,7 +6,7 @@ const BaseLayout = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1 bg-blue-200">
+      <main className="flex-1 bg-blue-200 dark:bg-gray-800">
         <Outlet />
       </main>
       <Footer />

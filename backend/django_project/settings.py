@@ -1,4 +1,5 @@
 import environ
+from datetime import timedelta
 from pathlib import Path
 
 
@@ -20,20 +21,26 @@ CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
 
 SITE_ID = env.int("SITE_ID", default=1)
 S3 = env.bool("S3", default=False)
-# Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+]
+
+THIRD_PARTY_APPS = [
     "rest_framework",
     "corsheaders",
-    "apps.api",
-    "apps.accounts"
+    "djoser",
+    "rest_framework_simplejwt.token_blacklist"
 ]
+
+LOCAL_APPS = ["apps.api", "apps.accounts"]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -108,7 +115,9 @@ USE_TZ = True
 
 # STATIC FILE SETTINGS
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / "static",]
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
@@ -121,5 +130,21 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # DRF SETTINGS
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=[])
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "UPDATE_LAST_LOGIN": False,
+}
+
+DJOSER = {}
 # AUTH SETTINGS
 AUTH_USER_MODEL = "accounts.CustomUser"
