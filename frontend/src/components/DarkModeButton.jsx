@@ -7,7 +7,7 @@ const DarkModeButton = () => {
 
   return (
     <button onClick={toggleDarkMode}>
-      {darkMode ? <MdOutlineLightMode size={20}/> : <MdDarkMode size={20} />
+      {darkMode ? <MdOutlineLightMode size={20} data-testid="light-mode-icon"/> : <MdDarkMode size={20} data-testid="dark-mode-icon"/>
     }</button>
   )
 }
