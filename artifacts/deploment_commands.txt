@@ -1,0 +1,87 @@
+sudo nano /etc/ssh/sshd_config
+systemctl enable --now ssh.service
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow OpenSSH
+sudo ufw enable
+exit
+python3 -V
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt install python3.13
+python3.13
+sudo apt install python3.13-full
+python3.13 -m ensurepip --upgrade
+python3.13
+ls
+cd web
+ls
+cd hello/backend
+python3.13 -m venv .venv
+source .venv/bin/activate
+ls
+pip install -r requirements.txt
+./manage.py 0.0.0.0:8000
+nano .env
+./manage.py 0.0.0.0:8000
+cat requirements.txt
+./manage.py 0.0.0.0:8000
+pip install -r requirements.txt
+./manage.py 0.0.0.0:8000
+./manage.py runserver 0.0.0.0:8000
+sudo ufw allow 8000
+./manage.py runserver 0.0.0.0:8000
+sudo mkdir -p /run/gunicorn/
+gunicorn --workers 3 --bind unix:/run/gunicorn/hello.sock django_project.wsgi:application
+sudo chmod 775 /run/gunicorn/
+sudo apt install nginx
+sudo ufw allow 'Nginx Full'
+sudo ufw deny 8000
+sudo ufw status
+sudo chmod 775 /run/gunicorn/
+sudo chown leigh:www-data /run/gunicorn
+gunicorn --workers 3 --bind unix:/run/gunicorn/hello.sock django_project.wsgi:application
+./manage.py collectstatic --noinput
+sudo chown -R leigh:www-data /home/leigh/web/hello/backend/staticfiles
+sudo chmod -R 750  /home/leigh/web/hello/backend/staticfiles
+sudo chmod -R 640  /home/leigh/web/hello/backend/staticfiles/*
+sudo usermod -aG leigh www-data
+./manage.py collectstatic
+cd /etc/nginx/site-available
+cd /etc/nginx/sites-available
+ls
+sudo nano hello
+sudo nginx -t
+sudo ln -s /etc/nginx/sites-available/hello /etc/nginx/sites-enabled
+gunicorn --workers 3 --bind unix:/run/gunicorn/hello.sock django_project.wsgi:application
+cd ~/web/hello/backend
+gunicorn --workers 3 --bind unix:/run/gunicorn/hello.sock django_project.wsgi:application
+sudo /var/log/nginx/error.log -tail
+sudo /var/log/nginx/error.log --tail
+sudo cat /var/log/nginx/error.log --tail
+sudo cat /var/log/nginx/error.log 
+gunicorn --workers 3 --bind unix:/run/gunicorn/hello.sock django_project.wsgi:application
+sudo apt-get install supervisor -y 
+sudo nano /etc/supervisor/conf.d/hello-gunicorn.conf
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl status hello_gunicorn
+sudo nano /etc/supervisor/conf.d/hello-gunicorn.conf
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl status hello_gunicorn
+udo apt install nodejs npm
+sudo apt install nodejs npm
+node --version
+curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+sudo apt-get install nodejs -y
+node -V
+node --version
+cd ../frontend
+npm i
+echo VITE_API_BASE_URL=http://<SERVER_ADDRESS> > .env
+npm run build
+ls
+ls -la
+cat .env
+echo VITE_API_BASE_URL=http://<SERVER_ADDRESS>/api > .env
+npm run build

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import InputField from "../components/InputField";
-import loginSchema from "../schemas/loginSchema";
+import InputField from "./InputField";
+import loginSchema from "../../schemas/loginSchema";
 
 const LoginForm = ({ onLogin }) => {
   const {

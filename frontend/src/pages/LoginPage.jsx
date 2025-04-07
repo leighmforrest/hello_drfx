@@ -1,4 +1,4 @@
-import LoginForm from "../forms/LoginForm";
+import LoginForm from "../components/forms/LoginForm";
 import { useUser } from "../contexts/UserProvider";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
