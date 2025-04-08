@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import ApiClient from "../ApiClient";
-import { endpoints } from "../settings";
+import { BASE_URL ,endpoints } from "../settings";
 import { clearAuthTokens, getAccessToken, setAuthTokens } from "axios-jwt";
 
 const UserContext = createContext();
@@ -36,13 +36,12 @@ const UserProvider = ({ children }) => {
     const login = async (email, password) => {
         try {
             const { data } = await ApiClient.post(endpoints.login, { email, password });
-
             await setAuthTokens({
                 accessToken: data.access,
                 refreshToken: data.refresh
             });
-
             const { data: userData } = await ApiClient.get(endpoints.user);
+            console.log("👀 Fetching user with:", `${BASE_URL}${endpoints.user}`);
             setUser(userData);
             return true;
         } catch (error) {
