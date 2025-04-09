@@ -3,7 +3,6 @@ import LoginPage from "../../src/pages/LoginPage";
 import UserProvider from "../../src/contexts/UserProvider";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter, useNavigate } from "react-router";
 import { beforeEach, expect } from "vitest";
 
 
@@ -13,7 +12,7 @@ vi.mock("react-router", async () => {
  const actual = await vi.importActual("react-router");
 
  return {...actual,
-    useNavigate: () => mockNavigate()
+    useNavigate: () => mockNavigate
  }
 })
 
@@ -23,12 +22,10 @@ describe("LoginPage", () => {
   const renderComponent = () => {
     return {
       ...render(
-        <MemoryRouter initialEntries={["/login"]}>
         <UserProvider>
           <ToastContainer />
           <LoginPage />
         </UserProvider>
-        </MemoryRouter>
       ),
       user: userEvent.setup(),
       email: screen.getByLabelText(/email/i),
@@ -46,7 +43,7 @@ describe("LoginPage", () => {
   });
 
   it("Submits", async () => {
-    console.log(localStorage)
+
     const { user, email, password, submit, handler } = renderComponent()
     await user.type(email, "rod@example.com")
     await user.type(password, "T3$TP&$$123")
@@ -55,6 +52,22 @@ describe("LoginPage", () => {
     await waitFor(()=> {
         console.log(localStorage)
         expect(localStorage['auth-tokens-test']).not.toBeNull()
+        expect(mockNavigate).toHaveBeenCalledWith("/");
+        expect(screen.getByText(/user has been logged in/i)).toBeInTheDocument()
+    })
+})
+
+it("fails to submit", async () => {
+
+    const { user, email, password, submit } = renderComponent()
+    await user.type(email, "rod@example.com")
+    await user.type(password, "WrongPassword")
+    await user.click(submit)
+
+    await waitFor(()=> {
+        expect(localStorage['auth-tokens-test']).not.toBeNull()
+        expect(mockNavigate).not.toHaveBeenCalledWith("/");
+        expect(screen.getByText(/user could not be authenticated/i)).toBeInTheDocument()
     })
 })
 });

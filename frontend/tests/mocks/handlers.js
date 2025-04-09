@@ -1,6 +1,7 @@
 import { http, HttpResponse } from "msw";
 
 import { BASE_URL, endpoints } from "../../src/settings";
+import { authTokens, refreshedAuthTokens } from "../constants";
 
 export const handlers = [
   http.get(`${BASE_URL}/`, () => {
@@ -9,10 +10,7 @@ export const handlers = [
   http.post(`${BASE_URL}${endpoints.login}`, async ({ request }) => {
     const { email, password } = await request.json();
     if (email == "rod@example.com" && password == "T3$TP&$$123") {
-        return HttpResponse.json({
-        access: "Test-Access-Token-54321",
-        refresh: "TestRefresh-Token-12345",
-      });
+        return HttpResponse.json(authTokens);
     } else {
       return HttpResponse.json(
         {
@@ -22,12 +20,10 @@ export const handlers = [
       );
     }
   }),
-  http.post(`${BASE_URL}/auth/jwt/refresh/`, async ({ request }) => {
+  http.post(`${endpoints.refresh}`, async ({ request }) => {
     const { refresh } = await request.json();
-    if (refresh === "TestRefresh-Token-12345") {
-      return HttpResponse.json({
-        access: "New-Access-Token-99999",
-      });
+    if (refresh === authTokens.refresh) {
+      return HttpResponse.json(refreshedAuthTokens);
     } else {
       return HttpResponse.json(
         { detail: "Token is invalid or expired" },
@@ -36,7 +32,6 @@ export const handlers = [
     }
   }),
   http.get(`${BASE_URL}${endpoints.user}`, () => {
-    console.log("JEKK JEKK JEKK")
     return HttpResponse.json({
       id: 1,
       email: "rod@example.com",

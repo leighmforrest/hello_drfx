@@ -45,7 +45,7 @@ const Navbar = () => {
 
         {/* Responsive Menu with Smooth Transition */}
         <ul
-          className={`absolute top-14 left-0 w-full md:w-auto bg-gray-800 dark:bg-gray-700 md:bg-transparent md:static md:flex items-center gap-x-2 transition-all duration-500 ease-in-out
+          className={`absolute top-14 left-0 w-full md:w-auto bg-gray-800 md:bg-transparent md:static md:flex items-center gap-x-2 transition-all duration-500 ease-in-out
             ${
               isOpen
                 ? "opacity-100 scale-100"

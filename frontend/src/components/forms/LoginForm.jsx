@@ -22,6 +22,7 @@ const LoginForm = ({ onLogin }) => {
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
+      <h1 className="tex">Login</h1>
       {/* Email Field */}
       <InputField
         label="Email"
