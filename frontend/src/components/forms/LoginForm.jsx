@@ -18,11 +18,11 @@ const LoginForm = ({ onLogin }) => {
 
   return (
     <form
-      className="w-full m-1.5 md:w-8/12 md:m-0 bg-white shadow-md  dark:bg-gray-800 dark:text-amber-50 rounded px-8 pt-6 pb-8 mb-4"
+      className="w-full m-1.5 md:w-8/12 md:m-0 bg-white shadow-md  dark:bg-gray-700 dark:text-amber-50 rounded px-8 pt-6 pb-8 mb-4"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
-      <h1 className="tex">Login</h1>
+      <h1 className="text-center text-4xl">Login</h1>
       {/* Email Field */}
       <InputField
         label="Email"

@@ -1,17 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router";
 import DarkModeButton from "./DarkModeButton";
-import { useUser } from "../contexts/UserProvider";
-import { toast } from "react-toastify";
+import UserMenu from "./UserMenu";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, logout } = useUser();
-
-  const logoutHandler = () => {
-    logout();
-    toast("The user has been logged out.")
-  }
 
   return (
     <header className="w-full h-14 bg-gray-900 text-amber-50">
@@ -55,7 +47,7 @@ const Navbar = () => {
           <li className="py-2 md:py-0 text-center md:text-left">
             <a
               href="#"
-              className="block py-1 px-2 hover:text-amber-400 transition"
+              className="block py-1 hover:text-amber-400 transition"
             >
               Home
             </a>
@@ -65,26 +57,9 @@ const Navbar = () => {
               About
             </a>
           </li>
-          {user ? (
-            <>
-            <li className="py-2 md:py-0 text-center md:text-left">
-                <button onClick={logoutHandler}>
-                  Logout
-                </button>
-              </li>
-            </>
-          ) : (
-            <>
-              <li className="py-2 md:py-0 text-center md:text-left">
-                <Link
-                  to="/login"
-                  className="block py-1 hover:text-amber-400 transition"
-                >
-                  Login
-                </Link>
-              </li>
-            </>
-          )}
+          <li className="flex justify-center py-2 md:py-0">
+            <UserMenu />
+          </li>
           <li className="py-2 md:py-0 text-center md:text-left">
             <DarkModeButton />
           </li>
