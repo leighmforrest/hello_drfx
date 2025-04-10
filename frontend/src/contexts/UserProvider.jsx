@@ -14,6 +14,7 @@ const UserProvider = ({ children }) => {
             try {
                 setLoading(true);
                 const token = await getAccessToken();
+                console.log("TOKENS:", token)
                 if (!token) {
                     setUser(null);
                 } else {

@@ -17,6 +17,7 @@ const Navbar = () => {
           className="md:hidden focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle Menu"
+          data-testid="hamburger-button"
         >
           <div
             className={`w-6 h-0.5 bg-amber-50 mb-2 transition-transform duration-500 ${
@@ -37,7 +38,8 @@ const Navbar = () => {
 
         {/* Responsive Menu with Smooth Transition */}
         <ul
-          className={`absolute top-14 left-0 w-full md:w-auto bg-gray-800 md:bg-transparent md:static md:flex items-center gap-x-2 transition-all duration-500 ease-in-out
+          data-testid="main-menu"
+          className={`absolute top-14 left-0 w-full md:w-auto bg-gray-800 md:bg-transparent md:static md:flex items-center gap-x-4 transition-all duration-500 ease-in-out
             ${
               isOpen
                 ? "opacity-100 scale-100"

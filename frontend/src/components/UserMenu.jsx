@@ -35,6 +35,7 @@ const OwnerMenu = () => {
   return user ? (
     <div className="relative" ref={menuRef}>
       <button
+        data-testid="user-menu-button"
         onClick={() => setOpen(!open)}
         disabled={isLoading}
         className={`flex items-center gap-2 px-3 py-2 text-sm font-medium text-white rounded ${
@@ -51,22 +52,22 @@ const OwnerMenu = () => {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-50">
+        <div className="absolute right-0 mt-3 w-48 bg-white dark:bg-gray-500 border border-gray-200 dark:border-gray-700 rounded shadow-lg z-50">
           <a
             href="/profile"
-            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100"
           >
             <FaUserCircle className="mr-2" /> Profile
           </a>
           <a
             href="/settings"
-            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100"
           >
             <FaCog className="mr-2" /> Settings
           </a>
           <button
             onClick={logoutHandler}
-            className="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            className="w-full flex items-center px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100"
           >
             <FaSignOutAlt className="mr-2" /> Logout
           </button>

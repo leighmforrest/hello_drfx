@@ -5,19 +5,16 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, expect } from "vitest";
 
-
 const mockNavigate = vi.fn();
 
 vi.mock("react-router", async () => {
- const actual = await vi.importActual("react-router");
+  const actual = await vi.importActual("react-router");
 
- return {...actual,
-    useNavigate: () => mockNavigate
- }
-})
+  return { ...actual, useNavigate: () => mockNavigate };
+});
 
 describe("LoginPage", () => {
-    beforeEach(()=> localStorage.clear())
+  beforeEach(() => localStorage.clear());
 
   const renderComponent = () => {
     return {
@@ -40,34 +37,36 @@ describe("LoginPage", () => {
     expect(email).toBeInTheDocument();
     expect(password).toBeInTheDocument();
     expect(submit).toBeInTheDocument();
+    expect(screen.getByText(/login/i)).toBeInTheDocument();
   });
 
   it("Submits", async () => {
+    const { user, email, password, submit, handler } = renderComponent();
+    await user.type(email, "rod@example.com");
+    await user.type(password, "T3$TP&$$123");
+    await user.click(submit);
 
-    const { user, email, password, submit, handler } = renderComponent()
-    await user.type(email, "rod@example.com")
-    await user.type(password, "T3$TP&$$123")
-    await user.click(submit)
+    await waitFor(() => {
+      console.log(localStorage);
+      expect(localStorage["auth-tokens-test"]).not.toBeNull();
+      expect(mockNavigate).toHaveBeenCalledWith("/");
+      expect(screen.getByText(/user has been logged in/i)).toBeInTheDocument();
+    });
+  });
 
-    await waitFor(()=> {
-        console.log(localStorage)
-        expect(localStorage['auth-tokens-test']).not.toBeNull()
-        expect(mockNavigate).toHaveBeenCalledWith("/");
-        expect(screen.getByText(/user has been logged in/i)).toBeInTheDocument()
-    })
-})
+  it("fails to submit", async () => {
+    const { user, email, password, submit } = renderComponent();
+    await user.type(email, "rod@example.com");
+    await user.type(password, "WrongPassword");
+    await user.click(submit);
 
-it("fails to submit", async () => {
-
-    const { user, email, password, submit } = renderComponent()
-    await user.type(email, "rod@example.com")
-    await user.type(password, "WrongPassword")
-    await user.click(submit)
-
-    await waitFor(()=> {
-        expect(localStorage['auth-tokens-test']).not.toBeNull()
-        expect(mockNavigate).not.toHaveBeenCalledWith("/");
-        expect(screen.getByText(/user could not be authenticated/i)).toBeInTheDocument()
-    })
-})
+    await waitFor(() => {
+      expect(localStorage["auth-tokens-test"]).not.toBeNull();
+      console.log(localStorage)
+      expect(mockNavigate).not.toHaveBeenCalledWith("/");
+      expect(
+        screen.getByText(/user could not be authenticated/i)
+      ).toBeInTheDocument();
+    });
+  });
 });
