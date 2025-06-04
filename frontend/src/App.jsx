@@ -1,16 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import IndexPage from "./IndexPage";
+import IndexPage from "./pages/IndexPage";
 import BaseLayout from "./layouts/BaseLayout";
+import { ThemeProvider } from "./contexts/ThemeProvider";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<BaseLayout />}>
-          <Route index element={<IndexPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<BaseLayout />}>
+            <Route index element={<IndexPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 };
 

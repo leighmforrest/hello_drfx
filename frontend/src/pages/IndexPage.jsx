@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import api from "./apiClient";
+import api from "../apiClient";
 
 const IndexPage = () => {
   const [message, setMessage] = useState("")
@@ -27,7 +27,10 @@ const IndexPage = () => {
 
   if (isError) return <h1>Unable. Malfunction. Need input.</h1>
 
-  return <h1 className="text-3xl font-bold underline bg-amber-300">Hello world!</h1>;
+  return     <section className="min-h-[calc(100vh-7rem)] flex items-center justify-center">
+    { message }
+    </section>
+;
 };
 
 export default IndexPage;

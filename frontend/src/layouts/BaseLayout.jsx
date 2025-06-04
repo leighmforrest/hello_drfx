@@ -3,10 +3,12 @@ import Navbar from "../components/Navbar";
 
 const BaseLayout = () => {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <Outlet />
-    </>
+      <main className="flex-1 bg-blue-200 dark:bg-blue-900 dark:text-white">
+        <Outlet />
+      </main>
+    </div>
   );
 };
 

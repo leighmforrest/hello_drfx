@@ -2,7 +2,7 @@ import { MdOutlineLightMode, MdDarkMode } from "react-icons/md";
 import { useTheme } from "../contexts/ThemeProvider";
 
 const DarkModeButton = () => {
-  const { darkMode, toggleDarkMode } = useTheme();
+  const { darkMode, toggleDarkMode} = useTheme();
   return (
     <button className="py-2" onClick={toggleDarkMode}>
       {darkMode ? (
