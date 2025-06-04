@@ -1,7 +1,17 @@
-import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router";
+import IndexPage from "./IndexPage";
+import BaseLayout from "./layouts/BaseLayout";
 
 const App = () => {
-  return <h1 class="text-3xl font-bold underline bg-amber-300">Hello world!</h1>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<BaseLayout />}>
+          <Route index element={<IndexPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 };
 
 export default App;
