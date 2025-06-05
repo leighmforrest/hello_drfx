@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
+import { FaHome, FaSignInAlt } from "react-icons/fa";
 import DarkModeButton from "./DarkModeButton";
 
 const Navbar = () => {
@@ -35,28 +36,40 @@ const Navbar = () => {
           ></span>
         </button>
 
-        {/* Menu List */}
+        {/* Menu */}
         <ul
-          className={`text-center flex flex-col sm:flex-row sm:items-center text-gray-50 sm:space-x-6 space-y-2 sm:space-y-0 absolute sm:static top-full left-0 w-full sm:w-auto  sm:bg-blue-300 sm:dark:bg-blue-950 bg-blue-400 dark:bg-blue-900 px-4 sm:px-0 pt-4 sm:pt-0 pb-4 sm:pb-0 shadow-md sm:shadow-none transition-all duration-500 ease-in-out ${
-            isOpen ? "block" : "hidden sm:flex"
+          className={`text-center flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-4 sm:space-y-0 absolute sm:static top-full left-0 w-full sm:w-auto bg-blue-300 dark:bg-blue-950 px-4 sm:px-0 pt-4 sm:pt-0 pb-4 sm:pb-0 shadow-md sm:shadow-none transition-all duration-300 ease-in-out transform ${
+            isOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0 sm:translate-y-0 sm:opacity-100 sm:flex hidden"
           }`}
         >
           <li>
-            <a onClick={closeMenu} href="#" className="hover:text-amber-200">
-              Home
-            </a>
+            <NavLink
+              to="/"
+              end
+              onClick={closeMenu}
+              className={({ isActive }) =>
+                `flex items-center justify-center gap-2 hover:text-amber-100 transition-colors ${
+                  isActive ? "text-amber-300 font-semibold" : ""
+                }`
+              }
+            >
+              <FaHome /> Home
+            </NavLink>
           </li>
           <li>
-            <a onClick={closeMenu} href="#" className="hover:text-amber-200">
-              About
-            </a>
+            <NavLink
+              to="/login"
+              onClick={closeMenu}
+              className={({ isActive }) =>
+                `flex items-center justify-center gap-2 hover:text-amber-100 transition-colors ${
+                  isActive ? "text-amber-300 font-semibold" : ""
+                }`
+              }
+            >
+              <FaSignInAlt /> Login
+            </NavLink>
           </li>
-          <li>
-            <a onClick={closeMenu} href="#" className="hover:text-amber-200">
-              Contact
-            </a>
-          </li>
-          <li>
+          <li className="flex justify-center">
             <DarkModeButton />
           </li>
         </ul>
