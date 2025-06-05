@@ -4,7 +4,7 @@ import { useTheme } from "../contexts/ThemeProvider";
 const DarkModeButton = () => {
   const { darkMode, toggleDarkMode} = useTheme();
   return (
-    <button className="py-2" onClick={toggleDarkMode}>
+    <button className="py-2 hover:text-amber-200" onClick={toggleDarkMode}>
       {darkMode ? (
         <MdOutlineLightMode size={20} data-testid="light-mode-icon" />
       ) : (
