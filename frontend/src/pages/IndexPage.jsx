@@ -27,8 +27,10 @@ const IndexPage = () => {
   if (isError) return <h1>Unable. Malfunction. Need input.</h1>;
 
   return (
-    <section className="min-h-[calc(100vh-7rem)] flex items-center justify-center">
-      {message}
+    <section className="min-h-[calc(100vh-7rem)] flex items-center justify-center relative">
+      <div className="bg-white dark:bg-blue-950 w-full min-h-[inherit] m-4 flex items-center justify-center rounded-2xl">
+        Hello world
+      </div>
     </section>
   );
 };
