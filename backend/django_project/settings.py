@@ -13,7 +13,9 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DJANGO_DEBUG", default=False)
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
-CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=["http://localhost:5173"])
+CORS_ALLOWED_ORIGINS = env.list(
+    "CORS_ALLOWED_ORIGINS", default=["http://localhost:5173"]
+)
 SITE_ID = env.int("SITE_ID", default=1)
 S3 = env.bool("S3", default=False)
 
@@ -27,9 +29,14 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = ["rest_framework", 'corsheaders',]
+THIRD_PARTY_APPS = [
+    "rest_framework",
+    "corsheaders",
+    "djoser",
+    "rest_framework_simplejwt.token_blacklist",
+]
 
-LOCAL_APPS =["apps.accounts","apps.api"]
+LOCAL_APPS = ["apps.accounts", "apps.api"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -37,7 +44,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -120,3 +127,34 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # AUTH SETTINGS
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+
+# DJOSER SETTINGS
+DJOSER = {}
+
+
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+   "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "UPDATE_LAST_LOGIN": False,
+}
+
+
+# REST FRAMEWORK SETTINGS
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ),
+}
+
+
+# SETTINGS FOR DEVELOPMENT
+if DEBUG:
+    pass
+# SETTINGS FOR PRODUCTION
+else:
+    pass

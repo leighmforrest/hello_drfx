@@ -7,5 +7,7 @@ admin.site.index_title = "Index Title"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include("apps.api.urls"))
+    path("api/", include("apps.api.urls")),
+    path("api/accounts/", include("djoser.urls")),
+    path("api/accounts/", include('djoser.urls.jwt')),
 ]
