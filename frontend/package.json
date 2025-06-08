@@ -33,6 +33,7 @@
     "jsdom": "^26.1.0",
     "tailwindcss": "^4.1.8",
     "vite": "^6.3.5",
-    "vitest": "^3.2.1"
+    "vitest": "^3.2.1",
+    "vitest-localstorage-mock": "^0.1.2"
   }
 }

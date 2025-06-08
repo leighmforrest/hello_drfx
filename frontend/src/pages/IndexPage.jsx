@@ -12,6 +12,7 @@ const IndexPage = () => {
       try {
         setIsLoading(true);
         const { data } = await api.get("/");
+        console.log(data.message)
         setMessage(data.message);
       } catch (error) {
         console.log(error);
@@ -29,7 +30,7 @@ const IndexPage = () => {
   return (
     <section className="min-h-[calc(100vh-7rem)] flex items-center justify-center relative">
       <div className="bg-white dark:bg-blue-950 w-full min-h-[inherit] m-4 flex items-center justify-center rounded-2xl">
-        Hello world
+        {message}
       </div>
     </section>
   );
