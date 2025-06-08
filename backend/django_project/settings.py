@@ -27,6 +27,7 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites"
 ]
 
 THIRD_PARTY_APPS = [
@@ -57,7 +58,7 @@ ROOT_URLCONF = "django_project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -130,12 +131,16 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 
 
 # DJOSER SETTINGS
-DJOSER = {}
+DJOSER = {
+    "PASSWORD_RESET_CONFIRM_RETYPE": False,
+    "USER_CREATE_PASSWORD_RETYPE": False,
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+}
 
 
 SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
-   "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1),
+    "AUTH_HEADER_TYPES": ("JWT",),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
@@ -154,7 +159,7 @@ REST_FRAMEWORK = {
 
 # SETTINGS FOR DEVELOPMENT
 if DEBUG:
-    pass
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # SETTINGS FOR PRODUCTION
 else:
     pass

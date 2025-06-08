@@ -3,6 +3,7 @@ import IndexPage from "./pages/IndexPage";
 import BaseLayout from "./layouts/BaseLayout";
 import { ThemeProvider } from "./contexts/ThemeProvider";
 import LoginPage from "./pages/LoginPage";
+import PasswordResetConfirm from "./pages/PasswordResetConfirm";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
           <Route element={<BaseLayout />}>
             <Route index element={<IndexPage />} />
             <Route  path="/login" element={<LoginPage />} />
+            <Route path="/password/reset/confirm/:uid/:token" element={<PasswordResetConfirm/>} />
           </Route>
         </Routes>
       </BrowserRouter>
