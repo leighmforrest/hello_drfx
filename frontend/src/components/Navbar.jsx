@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import DarkModeButton from "./DarkModeButton";
 import UserMenu from "./UserMenu";
 import Hamburger from "./Hamburger";
 
 const Navbar = () => {
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
@@ -17,20 +26,23 @@ const Navbar = () => {
           Hello DRFX
         </Link>
 
-        {/* Hamburger: visible only on small screens */}
-        <Hamburger onButtonClick={toggleMenu} isOpen={isOpen} />
+        {isMobile && <Hamburger onButtonClick={toggleMenu} isOpen={isOpen} />}
 
-        {/* Single ul for both mobile and desktop */}
         <ul
           className={`
-            flex-col space-y-4
-            sm:flex sm:flex-row sm:space-y-0 sm:space-x-6 sm:items-center
-            absolute top-14 left-0 w-full bg-blue-300 dark:bg-blue-950 px-4 pt-4 pb-4 shadow-md
-            sm:static sm:w-auto sm:bg-transparent sm:px-0 sm:pt-0 sm:pb-0 sm:shadow-none
-            transition-all duration-300 ease-in-out
-            ${isOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-2 invisible sm:opacity-100 sm:translate-y-0 sm:visible"}
-          `}
-          onClick={closeMenu} // Optional: close menu when clicking a link inside
+    ${
+      isMobile
+        ? "flex flex-col space-y-4 absolute top-14 left-0 w-full bg-blue-300 dark:bg-blue-950 px-4 pt-4 pb-4 shadow-md transition-all duration-300 ease-in-out"
+        : "flex flex-row space-x-6 items-center static w-auto bg-transparent px-0 pt-0 pb-0 shadow-none"
+    }
+
+    ${
+      isOpen || !isMobile
+        ? "opacity-100 visible translate-y-0"
+        : "opacity-0 invisible -translate-y-2"
+    }
+  `}
+          onClick={closeMenu}
         >
           <UserMenu />
           <li className="flex justify-center sm:justify-start">

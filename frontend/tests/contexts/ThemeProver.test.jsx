@@ -1,6 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import { screen, render } from "@testing-library/react";
-import { ThemeProvider } from "../../src/contexts/ThemeProvider";
+import ThemeProvider from "../../src/contexts/ThemeProvider";
 import DarkModeButton from "../../src/components/DarkModeButton";
 
 describe("ThemeProvider", () => {
