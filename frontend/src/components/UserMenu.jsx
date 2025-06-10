@@ -1,9 +1,18 @@
 import { NavLink } from "react-router";
 import { FaHome, FaSignInAlt } from "react-icons/fa";
+import { useUser } from "../contexts/UserProvider";
+import Spinner from "./Spinner";
 
 
 const UserMenu = ({ onLinkClick }) => {
-  return (
+  const { user, loading, logout } = useUser();
+
+  if (loading) return <Spinner />
+  
+  return user ? (<><li>{user.email}</li>
+  <li><button onClick={logout}>Log Out</button></li>
+  </>
+  ) : (
     <>
       <li>
         <NavLink
