@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../schemas";
 import Input from "./Input";
 
-const LoginForm = ({ onFormSubmit }) => {
+const LoginForm = ({ onLogin }) => {
   const {
     register,
     handleSubmit,
@@ -12,9 +12,11 @@ const LoginForm = ({ onFormSubmit }) => {
     resolver: yupResolver(loginSchema),
   });
 
+  const onSubmit = (data) => onLogin(data);
+
   return (
     <form
-      onSubmit={handleSubmit(onFormSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       className="bg-white dark:bg-blue-950 shadow-md rounded px-8 pt-6 pb-8 mb-4"
     >
       <h2 className="text-3xl text-center mb-5">Login</h2>
