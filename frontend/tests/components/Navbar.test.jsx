@@ -1,3 +1,6 @@
+import * as UserProviderModule from "../../src/contexts/UserProvider";
+import { mockUserContext } from "../__mocks__/userProviderMock";
+
 import { screen, render } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import userEvent from "@testing-library/user-event";
@@ -5,23 +8,6 @@ import Navbar from "../../src/components/Navbar";
 
 import ThemeProvider from "../../src/contexts/ThemeProvider";
 
-const mockUserContext = {
-  user: null,
-  logout: vi.fn(),
-  loading: false,
-};
-
-vi.mock("../../src/contexts/UserProvider", () => {
-  return {
-    __esModule: true, // ✅ important for default + named export
-    default: ({ children }) => <>{children}</>, // mocked UserProvider that renders children directly
-    useUser: () => mockUserContext,
-  };
-});
-import * as axiosJwt from "axios-jwt";
-import ApiClient from "../../src/apiClient";
-import UserProvider from "../../src/contexts/UserProvider";
-import { beforeEach, expect } from "vitest";
 
 describe("Navbar", () => {
   beforeEach(() => {
@@ -29,6 +15,7 @@ describe("Navbar", () => {
     mockUserContext.loading = false;
     mockUserContext.logout = vi.fn();
   });
+  
   const setScreenWidth = (width) => {
     window.innerWidth = width;
     window.dispatchEvent(new Event("resize"));
@@ -41,9 +28,9 @@ describe("Navbar", () => {
       ...render(
         <MemoryRouter>
           <ThemeProvider>
-            <UserProvider>
+            <UserProviderModule.default>
               <Navbar />
-            </UserProvider>
+            </UserProviderModule.default>
           </ThemeProvider>
         </MemoryRouter>
       ),
@@ -72,7 +59,7 @@ describe("Navbar", () => {
     expect(navListItems).toHaveLength(3);
   });
 
-  it("renders without hamburger", () => {
+  it("renders without hamburger in desktop mode", () => {
     const { hamburger } = renderComponent(1076);
     const navListItems = screen.getAllByRole("listitem");
 
