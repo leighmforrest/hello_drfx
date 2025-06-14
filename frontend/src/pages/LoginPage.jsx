@@ -22,12 +22,12 @@ const LoginPage = () => {
 
   return (
     <MainContainer>
-  <section className="min-h-[calc(100vh-7rem)] flex items-center justify-center px-4">
-    <div className="w-full px-2 sm:max-w-3xl sm:px:0">
-      <LoginForm onLogin={submitHandler} />
-    </div>
-  </section>
-</MainContainer>
+      <section className="min-h-[calc(100vh-7rem)] flex items-center justify-center px-4">
+        <div className="w-full px-2 sm:max-w-3xl sm:px:0">
+          <LoginForm onLogin={submitHandler} />
+        </div>
+      </section>
+    </MainContainer>
   );
 };
 
