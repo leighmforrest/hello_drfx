@@ -2,7 +2,6 @@ import { mockNavigate } from "../__mocks__/reactRouterMock";
 
 import { MemoryRouter } from "react-router";
 import { render, screen, waitFor } from "@testing-library/react";
-import { beforeEach, describe, expect, it } from "vitest";
 
 import LoginPage from "../../src/pages/LoginPage";
 import UserProvider from "../../src/contexts/UserProvider";
