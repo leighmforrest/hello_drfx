@@ -1,15 +1,15 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { http } from "msw";
 
-import App from "../src/App";
-import { BASE_URL } from "../settings";
-import { server } from "./__mocks__/server";
+import IndexPage from "../../src/pages/IndexPage";
+import { BASE_URL } from "../../settings";
+import { server } from "../__mocks__/server";
 import { expect } from "vitest";
 
 
-describe("App", () => {
+describe("IndexPage", () => {
   it("renders", async () => {
-    render(<App />);
+    render(<IndexPage />);
 
     await waitFor(() => {
       expect(screen.getByText(/hello world/i)).toBeInTheDocument();
@@ -22,7 +22,7 @@ describe("App", () => {
         return HttpResponse.json({}, { status: 500 });
       })
     );
-    render(<App />);
+    render(<IndexPage />);
 
     await waitFor(() => {
             expect(screen.getByText(/unable. malfunction. need input./i)).toBeInTheDocument()

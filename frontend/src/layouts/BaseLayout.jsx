@@ -7,9 +7,7 @@ const BaseLayout = () => {
   return (
     <>
         <Navbar />
-      <main className="flex-1 bg-blue-200 dark:bg-blue-900 dark:text-white">
-        <Outlet />
-      </main>
+          <Outlet />
       <Footer />
     </>
   );

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import api from "../apiClient";
+import MainContainer from "../components/MainContainer";
 
 const IndexPage = () => {
   const [message, setMessage] = useState("");
@@ -28,11 +29,13 @@ const IndexPage = () => {
   if (isError) return <h1>Unable. Malfunction. Need input.</h1>;
 
   return (
+    <MainContainer>
     <section className="min-h-[calc(100vh-7rem)] flex items-center justify-center relative">
       <div className="bg-white dark:bg-blue-950 w-full min-h-[inherit] m-4 flex items-center justify-center rounded-2xl">
         {message}
       </div>
     </section>
+    </MainContainer>
   );
 };
 
