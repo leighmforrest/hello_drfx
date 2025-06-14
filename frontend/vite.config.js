@@ -9,6 +9,14 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: ["./tests/setup.js", "vitest-localstorage-mock"],
-    mockReset: true
+    mockReset: true,
+    coverage: {
+      provider: "v8",
+      exclude: [
+        "src/main.jsx",
+        "*.config.js",
+        "tests/__mocks__/*"
+      ]
+    }
   }
 });

@@ -20,16 +20,17 @@ const Navbar = () => {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <nav className="bg-blue-300 dark:bg-blue-950 dark:text-white text-gray-600 shadow-md fixed top-0 left-0 right-0 z-50">
-      <div className="flex justify-between items-center px-4 h-14 max-h-14">
-        <Link to="/" className="text-xl font-bold">
-          Hello DRFX
-        </Link>
+    <header className="w-full h-14">
+      <nav className="bg-blue-300 dark:bg-blue-950 dark:text-white text-gray-600 shadow-md fixed top-0 left-0 right-0 z-50">
+        <div className="flex justify-between items-center px-4 h-14 max-h-14">
+          <Link to="/" className="text-xl font-bold">
+            Hello DRFX
+          </Link>
 
-        {isMobile && <Hamburger onButtonClick={toggleMenu} isOpen={isOpen} />}
+          {isMobile && <Hamburger onButtonClick={toggleMenu} isOpen={isOpen} />}
 
-        <ul
-          className={`
+          <ul
+            className={`
     ${
       isMobile
         ? "flex flex-col space-y-4 absolute top-14 left-0 w-full bg-blue-300 dark:bg-blue-950 px-4 pt-4 pb-4 shadow-md transition-all duration-300 ease-in-out"
@@ -42,15 +43,16 @@ const Navbar = () => {
         : "opacity-0 invisible -translate-y-2"
     }
   `}
-          onClick={closeMenu}
-        >
-          <UserMenu />
-          <li className="flex justify-center sm:justify-start">
-            <DarkModeButton />
-          </li>
-        </ul>
-      </div>
-    </nav>
+            onClick={closeMenu}
+          >
+            <UserMenu />
+            <li className="flex justify-center sm:justify-start">
+              <DarkModeButton />
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
   );
 };
 

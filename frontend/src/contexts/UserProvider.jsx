@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../apiClient.js";
 import { BASE_URL, endpoints } from "../../settings.js";
-import { clearAuthTokens, isLoggedIn, setAuthTokens } from "axios-jwt";
+import { clearAuthTokens, getAccessToken, isLoggedIn, setAuthTokens } from "axios-jwt";
 
 const UserContext = createContext();
 
@@ -24,8 +24,8 @@ const UserProvider = ({ children }) => {
       } catch (error) {
         if (error.response?.status === 401) {
           console.log("Failed to fetch user: ", error);
-          logout();
         }
+        await clearAuthTokens();
       } finally {
         setLoading(false); // <-- keep this here
       }
@@ -50,8 +50,8 @@ const UserProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    clearAuthTokens();
+  const logout = async () => {
+    await clearAuthTokens();
     setUser(null);
   };
 

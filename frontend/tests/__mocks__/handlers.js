@@ -1,21 +1,9 @@
 import { http, HttpResponse } from "msw";
 import { BASE_URL, endpoints } from "../../settings";
+import { authTokens, refreshedAuthTokens } from "../constants";
 
 
-const authTokens = {
-        access:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlRlc3QgVXNlciIsImlhdCI6MTUxNjIzOTAyMn0.fake_signature",
-        refresh:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyZWZyZXNoIiwibmFtZSI6IlJlZnJlc2ggVG9rZW4iLCJpYXQiOjE1MTYyMzkwMjJ9.fake_refresh_signature",
-      }
 
-
-const refreshedAuthTokens = {
-  access:
-    "eyJEKKKJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlRlc3QgVXNlciIsImlhdCI6MTUxNjIzOTAyMn0.fake_signature",
-  refresh:
-    "eyJEKKJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyZWZyZXNoIiwibmFtZSI6IlJlZnJlc2ggVG9rZW4iLCJpYXQiOjE1MTYyMzkwMjJ9.fake_refresh_signature",
-}
 
 export const handlers = [
   http.get(`${BASE_URL}`, () => {
@@ -36,7 +24,6 @@ export const handlers = [
   }),
   http.post(`${BASE_URL}${endpoints.refresh}`, async ({ request }) => {
     const { refresh } = await request.json();
-    console.log(refresh)
     if (refresh === authTokens.refresh) {
       return HttpResponse.json(refreshedAuthTokens);
     } else {
