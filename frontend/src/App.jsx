@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router";
+import { ToastContainer } from "react-toastify";
 import IndexPage from "./pages/IndexPage";
 import BaseLayout from "./layouts/BaseLayout";
 import ThemeProvider from "./contexts/ThemeProvider";
@@ -8,8 +9,9 @@ import PasswordResetConfirm from "./pages/PasswordResetConfirm";
 
 const App = () => {
   return (
-    <ThemeProvider>
-      <UserProvider>
+    <UserProvider>
+      <ThemeProvider>
+        <ToastContainer />
         <BrowserRouter>
           <Routes>
             <Route element={<BaseLayout />}>
@@ -22,8 +24,8 @@ const App = () => {
             </Route>
           </Routes>
         </BrowserRouter>
-      </UserProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </UserProvider>
   );
 };
 

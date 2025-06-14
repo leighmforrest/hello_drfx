@@ -19,7 +19,6 @@ const UserProvider = ({ children }) => {
           setUser(null);
         } else {
           const { data: userData } = await api.get(endpoints.user);
-          console.log(`Fetching user with: ${BASE_URL}${endpoints.user}`);
           setUser(userData);
         }
       } catch (error) {

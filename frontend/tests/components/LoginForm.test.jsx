@@ -51,7 +51,7 @@ describe("LoginForm", () => {
       if (badPassword) await user.type(password, badPassword);
       await user.click(loginButton);
 
-      expect(await screen.findByText(errorMessage)).toBeInTheDocument();
+      expect(await screen.findByText(errorMessage)).toBeInTheDocument()
       expect(handler).not.toHaveBeenCalled();
     }
   );
