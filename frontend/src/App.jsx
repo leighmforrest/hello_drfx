@@ -1,11 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import { ToastContainer } from "react-toastify";
-import IndexPage from "./pages/IndexPage";
-import BaseLayout from "./layouts/BaseLayout";
+
 import ThemeProvider from "./contexts/ThemeProvider";
 import UserProvider from "./contexts/UserProvider";
+
+import BaseLayout from "./layouts/BaseLayout";
+import IndexPage from "./pages/IndexPage";
 import LoginPage from "./pages/LoginPage";
+import NotFoundPage from "./pages/NotFoundPage"
 import PasswordResetConfirm from "./pages/PasswordResetConfirm";
+
+import PrivateRoute from "./components/PrivateRoute";
+import PublicRoute from "./components/PublicRoute";
 
 const App = () => {
   return (
@@ -15,12 +21,20 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route element={<BaseLayout />}>
-              <Route index element={<IndexPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route
-                path="/password/reset/confirm/:uid/:token"
-                element={<PasswordResetConfirm />}
-              />
+              {/* Private routes */}
+              <Route element={<PrivateRoute />}>
+                <Route index element={<IndexPage />} />
+              </Route>
+
+              {/* Public routes */}
+              <Route element={<PublicRoute />}>
+                <Route path="/login" element={<LoginPage />} />
+                <Route
+                  path="/password/reset/confirm/:uid/:token"
+                  element={<PasswordResetConfirm />}
+                />
+              </Route>
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

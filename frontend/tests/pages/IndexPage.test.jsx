@@ -13,6 +13,7 @@ describe("IndexPage", () => {
 
     await waitFor(() => {
       expect(screen.getByText(/hello world/i)).toBeInTheDocument();
+      expect(screen.getByTestId("maincontainer")).toBeInTheDocument();
     });
   });
 
