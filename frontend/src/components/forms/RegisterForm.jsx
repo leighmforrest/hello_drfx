@@ -1,7 +1,7 @@
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { loginSchema } from "../../schemas";
-import Input from "./Input";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { loginSchema } from '../../schemas';
+import Input from './Input';
 
 const RegisterForm = ({ onRegister }) => {
   const {

@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router";
-import DarkModeButton from "./DarkModeButton";
-import UserMenu from "./UserMenu";
-import Hamburger from "./Hamburger";
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router';
+import DarkModeButton from './DarkModeButton';
+import UserMenu from './UserMenu';
+import Hamburger from './Hamburger';
 
 const Navbar = () => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
@@ -12,8 +12,8 @@ const Navbar = () => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 640);
     };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
@@ -33,14 +33,14 @@ const Navbar = () => {
             className={`
     ${
       isMobile
-        ? "flex flex-col space-y-4 absolute top-14 left-0 w-full bg-blue-300 dark:bg-blue-950 px-4 pt-4 pb-4 shadow-md transition-all duration-300 ease-in-out"
-        : "flex flex-row space-x-6 items-center static w-auto bg-transparent px-0 pt-0 pb-0 shadow-none"
+        ? 'flex flex-col space-y-4 absolute top-14 left-0 w-full bg-blue-300 dark:bg-blue-950 px-4 pt-4 pb-4 shadow-md transition-all duration-300 ease-in-out'
+        : 'flex flex-row space-x-6 items-center static w-auto bg-transparent px-0 pt-0 pb-0 shadow-none'
     }
 
     ${
       isOpen || !isMobile
-        ? "opacity-100 visible translate-y-0"
-        : "opacity-0 invisible -translate-y-2"
+        ? 'opacity-100 visible translate-y-0'
+        : 'opacity-0 invisible -translate-y-2'
     }
   `}
             onClick={closeMenu}

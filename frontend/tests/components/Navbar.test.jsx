@@ -1,14 +1,14 @@
-import * as UserProviderModule from "../../src/contexts/UserProvider";
-import { mockUserContext } from "../__mocks__/userProviderMock";
+import * as UserProviderModule from '../../src/contexts/UserProvider';
+import { mockUserContext } from '../__mocks__/userProviderMock';
 
-import { screen, render, waitFor } from "@testing-library/react";
-import { MemoryRouter } from "react-router";
-import userEvent from "@testing-library/user-event";
+import { screen, render, waitFor } from '@testing-library/react';
+import { MemoryRouter } from 'react-router';
+import userEvent from '@testing-library/user-event';
 
-import Navbar from "../../src/components/Navbar";
-import ThemeProvider from "../../src/contexts/ThemeProvider";
+import Navbar from '../../src/components/Navbar';
+import ThemeProvider from '../../src/contexts/ThemeProvider';
 
-describe("Navbar", () => {
+describe('Navbar', () => {
   beforeEach(() => {
     mockUserContext.user = null;
     mockUserContext.loading = false;
@@ -17,7 +17,7 @@ describe("Navbar", () => {
 
   const setScreenWidth = (width) => {
     window.innerWidth = width;
-    window.dispatchEvent(new Event("resize"));
+    window.dispatchEvent(new Event('resize'));
   };
 
   const renderComponent = (width = 375) => {
@@ -31,13 +31,13 @@ describe("Navbar", () => {
               <Navbar />
             </UserProviderModule.default>
           </ThemeProvider>
-        </MemoryRouter>
+        </MemoryRouter>,
       ),
       hamburger: screen.queryByLabelText(/toggle menu/i),
     };
   };
 
-  it("shows Hamburger when window is resized to mobile", async () => {
+  it('shows Hamburger when window is resized to mobile', async () => {
     // Initial render at desktop width
     renderComponent(1024);
     expect(screen.queryByLabelText(/toggle menu/i)).not.toBeInTheDocument();
@@ -45,58 +45,58 @@ describe("Navbar", () => {
     // Resize to mobile
     await waitFor(() => {
       window.innerWidth = 375;
-      window.dispatchEvent(new Event("resize"));
+      window.dispatchEvent(new Event('resize'));
     });
 
     // Re-query and assert
     expect(screen.getByLabelText(/toggle menu/i)).toBeInTheDocument();
   });
 
-  it("renders with hamburger", () => {
+  it('renders with hamburger', () => {
     const { hamburger } = renderComponent();
     expect(hamburger).toBeInTheDocument();
   });
 
-  it("renders with no menu initially when in mobile", () => {
+  it('renders with no menu initially when in mobile', () => {
     renderComponent();
-    const navItems = screen.getByRole("list");
-    expect(navItems).toHaveClass("opacity-0");
+    const navItems = screen.getByRole('list');
+    expect(navItems).toHaveClass('opacity-0');
   });
 
-  it("toggles menu visibility after hamburger click", async () => {
+  it('toggles menu visibility after hamburger click', async () => {
     const { hamburger, user } = renderComponent();
 
     await user.click(hamburger);
-    const navItems = await screen.findByRole("list");
-    const navListItems = await screen.findAllByRole("listitem");
-    expect(navItems).toHaveClass("opacity-100");
+    const navItems = await screen.findByRole('list');
+    const navListItems = await screen.findAllByRole('listitem');
+    expect(navItems).toHaveClass('opacity-100');
     expect(navListItems).toHaveLength(4);
   });
 
-  it("renders without hamburger in desktop mode", () => {
+  it('renders without hamburger in desktop mode', () => {
     const { hamburger } = renderComponent(1076);
-    const navListItems = screen.getAllByRole("listitem");
+    const navListItems = screen.getAllByRole('listitem');
 
     expect(hamburger).not.toBeInTheDocument();
     expect(navListItems).toHaveLength(4);
   });
 
-  it("displays email if authenticated", async () => {
-    mockUserContext.user = { email: "test@example.com" };
+  it('displays email if authenticated', async () => {
+    mockUserContext.user = { email: 'test@example.com' };
 
     const { hamburger, user } = renderComponent();
     await user.click(hamburger);
 
     expect(screen.getByText(/test@example.com/i)).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /log out/i })
+      screen.getByRole('button', { name: /log out/i }),
     ).toBeInTheDocument();
   });
 
-  it("displays spinner when loading", async () => {
+  it('displays spinner when loading', async () => {
     mockUserContext.loading = true;
     renderComponent(1076);
 
-    expect(screen.getByTestId("spinner")).toBeInTheDocument();
+    expect(screen.getByTestId('spinner')).toBeInTheDocument();
   });
 });

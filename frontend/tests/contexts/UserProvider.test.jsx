@@ -1,13 +1,13 @@
-import { server } from "../__mocks__/server";
+import { server } from '../__mocks__/server';
 
-import { http } from "msw";
-import { setAuthTokens } from "axios-jwt";
-import userEvent from "@testing-library/user-event";
-import { render, screen, waitFor } from "@testing-library/react";
+import { http } from 'msw';
+import { setAuthTokens } from 'axios-jwt';
+import userEvent from '@testing-library/user-event';
+import { render, screen, waitFor } from '@testing-library/react';
 
-import { authTokens } from "../constants";
-import { BASE_URL, endpoints } from "../../settings";
-import UserProvider, { useUser } from "../../src/contexts/UserProvider";
+import { authTokens } from '../constants';
+import { BASE_URL, endpoints } from '../../settings';
+import UserProvider, { useUser } from '../../src/contexts/UserProvider';
 
 const setValidTokens = async () => {
   /** Set valid testing JWT tokens. */
@@ -20,13 +20,13 @@ const setValidTokens = async () => {
 const noUserAssertions = () => {
   /** Assert that user and logout button are not in the ui. */
   expect(screen.getByText(/no user/i)).toBeInTheDocument();
-  expect(screen.queryByRole("button")).toBeNull();
+  expect(screen.queryByRole('button')).toBeNull();
 };
 
 const userAssertions = () => {
   /** Assert that user and logout button are in the ui. */
   expect(screen.getByText(/testuser@example.com/i)).toBeInTheDocument();
-  expect(screen.getByRole("button")).toBeInTheDocument();
+  expect(screen.getByRole('button')).toBeInTheDocument();
 };
 
 const TestUserComponent = () => {
@@ -48,7 +48,7 @@ const TestUserComponent = () => {
   );
 };
 
-describe("UserProvider", () => {
+describe('UserProvider', () => {
   beforeEach(() => {
     localStorage.clear();
   });
@@ -57,13 +57,13 @@ describe("UserProvider", () => {
       ...render(
         <UserProvider>
           <TestUserComponent />
-        </UserProvider>
+        </UserProvider>,
       ),
       user: userEvent.setup(),
     };
   };
 
-  it("retrieves user with auth tokens", async () => {
+  it('retrieves user with auth tokens', async () => {
     await setValidTokens();
 
     const { user } = await renderComponent();
@@ -73,7 +73,7 @@ describe("UserProvider", () => {
     });
   });
 
-  it("logs out", async () => {
+  it('logs out', async () => {
     await setValidTokens();
 
     const { user } = await renderComponent();
@@ -82,7 +82,7 @@ describe("UserProvider", () => {
       userAssertions();
     });
 
-    const logoutButton = screen.getByRole("button");
+    const logoutButton = screen.getByRole('button');
     await user.click(logoutButton);
 
     await waitFor(() => {
@@ -90,12 +90,12 @@ describe("UserProvider", () => {
     });
   });
 
-  it("should logout invalid user", async () => {
+  it('should logout invalid user', async () => {
     // override msw handler
     server.use(
       http.get(`${BASE_URL}${endpoints.user}`, async () => {
         return HttpResponse.json({}, { status: 401 });
-      })
+      }),
     );
 
     await setValidTokens();

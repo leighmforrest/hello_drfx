@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router";
-import { toast } from "react-toastify";
-import LoginForm from "../components/forms/LoginForm";
-import { useUser } from "../contexts/UserProvider";
-import MainContainer from "../components/MainContainer";
+import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
+import LoginForm from '../components/forms/LoginForm';
+import { useUser } from '../contexts/UserProvider';
+import MainContainer from '../components/MainContainer';
 
 const LoginPage = () => {
   const { login } = useUser();
@@ -13,7 +13,7 @@ const LoginPage = () => {
 
     if (authenticated) {
       toast.success(`${email} has been authenticated.`);
-      navigate("/");
+      navigate('/');
     } else {
       toast.error(`${email} could not be authenticated.`);
       return;

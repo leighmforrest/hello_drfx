@@ -1,7 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import api from "../apiClient.js";
-import { BASE_URL, endpoints } from "../../settings.js";
-import { clearAuthTokens, isLoggedIn, setAuthTokens } from "axios-jwt";
+import { createContext, useContext, useEffect, useState } from 'react';
+import api from '../apiClient.js';
+import { BASE_URL, endpoints } from '../../settings.js';
+import { clearAuthTokens, isLoggedIn, setAuthTokens } from 'axios-jwt';
 
 const UserContext = createContext();
 
@@ -15,7 +15,7 @@ const UserProvider = ({ children }) => {
 
       try {
         if (!(await isLoggedIn())) {
-          console.log("User is not logged in.");
+          console.log('User is not logged in.');
           setUser(null);
         } else {
           const { data: userData } = await api.get(endpoints.user);
@@ -23,10 +23,10 @@ const UserProvider = ({ children }) => {
         }
       } catch (error) {
         if (error.response?.status === 401) {
-          console.log("Failed to fetch user: ", error);
+          console.log('Failed to fetch user: ', error);
         }
         await clearAuthTokens();
-        setUser(null)
+        setUser(null);
       } finally {
         setLoading(false); // <-- keep this here
       }
@@ -46,7 +46,7 @@ const UserProvider = ({ children }) => {
       setUser(userData);
       return true;
     } catch (error) {
-      console.log("The user could not be authenticated.", error);
+      console.log('The user could not be authenticated.', error);
       return false;
     }
   };

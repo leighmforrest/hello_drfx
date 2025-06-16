@@ -1,17 +1,20 @@
-import { NavLink } from "react-router";
-import { FaHome, FaSignInAlt } from "react-icons/fa";
-import { useUser } from "../contexts/UserProvider";
-import Spinner from "./Spinner";
-
+import { NavLink } from 'react-router';
+import { FaHome, FaSignInAlt } from 'react-icons/fa';
+import { useUser } from '../contexts/UserProvider';
+import Spinner from './Spinner';
 
 const UserMenu = ({ onLinkClick }) => {
   const { user, loading, logout } = useUser();
 
-  if (loading) return <Spinner />
-  
-  return user ? (<><li>{user.email}</li>
-  <li><button onClick={logout}>Log Out</button></li>
-  </>
+  if (loading) return <Spinner />;
+
+  return user ? (
+    <>
+      <li>{user.email}</li>
+      <li>
+        <button onClick={logout}>Log Out</button>
+      </li>
+    </>
   ) : (
     <>
       <li>
@@ -21,7 +24,7 @@ const UserMenu = ({ onLinkClick }) => {
           onClick={onLinkClick}
           className={({ isActive }) =>
             `flex items-center justify-center gap-2 hover:text-amber-100 transition-colors ${
-              isActive ? "text-amber-300 font-semibold" : ""
+              isActive ? 'text-amber-300 font-semibold' : ''
             }`
           }
         >
@@ -34,7 +37,7 @@ const UserMenu = ({ onLinkClick }) => {
           onClick={onLinkClick}
           className={({ isActive }) =>
             `flex items-center justify-center gap-2 hover:text-amber-100 transition-colors ${
-              isActive ? "text-amber-300 font-semibold" : ""
+              isActive ? 'text-amber-300 font-semibold' : ''
             }`
           }
         >
@@ -47,7 +50,7 @@ const UserMenu = ({ onLinkClick }) => {
           onClick={onLinkClick}
           className={({ isActive }) =>
             `flex items-center justify-center gap-2 hover:text-amber-100 transition-colors ${
-              isActive ? "text-amber-300 font-semibold" : ""
+              isActive ? 'text-amber-300 font-semibold' : ''
             }`
           }
         >

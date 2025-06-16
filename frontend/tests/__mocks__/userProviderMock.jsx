@@ -4,7 +4,7 @@ export const mockUserContext = {
   loading: false,
 };
 
-vi.mock("../../src/contexts/UserProvider", () => {
+vi.mock('../../src/contexts/UserProvider', () => {
   return {
     __esModule: true,
     default: ({ children }) => <>{children}</>,

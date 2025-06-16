@@ -1,11 +1,4 @@
-const Input = ({
-  label,
-  id,
-  type = "text",
-  placeholder,
-  register,
-  errors,
-}) => {
+const Input = ({ label, id, type = 'text', placeholder, register, errors }) => {
   return (
     <div className="mb-4">
       <label
@@ -20,7 +13,7 @@ const Input = ({
         type={type}
         placeholder={placeholder}
         className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 dark:text-gray-200 leading-tight focus:outline-none focus:shadow-outline ${
-          errors[id] ? "border-red-400 dark:border-red-500" : ""
+          errors[id] ? 'border-red-400 dark:border-red-500' : ''
         }`}
       />
       {errors[id] && (

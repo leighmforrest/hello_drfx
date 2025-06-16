@@ -1,8 +1,8 @@
-import { MdOutlineLightMode, MdDarkMode } from "react-icons/md";
-import { useTheme } from "../contexts/ThemeProvider";
+import { MdOutlineLightMode, MdDarkMode } from 'react-icons/md';
+import { useTheme } from '../contexts/ThemeProvider';
 
 const DarkModeButton = () => {
-  const { darkMode, toggleDarkMode} = useTheme();
+  const { darkMode, toggleDarkMode } = useTheme();
   return (
     <button className="py-2 hover:text-amber-200" onClick={toggleDarkMode}>
       {darkMode ? (

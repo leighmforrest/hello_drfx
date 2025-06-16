@@ -1,35 +1,35 @@
-import { mockNavigate } from "../__mocks__/reactRouterMock";
-import { server } from "../__mocks__/server";
+import { mockNavigate } from '../__mocks__/reactRouterMock';
+import { server } from '../__mocks__/server';
 
-import { render, screen, waitFor } from "@testing-library/react";
-import { MemoryRouter, Routes, Route } from "react-router-dom";
-import { http, HttpResponse } from "msw";
-import userEvent from "@testing-library/user-event";
-import { ToastContainer } from "react-toastify";
+import { render, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
+import { http, HttpResponse } from 'msw';
+import userEvent from '@testing-library/user-event';
+import { ToastContainer } from 'react-toastify';
 
-import RegistrationPage from "../../src/pages/RegistrationPage";
-import { BASE_URL, endpoints } from "../../settings";
+import RegistrationPage from '../../src/pages/RegistrationPage';
+import { BASE_URL, endpoints } from '../../settings';
 
-describe("RegistrationPage", () => {
+describe('RegistrationPage', () => {
   const renderComponent = () => {
     return {
       ...render(
-        <MemoryRouter initialEntries={["/register"]}>
+        <MemoryRouter initialEntries={['/register']}>
           <ToastContainer />
           <Routes>
             <Route index element={<p>Index</p>} />
             <Route path="/register" element={<RegistrationPage />} />
           </Routes>
-        </MemoryRouter>
+        </MemoryRouter>,
       ),
       user: userEvent.setup(),
       email: screen.getByLabelText(/email/i),
       password: screen.getByLabelText(/password/i),
-      submit: screen.getByRole("button", { name: /register/i }),
+      submit: screen.getByRole('button', { name: /register/i }),
     };
   };
 
-  it("renders", () => {
+  it('renders', () => {
     const { email, password, submit } = renderComponent();
 
     expect(email).toBeInTheDocument();
@@ -37,59 +37,59 @@ describe("RegistrationPage", () => {
     expect(submit).toBeInTheDocument();
   });
 
-  it("successfully registers", async () => {
+  it('successfully registers', async () => {
     const { email, password, submit, user } = renderComponent();
-    await user.type(email, "testuser@email.com");
-    await user.type(password, "TestPass1234");
+    await user.type(email, 'testuser@email.com');
+    await user.type(password, 'TestPass1234');
     await user.click(submit);
 
     await waitFor(async () => {
       expect(
-        await screen.findByText(/you have successfully registered./i)
+        await screen.findByText(/you have successfully registered./i),
       ).toBeInTheDocument();
-      expect(mockNavigate).toBeCalledWith("/login");
+      expect(mockNavigate).toBeCalledWith('/login');
     });
   });
 
-  it("fails to register with duplicate email", async () => {
+  it('fails to register with duplicate email', async () => {
     // override msw handler
     server.use(
       http.post(`${BASE_URL}${endpoints.register}`, async () => {
         return HttpResponse.json(
           {
-            email: ["user with this email address already exists."],
+            email: ['user with this email address already exists.'],
           },
-          { status: 400 }
+          { status: 400 },
         );
-      })
+      }),
     );
 
     const { email, password, submit, user } = renderComponent();
-    await user.type(email, "testuser@email.com");
-    await user.type(password, "TestPass1234");
+    await user.type(email, 'testuser@email.com');
+    await user.type(password, 'TestPass1234');
     await user.click(submit);
 
     await waitFor(async () => {
       expect(
-        await screen.findByText(/user with this email address already exists/i)
+        await screen.findByText(/user with this email address already exists/i),
       ).toBeInTheDocument();
     });
   });
 
-  it("fails to register with server error", async () => {
+  it('fails to register with server error', async () => {
     server.use(
       http.post(`${BASE_URL}${endpoints.register}`, async () => {
         return HttpResponse.json({}, { status: 500 });
-      })
+      }),
     );
 
     const { email, password, submit, user } = renderComponent();
-    await user.type(email, "testuser@email.com");
-    await user.type(password, "TestPass1234");
+    await user.type(email, 'testuser@email.com');
+    await user.type(password, 'TestPass1234');
     await user.click(submit);
 
     expect(
-      await screen.findByText(/Registration failed. Please try again./i)
+      await screen.findByText(/Registration failed. Please try again./i),
     ).toBeInTheDocument();
   });
 });
