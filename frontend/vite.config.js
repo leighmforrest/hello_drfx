@@ -14,6 +14,7 @@ export default defineConfig({
       provider: "v8",
       exclude: [
         "src/main.jsx",
+        "src/App.jsx",
         "*.config.js",
         "tests/__mocks__/*"
       ]

@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../apiClient.js";
 import { BASE_URL, endpoints } from "../../settings.js";
-import { clearAuthTokens, getAccessToken, isLoggedIn, setAuthTokens } from "axios-jwt";
+import { clearAuthTokens, isLoggedIn, setAuthTokens } from "axios-jwt";
 
 const UserContext = createContext();
 
@@ -26,6 +26,7 @@ const UserProvider = ({ children }) => {
           console.log("Failed to fetch user: ", error);
         }
         await clearAuthTokens();
+        setUser(null)
       } finally {
         setLoading(false); // <-- keep this here
       }

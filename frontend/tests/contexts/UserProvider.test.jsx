@@ -1,12 +1,13 @@
+import { server } from "../__mocks__/server";
+
 import { http } from "msw";
 import { setAuthTokens } from "axios-jwt";
+import userEvent from "@testing-library/user-event";
 import { render, screen, waitFor } from "@testing-library/react";
 
-import UserProvider, { useUser } from "../../src/contexts/UserProvider";
-import { server } from "../__mocks__/server";
-import userEvent from "@testing-library/user-event";
 import { authTokens } from "../constants";
 import { BASE_URL, endpoints } from "../../settings";
+import UserProvider, { useUser } from "../../src/contexts/UserProvider";
 
 const setValidTokens = async () => {
   /** Set valid testing JWT tokens. */

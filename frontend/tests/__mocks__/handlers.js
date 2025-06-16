@@ -39,6 +39,13 @@ export const handlers = [
       email: "testuser@example.com",
     });
   }),
+  http.post(`${BASE_URL}${endpoints.register}`,async ({ request }) => {
+    const { email } = await request.json()
+    return HttpResponse.json({
+      id: 1,
+      email,
+    }, {status: 201});
+  }),
   http.all("*", ({ request }) => {
     console.log("🔴 Unhandled request to:", request.url);
     return new HttpResponse(null, { status: 500 });

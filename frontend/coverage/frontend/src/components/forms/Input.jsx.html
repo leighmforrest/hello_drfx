@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>28/28</span>
+                <span class='fraction'>31/31</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/28</span>
+                <span class='fraction'>31/31</span>
             </div>
         
             
@@ -96,68 +96,74 @@
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">114x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">58x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
-&nbsp;
-const Input = ({
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const Input = ({
   label,
   id,
-   type = "text",
-   placeholder,
-   register,
-   errors
+  type = "text",
+  placeholder,
+  register,
+  errors,
 }) =&gt; {
   return (
     &lt;div className="mb-4"&gt;
-        &lt;label
-          className="block text-gray-600 dark:text-white text-sm font-bold mb-2"
-          htmlFor={id}
-        &gt;
-          {label}
-        &lt;/label&gt;
-        &lt;input
-          {...register(id)}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 dark:text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-          id={id}
-          type={type}
-          placeholder={placeholder}
-        /&gt;
-        {errors[id] &amp;&amp; (
-          &lt;p class="text-red-500 text-xs italic"&gt;{errors[id].message}&lt;/p&gt;
-        )}
-      &lt;/div&gt;
+      &lt;label
+        className="block text-gray-600 dark:text-white text-sm font-bold mb-2"
+        htmlFor={id}
+      &gt;
+        {label}
+      &lt;/label&gt;
+      &lt;input
+        {...register(id)}
+        id={id}
+        type={type}
+        placeholder={placeholder}
+        className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 dark:text-gray-200 leading-tight focus:outline-none focus:shadow-outline ${
+          errors[id] ? "border-red-400 dark:border-red-500" : ""
+        }`}
+      /&gt;
+      {errors[id] &amp;&amp; (
+        &lt;p className="text-red-400 dark:text-red-500 text-xs italic"&gt;
+          {errors[id].message}
+        &lt;/p&gt;
+      )}
+    &lt;/div&gt;
   );
 };
 &nbsp;
@@ -169,7 +175,7 @@ export default Input;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-06-15T16:18:17.099Z
+                at 2025-06-16T20:19:06.847Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

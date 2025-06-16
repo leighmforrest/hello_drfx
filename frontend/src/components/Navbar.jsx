@@ -20,7 +20,7 @@ const Navbar = () => {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header className="w-full h-14">
+    <header className="w-full h-14" data-testid="navbar">
       <nav className="bg-blue-300 dark:bg-blue-950 dark:text-white text-gray-600 shadow-md fixed top-0 left-0 right-0 z-50">
         <div className="flex justify-between items-center px-4 h-14 max-h-14">
           <Link to="/" className="text-xl font-bold">

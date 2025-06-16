@@ -41,6 +41,19 @@ const UserMenu = ({ onLinkClick }) => {
           <FaSignInAlt /> Login
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/register"
+          onClick={onLinkClick}
+          className={({ isActive }) =>
+            `flex items-center justify-center gap-2 hover:text-amber-100 transition-colors ${
+              isActive ? "text-amber-300 font-semibold" : ""
+            }`
+          }
+        >
+          Register
+        </NavLink>
+      </li>
     </>
   );
 };
