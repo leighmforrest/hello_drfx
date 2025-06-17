@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>48/48</span>
+                <span class='fraction'>52/52</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>48/48</span>
+                <span class='fraction'>52/52</span>
             </div>
         
             
@@ -124,18 +124,24 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,20 +191,23 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { NavLink } from "react-router";
-import { FaHome, FaSignInAlt } from "react-icons/fa";
-import { useUser } from "../contexts/UserProvider";
-import Spinner from "./Spinner";
-&nbsp;
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { NavLink } from 'react-router';
+import { FaHome, FaSignInAlt } from 'react-icons/fa';
+import { useUser } from '../contexts/UserProvider';
+import Spinner from './Spinner';
 &nbsp;
 const UserMenu = ({ onLinkClick }) =&gt; {
   const { user, loading, logout } = useUser();
 &nbsp;
-  if (loading) return &lt;Spinner /&gt;
-  
-  return user ? (&lt;&gt;&lt;li&gt;{user.email}&lt;/li&gt;
-  &lt;li&gt;&lt;button onClick={logout}&gt;Log Out&lt;/button&gt;&lt;/li&gt;
-  &lt;/&gt;
+  if (loading) return &lt;Spinner /&gt;;
+&nbsp;
+  return user ? (
+    &lt;&gt;
+      &lt;li&gt;{user.email}&lt;/li&gt;
+      &lt;li&gt;
+        &lt;button onClick={logout}&gt;Log Out&lt;/button&gt;
+      &lt;/li&gt;
+    &lt;/&gt;
   ) : (
     &lt;&gt;
       &lt;li&gt;
@@ -208,7 +217,7 @@ const UserMenu = ({ onLinkClick }) =&gt; {
           onClick={onLinkClick}
           className={({ isActive }) =&gt;
             `flex items-center justify-center gap-2 hover:text-amber-100 transition-colors ${
-              isActive ? <span class="branch-0 cbranch-no" title="branch not covered" >"text-amber-300 font-semibold" : ""</span>
+              isActive ? <span class="branch-0 cbranch-no" title="branch not covered" >'text-amber-300 font-semibold' : ''</span>
             }`
           }
         &gt;
@@ -221,7 +230,7 @@ const UserMenu = ({ onLinkClick }) =&gt; {
           onClick={onLinkClick}
           className={({ isActive }) =&gt;
             `flex items-center justify-center gap-2 hover:text-amber-100 transition-colors ${
-<span class="branch-0 cbranch-no" title="branch not covered" >              isActive ? "text-amber-300 font-semibold" : "</span>"
+<span class="branch-0 cbranch-no" title="branch not covered" >              isActive ? 'text-amber-300 font-semibold' : '</span>'
             }`
           }
         &gt;
@@ -234,7 +243,7 @@ const UserMenu = ({ onLinkClick }) =&gt; {
           onClick={onLinkClick}
           className={({ isActive }) =&gt;
             `flex items-center justify-center gap-2 hover:text-amber-100 transition-colors ${
-<span class="branch-0 cbranch-no" title="branch not covered" >              isActive ? "text-amber-300 font-semibold" : "</span>"
+<span class="branch-0 cbranch-no" title="branch not covered" >              isActive ? 'text-amber-300 font-semibold' : '</span>'
             }`
           }
         &gt;
@@ -253,7 +262,7 @@ export default UserMenu;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-06-16T20:19:06.847Z
+                at 2025-06-16T20:27:09.197Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

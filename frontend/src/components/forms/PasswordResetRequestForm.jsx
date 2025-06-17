@@ -1,27 +1,26 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { registerSchema } from '../../schemas';
+import { passwordResetRequestSchema } from '../../schemas';
 import Input from './Input';
 
-const RegisterForm = ({ onRegister }) => {
+const PasswordResetRequestForm = ({ onPasswordResetRequest }) => {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(registerSchema),
+    resolver: yupResolver(passwordResetRequestSchema),
   });
 
   const onSubmit = (data) => {
-    onRegister(data, setError);
+    onPasswordResetRequest(data);
   };
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="bg-white dark:bg-blue-950 shadow-md rounded px-8 pt-6 pb-8 mb-4"
     >
-      <h2 className="text-3xl text-center mb-5">Register</h2>
+      <h2 className="text-3xl text-center mb-5">Password Reset</h2>
       {errors.root && (
         <p className="text-red-500 text-sm mb-4">{errors.root.message}</p>
       )}
@@ -30,14 +29,6 @@ const RegisterForm = ({ onRegister }) => {
         id="email"
         label="Email"
         placeholder="Email Address"
-        register={register}
-        errors={errors}
-      />
-      <Input
-        id="password"
-        label="Password"
-        type="password"
-        placeholder="*************"
         register={register}
         errors={errors}
       />
@@ -51,4 +42,4 @@ const RegisterForm = ({ onRegister }) => {
   );
 };
 
-export default RegisterForm;
+export default PasswordResetRequestForm;

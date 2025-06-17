@@ -15,3 +15,14 @@ export const registerSchema = yup.object({
     .required('Password is required.')
     .min(6, 'Password must be at least 6 characters.'),
 });
+
+export const passwordResetRequestSchema = yup.object({
+  email: yup.string().email('Invalid email.').required('Email is required.'),
+});
+
+export const passwordResetConfirmSchema = yup.object({
+  new_password: yup
+    .string()
+    .required('Password is required.')
+    .min(6, 'Password must be at least 6 characters.'),
+});
