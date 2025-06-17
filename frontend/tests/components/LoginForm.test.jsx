@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router';
 import userEvent from '@testing-library/user-event';
 
 import LoginForm from '../../src/components/forms/LoginForm';
@@ -9,7 +10,11 @@ describe('LoginForm', () => {
 
     return {
       user: userEvent.setup(),
-      ...render(<LoginForm onLogin={mockOnLogin} />),
+      ...render(
+        <MemoryRouter>
+          <LoginForm onLogin={mockOnLogin} />
+        </MemoryRouter>,
+      ),
       email: screen.getByLabelText(/email/i),
       password: screen.getByLabelText(/password/i),
       loginButton: screen.getByRole('button', { name: /login/i }),
@@ -35,6 +40,12 @@ describe('LoginForm', () => {
       email: 'rod@example.com',
       password: 'T#$TP&$$678',
     });
+  });
+
+  it('renders a password reset link', () => {
+    renderComponent();
+
+    expect(screen.getByRole('link')).toHaveTextContent(/forgot your password?/i)
   });
 
   test.each([

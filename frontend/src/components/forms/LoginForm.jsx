@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { Link } from "react-router"
+import { Link } from 'react-router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '../../schemas';
 import Input from './Input';
@@ -37,13 +37,18 @@ const LoginForm = ({ onLogin }) => {
         errors={errors}
       />
       <div className="flex items-center justify-between">
-      <button
-        type="submit"
-        className="bg-blue-500 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-      >
-        Login
-      </button>
-      <Link to="/password/reset" className='text-blue-500 hover:text-blue-700 dark:text-amber-50 dark:hover:text-amber-300'>Forgot your password?</Link>
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Login
+        </button>
+        <Link
+          to="/password/reset"
+          className="text-blue-500 hover:text-blue-700 dark:text-amber-50 dark:hover:text-amber-300"
+        >
+          Forgot your password?
+        </Link>
       </div>
     </form>
   );

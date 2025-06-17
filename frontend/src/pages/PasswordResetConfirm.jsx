@@ -21,7 +21,7 @@ const PasswordResetConfirm = () => {
       toast.success('Password successfully changed. You may log in.');
       navigate('/login');
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error('Your password could not be changed.');
     }
   };

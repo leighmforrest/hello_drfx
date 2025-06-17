@@ -6,5 +6,5 @@ export const endpoints = {
   user: '/accounts/users/me/',
   register: '/accounts/users/',
   passwordReset: '/accounts/users/reset_password/',
-  passwordResetConfirm: '/accounts/users/reset_password_confirm/'
+  passwordResetConfirm: '/accounts/users/reset_password_confirm/',
 };
