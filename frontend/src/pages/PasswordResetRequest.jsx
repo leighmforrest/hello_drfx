@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import api from '../apiClient';
 import MainContainer from '../components/MainContainer';
@@ -14,6 +14,7 @@ const PasswordResetRequest = () => {
       toast.success(
         'If your email exists, check your email for password reset details.',
       );
+
       navigate('/login');
     } catch (error) {
       toast.error('Your password could not be reset. Please try again.');

@@ -4,7 +4,6 @@ import { http } from 'msw';
 import IndexPage from '../../src/pages/IndexPage';
 import { BASE_URL } from '../../settings';
 import { server } from '../__mocks__/server';
-import { expect } from 'vitest';
 
 describe('IndexPage', () => {
   it('renders', async () => {

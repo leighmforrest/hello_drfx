@@ -12,25 +12,25 @@ describe('RegisterForm', () => {
       ...render(<RegisterForm onRegister={mockOnRegister} />),
       email: screen.getByLabelText(/email/i),
       password: screen.getByLabelText(/password/i),
-      RegisterButton: screen.getByRole('button', { name: /Register/i }),
+      registerButton: screen.getByRole('button', { name: /Register/i }),
       handler: mockOnRegister,
     };
   };
 
   it('renders', () => {
-    const { email, password, RegisterButton } = renderComponent();
+    const { email, password, registerButton } = renderComponent();
 
     expect(email).toBeInTheDocument();
     expect(password).toBeInTheDocument();
-    expect(RegisterButton).toBeInTheDocument();
+    expect(registerButton).toBeInTheDocument();
   });
 
   it('Submits a valid form', async () => {
-    const { user, email, password, RegisterButton, handler } =
+    const { user, email, password, registerButton, handler } =
       renderComponent();
     await user.type(email, 'rod@example.com');
     await user.type(password, 'T#$TP&$$678');
-    await user.click(RegisterButton);
+    await user.click(registerButton);
 
     expect(handler).toHaveBeenCalledWith(
       {
@@ -49,12 +49,12 @@ describe('RegisterForm', () => {
   ])(
     'does not submit with %s, %s -> %s',
     async (badEmail, badPassword, errorMessage) => {
-      const { user, email, password, RegisterButton, handler } =
+      const { user, email, password, registerButton, handler } =
         renderComponent();
 
       if (badEmail) await user.type(email, badEmail);
       if (badPassword) await user.type(password, badPassword);
-      await user.click(RegisterButton);
+      await user.click(registerButton);
 
       expect(await screen.findByText(errorMessage)).toBeInTheDocument();
       expect(handler).not.toHaveBeenCalled();
