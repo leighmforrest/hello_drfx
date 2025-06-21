@@ -10,7 +10,7 @@ const RegisterPage = () => {
 
   const submitHandler = async ({ email, password }, setError) => {
     try {
-      const data = await api.post(endpoints.register, { email, password });
+      await api.post(endpoints.register, { email, password });
       toast.success('You have successfully registered.');
       navigate('/login');
     } catch (error) {

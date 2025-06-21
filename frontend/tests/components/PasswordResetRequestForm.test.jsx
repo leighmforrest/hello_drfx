@@ -5,7 +5,6 @@ import PasswordResetRequestForm from '../../src/components/forms/PasswordResetRe
 
 describe('PasswordResetRequestForm', () => {
   const renderComponent = () => {
-
     const mockOnPasswordResetRequest = vi.fn();
 
     return {
@@ -19,31 +18,31 @@ describe('PasswordResetRequestForm', () => {
         name: /reset password/i,
       }),
       handler: mockOnPasswordResetRequest,
-      user: userEvent.setup()
+      user: userEvent.setup(),
     };
-}
-    it("renders", ()=> {
-        const {email, passwordResetButton} = renderComponent()
+  };
+  it('renders', () => {
+    const { email, passwordResetButton } = renderComponent();
 
-        expect(email).toBeInTheDocument()
-    })
+    expect(email).toBeInTheDocument();
+    expect(passwordResetButton).toBeInTheDocument();
+  });
 
-    it("Submits a valid form",async () => {
-        const { user, email, passwordResetButton, handler } = renderComponent()
+  it('Submits a valid form', async () => {
+    const { user, email, passwordResetButton, handler } = renderComponent();
 
-        await user.type(email, "rod@example.com")
-        await user.click(passwordResetButton)
+    await user.type(email, 'rod@example.com');
+    await user.click(passwordResetButton);
 
-        expect(handler).toHaveBeenCalledWith({"email": "rod@example.com"})
-    })
+    expect(handler).toHaveBeenCalledWith({ email: 'rod@example.com' });
+  });
 
-    it("fails to submit an invalid form",async () => {
-        const { user, email, passwordResetButton, handler } = renderComponent()
+  it('fails to submit an invalid form', async () => {
+    const { user, email, passwordResetButton, handler } = renderComponent();
 
-        await user.type(email, "green")
-        await user.click(passwordResetButton)
+    await user.type(email, 'green');
+    await user.click(passwordResetButton);
 
-        expect(handler).not.toHaveBeenCalled();
-    })
-
+    expect(handler).not.toHaveBeenCalled();
+  });
 });

@@ -2,7 +2,7 @@ import { mockNavigate } from '../__mocks__/reactRouterMock';
 import { server } from '../__mocks__/server';
 
 import { MemoryRouter } from 'react-router';
-import { http } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { ToastContainer } from 'react-toastify';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

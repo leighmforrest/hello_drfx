@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { http } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 import IndexPage from '../../src/pages/IndexPage';
 import { BASE_URL } from '../../settings';

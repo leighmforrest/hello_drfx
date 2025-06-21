@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from 'react';
 import api from '../apiClient.js';
 import { BASE_URL, endpoints } from '../../settings.js';
@@ -10,30 +11,29 @@ const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-  let isMounted = true;
-  setLoading(true);
+    let isMounted = true;
+    setLoading(true);
 
-  (async () => {
-    try {
-      if (!(await isLoggedIn())) {
+    (async () => {
+      try {
+        if (!(await isLoggedIn())) {
+          if (isMounted) setUser(null);
+        } else {
+          const { data: userData } = await api.get(endpoints.user);
+          if (isMounted) setUser(userData);
+        }
+      } catch {
+        await clearAuthTokens();
         if (isMounted) setUser(null);
-      } else {
-        const { data: userData } = await api.get(endpoints.user);
-        if (isMounted) setUser(userData);
+      } finally {
+        if (isMounted) setLoading(false);
       }
-    } catch (error) {
-      await clearAuthTokens();
-      if (isMounted) setUser(null);
-    } finally {
-      if (isMounted) setLoading(false);
-    }
-  })();
+    })();
 
-  return () => {
-    isMounted = false;
-  };
-}, []);
-
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const login = async (email, password) => {
     try {

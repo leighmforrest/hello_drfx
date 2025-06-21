@@ -2,7 +2,7 @@ import { mockNavigate } from '../__mocks__/reactRouterMock';
 import { server } from '../__mocks__/server';
 
 import { MemoryRouter } from 'react-router';
-import { http } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { ToastContainer } from 'react-toastify';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -14,7 +14,7 @@ describe('PasswordResetRequest', () => {
   const renderComponent = () => {
     return {
       ...render(
-        <MemoryRouter initialEntries={["/password/reset/confirm/:uid/:token"]}>
+        <MemoryRouter initialEntries={['/password/reset/confirm/:uid/:token']}>
           <ToastContainer />
           <PasswordResetConfirm />
         </MemoryRouter>,
@@ -40,7 +40,9 @@ describe('PasswordResetRequest', () => {
 
     await waitFor(async () => {
       expect(
-        await screen.findByText(/password successfully changed. you may log in./i),
+        await screen.findByText(
+          /password successfully changed. you may log in./i,
+        ),
       ).toBeInTheDocument();
       expect(mockNavigate).toHaveBeenCalledWith('/login');
     });
@@ -61,9 +63,7 @@ describe('PasswordResetRequest', () => {
 
     await waitFor(async () => {
       expect(
-        await screen.findByText(
-          /your password could not be changed./i,
-        ),
+        await screen.findByText(/your password could not be changed./i),
       ).toBeInTheDocument();
     });
   });

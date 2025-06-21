@@ -45,7 +45,9 @@ describe('LoginForm', () => {
   it('renders a password reset link', () => {
     renderComponent();
 
-    expect(screen.getByRole('link')).toHaveTextContent(/forgot your password?/i)
+    expect(screen.getByRole('link')).toHaveTextContent(
+      /forgot your password?/i,
+    );
   });
 
   test.each([

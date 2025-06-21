@@ -16,7 +16,7 @@ const PasswordResetRequest = () => {
       );
 
       navigate('/login');
-    } catch (error) {
+    } catch {
       toast.error('Your password could not be reset. Please try again.');
     }
   };

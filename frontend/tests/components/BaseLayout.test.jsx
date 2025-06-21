@@ -1,5 +1,4 @@
 import * as UserProviderModule from '../../src/contexts/UserProvider';
-import { mockUserContext } from '../__mocks__/userProviderMock';
 
 import { MemoryRouter, Routes, Route } from 'react-router';
 import { render, screen } from '@testing-library/react';

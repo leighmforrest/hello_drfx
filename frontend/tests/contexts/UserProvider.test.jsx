@@ -1,6 +1,6 @@
 import { server } from '../__mocks__/server';
 
-import { http } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { setAuthTokens } from 'axios-jwt';
 import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@testing-library/react';
@@ -66,7 +66,7 @@ describe('UserProvider', () => {
   it('retrieves user with auth tokens', async () => {
     await setValidTokens();
 
-    const { user } = await renderComponent();
+    await renderComponent();
 
     await waitFor(() => {
       userAssertions();
