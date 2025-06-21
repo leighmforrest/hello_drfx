@@ -7,19 +7,19 @@ import { ToastContainer } from 'react-toastify';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import PasswordResetRequest from '../../src/pages/PasswordResetRequest';
+import PasswordResetConfirm from '../../src/pages/PasswordResetConfirm';
 import { BASE_URL, endpoints } from '../../settings';
 
 describe('PasswordResetRequest', () => {
   const renderComponent = () => {
     return {
       ...render(
-        <MemoryRouter>
+        <MemoryRouter initialEntries={["/password/reset/confirm/:uid/:token"]}>
           <ToastContainer />
-          <PasswordResetRequest />
+          <PasswordResetConfirm />
         </MemoryRouter>,
       ),
-      email: screen.getByLabelText(/email/i),
+      password: screen.getByLabelText(/password/i),
       passwordResetButton: screen.getByRole('button', {
         name: /reset password/i,
       }),
@@ -28,19 +28,19 @@ describe('PasswordResetRequest', () => {
   };
 
   it('renders', () => {
-    const { email, passwordResetButton } = renderComponent();
-    expect(email).toBeInTheDocument();
+    const { password, passwordResetButton } = renderComponent();
+    expect(password).toBeInTheDocument();
     expect(passwordResetButton).toBeInTheDocument();
   });
 
   it('successfully submits a valid form', async () => {
-    const { email, passwordResetButton, user } = renderComponent();
-    await user.type(email, 'rod@example.com');
+    const { password, passwordResetButton, user } = renderComponent();
+    await user.type(password, 'Testpass1234');
     await user.click(passwordResetButton);
 
     await waitFor(async () => {
       expect(
-        await screen.findByText(/If your email exists/i),
+        await screen.findByText(/password successfully changed. you may log in./i),
       ).toBeInTheDocument();
       expect(mockNavigate).toHaveBeenCalledWith('/login');
     });
@@ -49,20 +49,20 @@ describe('PasswordResetRequest', () => {
   it('should show error if api returns an error', async () => {
     // override the api
     server.use(
-      http.post(`${BASE_URL}${endpoints.passwordReset}`, async () => {
+      http.post(`${BASE_URL}${endpoints.passwordResetConfirm}`, async () => {
         return HttpResponse.json({}, { status: 400 });
       }),
     );
 
-    const { email, passwordResetButton, user } = renderComponent();
+    const { password, passwordResetButton, user } = renderComponent();
 
-    await user.type(email, 'rod@example.com');
+    await user.type(password, 'Testpass1234');
     await user.click(passwordResetButton);
 
     await waitFor(async () => {
       expect(
         await screen.findByText(
-          /your password could not be reset. please try again./i,
+          /your password could not be changed./i,
         ),
       ).toBeInTheDocument();
     });

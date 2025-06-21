@@ -6,10 +6,6 @@ import PasswordResetRequestForm from '../../src/components/forms/PasswordResetRe
 describe('PasswordResetRequestForm', () => {
   const renderComponent = () => {
 
-    beforeEach(()=> {
-        vi.reset
-    })
-
     const mockOnPasswordResetRequest = vi.fn();
 
     return {

@@ -21,9 +21,6 @@ const PasswordResetConfirmForm = ({ onPasswordResetConfirm }) => {
       className="bg-white dark:bg-blue-950 shadow-md rounded px-8 pt-6 pb-8 mb-4"
     >
       <h2 className="text-3xl text-center mb-5">Reset Your Password</h2>
-      {errors.root && (
-        <p className="text-red-500 text-sm mb-4">{errors.root.message}</p>
-      )}
 
       <Input
         id="new_password"

@@ -49,6 +49,9 @@ export const handlers = [
   http.post(`${BASE_URL}${endpoints.passwordReset}`, async () => {
     return HttpResponse.json({}, { status: 204 });
   }),
+  http.post(`${BASE_URL}${endpoints.passwordResetConfirm}`, async () => {
+    return HttpResponse.json({}, { status: 204 });
+  }),
   http.all('*', ({ request }) => {
     console.log('🔴 Unhandled request to:', request.url);
     return new HttpResponse(null, { status: 500 });

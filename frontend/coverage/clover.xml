@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1750375157248" clover="3.2.0">
-  <project timestamp="1750375157248" name="All files">
-    <metrics statements="720" coveredstatements="643" conditionals="104" coveredconditionals="98" methods="41" coveredmethods="38" elements="865" coveredelements="779" complexity="0" loc="720" ncloc="720" packages="9" files="27" classes="27"/>
+<coverage generated="1750521706171" clover="3.2.0">
+  <project timestamp="1750521706172" name="All files">
+    <metrics statements="718" coveredstatements="715" conditionals="107" coveredconditionals="103" methods="43" coveredmethods="42" elements="868" coveredelements="860" complexity="0" loc="718" ncloc="718" packages="9" files="27" classes="27"/>
     <package name="frontend">
       <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="settings.js" path="/Users/leighforrest/Desktop/code/hello/frontend/settings.js">
@@ -111,11 +111,11 @@
         <metrics statements="8" coveredstatements="8" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="6" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="7" count="21" type="stmt"/>
-        <line num="8" count="21" type="stmt"/>
-        <line num="9" count="21" type="stmt"/>
-        <line num="11" count="21" type="stmt"/>
-        <line num="12" count="21" type="stmt"/>
+        <line num="7" count="24" type="stmt"/>
+        <line num="8" count="24" type="stmt"/>
+        <line num="9" count="24" type="stmt"/>
+        <line num="11" count="24" type="stmt"/>
+        <line num="12" count="24" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
       </file>
       <file name="Navbar.jsx" path="/Users/leighforrest/Desktop/code/hello/frontend/src/components/Navbar.jsx">
@@ -257,32 +257,32 @@
       </file>
     </package>
     <package name="frontend.src.components.forms">
-      <metrics statements="192" coveredstatements="154" conditionals="12" coveredconditionals="11" methods="8" coveredmethods="7"/>
+      <metrics statements="190" coveredstatements="190" conditionals="13" coveredconditionals="13" methods="9" coveredmethods="9"/>
       <file name="Input.jsx" path="/Users/leighforrest/Desktop/code/hello/frontend/src/components/forms/Input.jsx">
         <metrics statements="24" coveredstatements="24" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="2" count="134" type="stmt"/>
-        <line num="3" count="134" type="stmt"/>
-        <line num="4" count="134" type="stmt"/>
-        <line num="5" count="134" type="stmt"/>
-        <line num="6" count="134" type="stmt"/>
-        <line num="8" count="134" type="stmt"/>
-        <line num="9" count="134" type="stmt"/>
-        <line num="10" count="134" type="stmt"/>
-        <line num="11" count="134" type="stmt"/>
-        <line num="12" count="134" type="stmt"/>
-        <line num="13" count="134" type="stmt"/>
-        <line num="14" count="134" type="stmt"/>
-        <line num="15" count="134" type="stmt"/>
-        <line num="16" count="134" type="cond" truecount="2" falsecount="0"/>
-        <line num="17" count="134" type="stmt"/>
-        <line num="18" count="134" type="stmt"/>
-        <line num="19" count="134" type="cond" truecount="1" falsecount="0"/>
-        <line num="20" count="14" type="stmt"/>
-        <line num="21" count="14" type="stmt"/>
-        <line num="22" count="14" type="stmt"/>
-        <line num="24" count="134" type="stmt"/>
-        <line num="26" count="134" type="stmt"/>
+        <line num="2" count="150" type="stmt"/>
+        <line num="3" count="150" type="stmt"/>
+        <line num="4" count="150" type="stmt"/>
+        <line num="5" count="150" type="stmt"/>
+        <line num="6" count="150" type="stmt"/>
+        <line num="8" count="150" type="stmt"/>
+        <line num="9" count="150" type="stmt"/>
+        <line num="10" count="150" type="stmt"/>
+        <line num="11" count="150" type="stmt"/>
+        <line num="12" count="150" type="stmt"/>
+        <line num="13" count="150" type="stmt"/>
+        <line num="14" count="150" type="stmt"/>
+        <line num="15" count="150" type="stmt"/>
+        <line num="16" count="150" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="150" type="stmt"/>
+        <line num="18" count="150" type="stmt"/>
+        <line num="19" count="150" type="cond" truecount="1" falsecount="0"/>
+        <line num="20" count="15" type="stmt"/>
+        <line num="21" count="15" type="stmt"/>
+        <line num="22" count="15" type="stmt"/>
+        <line num="24" count="150" type="stmt"/>
+        <line num="26" count="150" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
       </file>
       <file name="LoginForm.jsx" path="/Users/leighforrest/Desktop/code/hello/frontend/src/components/forms/LoginForm.jsx">
@@ -338,45 +338,43 @@
         <line num="57" count="1" type="stmt"/>
       </file>
       <file name="PasswordResetConfirmForm.jsx" path="/Users/leighforrest/Desktop/code/hello/frontend/src/components/forms/PasswordResetConfirmForm.jsx">
-        <metrics statements="38" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
+        <metrics statements="36" coveredstatements="36" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="7" count="16" type="stmt"/>
+        <line num="8" count="16" type="stmt"/>
+        <line num="9" count="16" type="stmt"/>
+        <line num="10" count="16" type="stmt"/>
+        <line num="11" count="16" type="stmt"/>
+        <line num="12" count="16" type="stmt"/>
+        <line num="13" count="16" type="stmt"/>
+        <line num="15" count="16" type="cond" truecount="1" falsecount="0"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="16" type="stmt"/>
+        <line num="19" count="16" type="stmt"/>
+        <line num="20" count="16" type="stmt"/>
+        <line num="21" count="16" type="stmt"/>
+        <line num="23" count="16" type="stmt"/>
+        <line num="25" count="16" type="stmt"/>
+        <line num="26" count="16" type="stmt"/>
+        <line num="27" count="16" type="stmt"/>
+        <line num="28" count="16" type="stmt"/>
+        <line num="29" count="16" type="stmt"/>
+        <line num="30" count="16" type="stmt"/>
+        <line num="31" count="16" type="stmt"/>
+        <line num="32" count="16" type="stmt"/>
+        <line num="33" count="16" type="stmt"/>
+        <line num="34" count="16" type="stmt"/>
+        <line num="35" count="16" type="stmt"/>
+        <line num="36" count="16" type="stmt"/>
+        <line num="38" count="16" type="stmt"/>
+        <line num="39" count="16" type="stmt"/>
+        <line num="41" count="16" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
       </file>
       <file name="PasswordResetRequestForm.jsx" path="/Users/leighforrest/Desktop/code/hello/frontend/src/components/forms/PasswordResetRequestForm.jsx">
         <metrics statements="35" coveredstatements="35" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
@@ -522,7 +520,7 @@
         <line num="17" count="20" type="stmt"/>
         <line num="18" count="20" type="cond" truecount="1" falsecount="0"/>
         <line num="19" count="17" type="stmt"/>
-        <line num="20" count="20" type="cond" truecount="1" falsecount="0"/>
+        <line num="20" count="17" type="cond" truecount="1" falsecount="0"/>
         <line num="21" count="3" type="cond" truecount="1" falsecount="0"/>
         <line num="22" count="2" type="stmt"/>
         <line num="23" count="3" type="stmt"/>
@@ -585,7 +583,7 @@
       </file>
     </package>
     <package name="frontend.src.pages">
-      <metrics statements="177" coveredstatements="141" conditionals="21" coveredconditionals="20" methods="9" coveredmethods="8"/>
+      <metrics statements="177" coveredstatements="177" conditionals="23" coveredconditionals="23" methods="10" coveredmethods="10"/>
       <file name="IndexPage.jsx" path="/Users/leighforrest/Desktop/code/hello/frontend/src/pages/IndexPage.jsx">
         <metrics statements="34" coveredstatements="34" conditionals="8" coveredconditionals="8" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
@@ -669,43 +667,43 @@
         <line num="15" count="1" type="stmt"/>
       </file>
       <file name="PasswordResetConfirm.jsx" path="/Users/leighforrest/Desktop/code/hello/frontend/src/pages/PasswordResetConfirm.jsx">
-        <metrics statements="36" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
+        <metrics statements="36" coveredstatements="36" conditionals="3" coveredconditionals="3" methods="2" coveredmethods="2"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="13" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="20" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="29" count="3" type="stmt"/>
+        <line num="30" count="3" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="32" count="3" type="stmt"/>
+        <line num="33" count="3" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
+        <line num="37" count="3" type="stmt"/>
+        <line num="38" count="3" type="stmt"/>
+        <line num="40" count="3" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
       </file>
       <file name="PasswordResetRequest.jsx" path="/Users/leighforrest/Desktop/code/hello/frontend/src/pages/PasswordResetRequest.jsx">
         <metrics statements="31" coveredstatements="31" conditionals="3" coveredconditionals="3" methods="2" coveredmethods="2"/>
