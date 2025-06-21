@@ -10,28 +10,30 @@ const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      setLoading(true); // <-- should be here
+  let isMounted = true;
+  setLoading(true);
 
-      try {
-        if (!(await isLoggedIn())) {
-          console.log('User is not logged in.');
-          setUser(null);
-        } else {
-          const { data: userData } = await api.get(endpoints.user);
-          setUser(userData);
-        }
-      } catch (error) {
-        if (error.response?.status === 401) {
-          console.log('Failed to fetch user: ', error);
-        }
-        await clearAuthTokens();
-        setUser(null);
-      } finally {
-        setLoading(false); // <-- keep this here
+  (async () => {
+    try {
+      if (!(await isLoggedIn())) {
+        if (isMounted) setUser(null);
+      } else {
+        const { data: userData } = await api.get(endpoints.user);
+        if (isMounted) setUser(userData);
       }
-    })();
-  }, []);
+    } catch (error) {
+      await clearAuthTokens();
+      if (isMounted) setUser(null);
+    } finally {
+      if (isMounted) setLoading(false);
+    }
+  })();
+
+  return () => {
+    isMounted = false;
+  };
+}, []);
+
 
   const login = async (email, password) => {
     try {
