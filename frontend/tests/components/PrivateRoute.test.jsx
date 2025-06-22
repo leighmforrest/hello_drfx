@@ -7,6 +7,7 @@ import { render, screen } from '@testing-library/react';
 import { useUser } from '../../src/contexts/UserProvider';
 import PrivateRoute from '../../src/components/PrivateRoute';
 
+
 const TestPrivatePage = () => {
   const { user } = useUser();
 
@@ -30,6 +31,7 @@ describe('PrivateRoute', () => {
                 <Route index element={<TestPrivatePage />} />
               </Route>
               <Route path="/login" element={<p>Login Page</p>} />
+              <Route path="/register" element={<p>Registration Page</p>} />
             </Routes>
           </MemoryRouter>
         </UserProviderModule.default>,
