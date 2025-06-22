@@ -5,7 +5,7 @@ import { setAuthTokens } from 'axios-jwt';
 import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@testing-library/react';
 
-import { authTokens } from '../constants';
+import { authTokens, refreshedAuthTokens } from '../constants';
 import { BASE_URL, endpoints } from '../../settings';
 import UserProvider, { useUser } from '../../src/contexts/UserProvider';
 
@@ -106,4 +106,23 @@ describe('UserProvider', () => {
       expect(localStorage.length).toBe(0);
     });
   });
+
+  it("should render 'no user' if token refresh fails",async ()=> {
+    // set up msw handler
+    server.use(
+      http.post(`${BASE_URL}`, async () => {
+        return HttpResponse.json({}, { status:  401});
+      }),
+    );
+
+    // set the localstorage to refreshed tokens
+    await setAuthTokens({
+    accessToken: refreshedAuthTokens.access,
+    refreshToken: refreshedAuthTokens.refresh,
+    });
+
+    await renderComponent();
+
+    await waitFor(()=> noUserAssertions())
+  })
 });

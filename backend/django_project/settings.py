@@ -27,7 +27,7 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.sites"
+    "django.contrib.sites",
 ]
 
 THIRD_PARTY_APPS = [
@@ -134,7 +134,7 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 DJOSER = {
     "PASSWORD_RESET_CONFIRM_RETYPE": False,
     "USER_CREATE_PASSWORD_RETYPE": False,
-    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
 }
 
 
@@ -154,6 +154,7 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 
 
@@ -168,8 +169,9 @@ else:
 # SECURITY SETTINGS NOTE: DEFAULTS ARE FOR PRODUCTION ENVIRONMENTS
 SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
 SECURE_HSTS_SECONDS = env.int("DJANGO_SECURE_HSTS_SECONDS", default=2592000)  # 30 days
-SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS",
-    default=True)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
+    "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True
+)
 SECURE_HSTS_PRELOAD = env.bool("DJANGO_SECURE_HSTS_PRELOAD", default=True)
 SESSION_COOKIE_SECURE = env.bool("DJANGO_SESSION_COOKIE_SECURE", default=True)
 CSRF_COOKIE_SECURE = env.bool("DJANGO_CSRF_COOKIE_SECURE", default=True)
