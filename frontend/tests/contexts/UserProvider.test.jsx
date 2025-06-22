@@ -107,22 +107,22 @@ describe('UserProvider', () => {
     });
   });
 
-  it("should render 'no user' if token refresh fails",async ()=> {
+  it("should render 'no user' if token refresh fails", async () => {
     // set up msw handler
     server.use(
       http.post(`${BASE_URL}`, async () => {
-        return HttpResponse.json({}, { status:  401});
+        return HttpResponse.json({}, { status: 401 });
       }),
     );
 
     // set the localstorage to refreshed tokens
     await setAuthTokens({
-    accessToken: refreshedAuthTokens.access,
-    refreshToken: refreshedAuthTokens.refresh,
+      accessToken: refreshedAuthTokens.access,
+      refreshToken: refreshedAuthTokens.refresh,
     });
 
     await renderComponent();
 
-    await waitFor(()=> noUserAssertions())
-  })
+    await waitFor(() => noUserAssertions());
+  });
 });

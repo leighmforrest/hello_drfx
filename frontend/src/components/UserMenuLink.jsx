@@ -1,7 +1,7 @@
-import { NavLink } from "react-router";
+import { NavLink } from 'react-router';
 
 const UserMenuLink = ({ onLinkClick, to, end = false, children }) => (
-  <li>
+  <li data-testid="usermenulink">
     <NavLink
       to={to}
       end={end}

@@ -7,7 +7,6 @@ import { render, screen } from '@testing-library/react';
 import { useUser } from '../../src/contexts/UserProvider';
 import PrivateRoute from '../../src/components/PrivateRoute';
 
-
 const TestPrivatePage = () => {
   const { user } = useUser();
 

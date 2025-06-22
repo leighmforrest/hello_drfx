@@ -22,7 +22,7 @@ describe('UserMenuLink', () => {
             <Route path="/" element={<p>Index Page</p>} />
             <Route path="/green" element={<p>Green Page</p>} />
           </Routes>
-        </MemoryRouter>
+        </MemoryRouter>,
       ),
       user: userEvent.setup(),
     };

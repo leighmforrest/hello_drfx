@@ -7,6 +7,7 @@ import userEvent from '@testing-library/user-event';
 
 import Navbar from '../../src/components/Navbar';
 import ThemeProvider from '../../src/contexts/ThemeProvider';
+import { expect } from 'vitest';
 
 describe('Navbar', () => {
   beforeEach(() => {
@@ -100,5 +101,15 @@ describe('Navbar', () => {
     expect(screen.getByTestId('spinner')).toBeInTheDocument();
   });
 
-  
+  test.each([
+    [null, 3],
+    [{ email: 'rod@example.com' }, 0],
+  ])('has navlink for %s', (userContext, navLinkCount) => {
+    mockUserContext.user = userContext;
+
+    renderComponent();
+
+    const menuLinks = screen.queryAllByTestId('usermenulink');
+    expect(menuLinks).toHaveLength(navLinkCount);
+  });
 });
