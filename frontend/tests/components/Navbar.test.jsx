@@ -99,17 +99,6 @@ describe('Navbar', () => {
 
     expect(screen.getByTestId('spinner')).toBeInTheDocument();
   });
-  // test.each([
-  //   [null],
-  //   [mockUserContext],
-  // ])("hover class should be present when active link hovered",async ()=> {
-  //   const { user } = renderComponent();
 
-  //    const links = screen.getAllByRole("link")
-     
-  //    links.forEach(async (link) => {
-  //     await user.hover(link)
-  //     screen.debug(link)
-  //    })
-  // })
+  
 });

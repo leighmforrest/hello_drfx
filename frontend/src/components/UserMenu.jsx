@@ -2,6 +2,7 @@ import { NavLink } from 'react-router';
 import { FaHome, FaSignInAlt } from 'react-icons/fa';
 import { useUser } from '../contexts/UserProvider';
 import Spinner from './Spinner';
+import UserMenuLink from './UserMenuLink';
 
 const UserMenu = ({ onLinkClick }) => {
   const { user, loading, logout } = useUser();
@@ -17,46 +18,15 @@ const UserMenu = ({ onLinkClick }) => {
     </>
   ) : (
     <>
-      <li>
-        <NavLink
-          to="/"
-          end
-          onClick={onLinkClick}
-          className={({ isActive }) =>
-            `flex items-center justify-center gap-2 hover:text-amber-100 transition-colors ${
-              isActive ? 'text-amber-300 font-semibold' : ''
-            }`
-          }
-        >
-          <FaHome /> Home
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/login"
-          onClick={onLinkClick}
-          className={({ isActive }) =>
-            `flex items-center justify-center gap-2 hover:text-amber-100 transition-colors ${
-              isActive ? 'text-amber-300 font-semibold' : ''
-            }`
-          }
-        >
-          <FaSignInAlt /> Login
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/register"
-          onClick={onLinkClick}
-          className={({ isActive }) =>
-            `flex items-center justify-center gap-2 hover:text-amber-100 transition-colors ${
-              isActive ? 'text-amber-300 font-semibold' : ''
-            }`
-          }
-        >
-          Register
-        </NavLink>
-      </li>
+      <UserMenuLink to="/" onClick={onLinkClick} end>
+        <FaHome /> Home
+      </UserMenuLink>
+      <UserMenuLink to="/login" onClick={onLinkClick}>
+        <FaSignInAlt /> Login
+      </UserMenuLink>
+      <UserMenuLink to="/register" onClick={onLinkClick}>
+        Register
+      </UserMenuLink>
     </>
   );
 };
