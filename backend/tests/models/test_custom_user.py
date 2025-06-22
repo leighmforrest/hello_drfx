@@ -3,20 +3,17 @@ from django.contrib.auth import get_user_model
 
 
 CustomUser = get_user_model()
-
 pytestmark = pytest.mark.django_db
 
 
 class TestCustomUser:
-    def test_create_user(self):
-        result = CustomUser.objects.create_user("rod@example.com", "T3$TPa$$123")
-
-        assert isinstance(result, CustomUser)
-        assert result.username is None
-        assert result.email == "rod@example.com"
-        assert result.is_active == True
-        assert result.is_staff == False
-        assert result.is_superuser == False
+    def test_create_user(self, test_user):
+        assert isinstance(test_user, CustomUser)
+        assert test_user.username is None
+        assert test_user.email == "rod@example.com"
+        assert test_user.is_active == True
+        assert test_user.is_staff == False
+        assert test_user.is_superuser == False
     
     def test_create_superuser(self):
         result = CustomUser.objects.create_superuser(

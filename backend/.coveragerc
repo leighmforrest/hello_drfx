@@ -1,0 +1,21 @@
+[run]
+branch = True
+source = django_project
+
+[report]
+omit =
+    */migrations/*
+    */tests/*
+    */__init__.py
+    manage.py
+    */settings.py
+    */wsgi.py
+    */asgi.py
+show_missing = True
+skip_covered = True
+
+[html]
+directory = htmlcov
+
+[paths]
+source = django_project
