@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 import { ToastContainer } from 'react-toastify';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
 
 import ThemeProvider from './contexts/ThemeProvider';
 import UserProvider from './contexts/UserProvider';
@@ -15,37 +18,42 @@ import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import PasswordRestRequest from './pages/PasswordResetRequest';
 
+const queryClient = new QueryClient();
+
 const App = () => {
   return (
-    <UserProvider>
-      <ThemeProvider>
-        <ToastContainer />
-        <BrowserRouter>
-          <Routes>
-            <Route element={<BaseLayout />}>
-              {/* Private routes */}
-              <Route element={<PrivateRoute />}>
-                <Route index element={<IndexPage />} />
-              </Route>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <UserProvider>
+        <ThemeProvider>
+          <ToastContainer />
+          <BrowserRouter>
+            <Routes>
+              <Route element={<BaseLayout />}>
+                {/* Private routes */}
+                <Route element={<PrivateRoute />}>
+                  <Route index element={<IndexPage />} />
+                </Route>
 
-              {/* Public routes */}
-              <Route element={<PublicRoute />}>
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegistrationPage />} />
+                {/* Public routes */}
+                <Route element={<PublicRoute />}>
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/register" element={<RegistrationPage />} />
+                </Route>
+                <Route path="/password/reset" element={<PublicRoute />}>
+                  <Route index element={<PasswordRestRequest />} />
+                  <Route
+                    path="/password/reset/confirm/:uid/:token"
+                    element={<PasswordResetConfirm />}
+                  />
+                </Route>
+                <Route path="*" element={<NotFoundPage />} />
               </Route>
-              <Route path="/password/reset" element={<PublicRoute />}>
-                <Route index element={<PasswordRestRequest />} />
-                <Route
-                  path="/password/reset/confirm/:uid/:token"
-                  element={<PasswordResetConfirm />}
-                />
-              </Route>
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </ThemeProvider>
-    </UserProvider>
+            </Routes>
+          </BrowserRouter>
+        </ThemeProvider>
+      </UserProvider>
+    </QueryClientProvider>
   );
 };
 

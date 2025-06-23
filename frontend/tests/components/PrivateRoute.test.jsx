@@ -1,11 +1,12 @@
-import * as UserProviderModule from '../../src/contexts/UserProvider';
-import { mockUserContext } from '../__mocks__/userProviderMock';
+import { mockUserContext } from '../__mocks__/mockUserProvider';
+import UserProvider from '../../src/contexts/UserProvider'; // must come after `vi.mock`
 
 import { MemoryRouter, Routes, Route } from 'react-router';
 import { render, screen } from '@testing-library/react';
 
 import { useUser } from '../../src/contexts/UserProvider';
 import PrivateRoute from '../../src/components/PrivateRoute';
+
 
 const TestPrivatePage = () => {
   const { user } = useUser();
@@ -23,7 +24,7 @@ describe('PrivateRoute', () => {
   const renderComponent = () => {
     return {
       ...render(
-        <UserProviderModule.default>
+        <UserProvider>
           <MemoryRouter>
             <Routes>
               <Route path="/" element={<PrivateRoute />}>
@@ -33,7 +34,7 @@ describe('PrivateRoute', () => {
               <Route path="/register" element={<p>Registration Page</p>} />
             </Routes>
           </MemoryRouter>
-        </UserProviderModule.default>,
+        </UserProvider>,
       ),
     };
   };

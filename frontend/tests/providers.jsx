@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import UserProvider from '../src/contexts/UserProvider';
 
 /**
@@ -7,7 +8,10 @@ import UserProvider from '../src/contexts/UserProvider';
  */
 export const TestUserProvider = ({ children }) => {
     // Insert Tanstack Query Client here; you will need a fresh provider for every test
+    const queryClient = new QueryClient()
 
     return (
-  <UserProvider>{children}</UserProvider>
+  <QueryClientProvider client={queryClient}>
+    <UserProvider>{children}</UserProvider>
+  </QueryClientProvider>   
 );}

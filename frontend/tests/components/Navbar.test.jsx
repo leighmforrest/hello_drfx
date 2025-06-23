@@ -1,5 +1,6 @@
-import * as UserProviderModule from '../../src/contexts/UserProvider';
-import { mockUserContext } from '../__mocks__/userProviderMock';
+import { mockUserContext } from '../__mocks__/mockUserProvider';
+import UserProvider from '../../src/contexts/UserProvider'; // must come after `vi.mock`
+
 
 import { screen, render, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
@@ -7,7 +8,7 @@ import userEvent from '@testing-library/user-event';
 
 import Navbar from '../../src/components/Navbar';
 import ThemeProvider from '../../src/contexts/ThemeProvider';
-import { expect } from 'vitest';
+
 
 describe('Navbar', () => {
   beforeEach(() => {
@@ -28,9 +29,9 @@ describe('Navbar', () => {
       ...render(
         <MemoryRouter>
           <ThemeProvider>
-            <UserProviderModule.default>
+            <UserProvider>
               <Navbar />
-            </UserProviderModule.default>
+            </UserProvider>
           </ThemeProvider>
         </MemoryRouter>,
       ),

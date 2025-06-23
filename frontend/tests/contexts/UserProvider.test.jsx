@@ -104,6 +104,7 @@ describe('UserProvider', () => {
 
     await waitFor(() => {
       noUserAssertions();
+      console.log(localStorage)
       expect(localStorage.length).toBe(0);
     });
   });
