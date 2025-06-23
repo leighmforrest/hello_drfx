@@ -7,7 +7,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 
 import { authTokens, refreshedAuthTokens } from '../constants';
 import { BASE_URL, endpoints } from '../../settings';
-import UserProvider, { useUser } from '../../src/contexts/UserProvider';
+import { useUser } from '../../src/contexts/UserProvider';
+import { TestUserProvider } from '../providers';
 
 const setValidTokens = async () => {
   /** Set valid testing JWT tokens. */
@@ -55,9 +56,9 @@ describe('UserProvider', () => {
   const renderComponent = async () => {
     return {
       ...render(
-        <UserProvider>
+        <TestUserProvider>
           <TestUserComponent />
-        </UserProvider>,
+        </TestUserProvider>,
       ),
       user: userEvent.setup(),
     };

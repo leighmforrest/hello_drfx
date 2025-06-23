@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router';
 import { render, screen, waitFor } from '@testing-library/react';
 
 import LoginPage from '../../src/pages/LoginPage';
-import UserProvider from '../../src/contexts/UserProvider';
+import { TestUserProvider } from '../providers';
 import userEvent from '@testing-library/user-event';
 import { ToastContainer } from 'react-toastify';
 
@@ -16,9 +16,9 @@ describe('LoginPage', () => {
       ...render(
         <MemoryRouter>
           <ToastContainer />
-          <UserProvider>
+          <TestUserProvider>
             <LoginPage />
-          </UserProvider>
+          </TestUserProvider>
         </MemoryRouter>,
       ),
       user: userEvent.setup(),
