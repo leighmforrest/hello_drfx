@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { mockUserContext } from '../__mocks__/mockUserProvider';
 
 import UserProvider from '../../src/contexts/UserProvider'; // must come after `vi.mock`

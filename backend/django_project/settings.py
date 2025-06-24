@@ -159,12 +159,18 @@ REST_FRAMEWORK = {
 
 
 # SETTINGS FOR DEVELOPMENT
-if DEBUG:
-    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-# SETTINGS FOR PRODUCTION
-else:
-    # EMAIL SETTINGS
-    pass
+# if DEBUG:
+#     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# # SETTINGS FOR PRODUCTION
+# else:
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL")
+EMAIL_HOST = env.str("EMAIL_HOST")  
+EMAIL_PORT = 587 
+EMAIL_USE_TLS = True 
+EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
+
 
 # SECURITY SETTINGS NOTE: DEFAULTS ARE FOR PRODUCTION ENVIRONMENTS
 SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)

@@ -13,6 +13,7 @@ const requestRefresh = async (refresh) => {
       refresh,
     });
 
+    console.log("TOKENS REFRESHED")
     return {
       accessToken: data.access,
       refreshToken: data.refresh,
