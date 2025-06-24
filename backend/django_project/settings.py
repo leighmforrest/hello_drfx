@@ -135,6 +135,8 @@ DJOSER = {
     "PASSWORD_RESET_CONFIRM_RETYPE": False,
     "USER_CREATE_PASSWORD_RETYPE": False,
     "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
 }
 
 
@@ -158,18 +160,17 @@ REST_FRAMEWORK = {
 }
 
 
-# SETTINGS FOR DEVELOPMENT
-# if DEBUG:
-#     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-# # SETTINGS FOR PRODUCTION
-# else:
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL")
-EMAIL_HOST = env.str("EMAIL_HOST")  
-EMAIL_PORT = 587 
-EMAIL_USE_TLS = True 
-EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
+# EMAIL SETTINGS
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL")
+    EMAIL_HOST = env.str("EMAIL_HOST")  
+    EMAIL_PORT = 587 
+    EMAIL_USE_TLS = True 
+    EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
 
 
 # SECURITY SETTINGS NOTE: DEFAULTS ARE FOR PRODUCTION ENVIRONMENTS

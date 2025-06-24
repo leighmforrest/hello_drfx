@@ -13,6 +13,7 @@ import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
 import NotFoundPage from './pages/NotFoundPage';
 import PasswordResetConfirm from './pages/PasswordResetConfirm';
+import AccountActivationPage from './pages/AccountActivationPage';
 
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
@@ -39,11 +40,12 @@ const App = () => {
                 <Route element={<PublicRoute />}>
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/register" element={<RegistrationPage />} />
+                  <Route path='/activate/:uid/:token' element={<AccountActivationPage/>}/>
                 </Route>
                 <Route path="/password/reset" element={<PublicRoute />}>
                   <Route index element={<PasswordRestRequest />} />
                   <Route
-                    path="/password/reset/confirm/:uid/:token"
+                    path="confirm/:uid/:token"
                     element={<PasswordResetConfirm />}
                   />
                 </Route>
