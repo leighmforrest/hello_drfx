@@ -7,7 +7,7 @@ const UserMenuLink = ({ onLinkClick, to, end = false, children }) => (
       end={end}
       onClick={onLinkClick}
       className={({ isActive }) =>
-        `flex items-center justify-center gap-2 hover:text-amber-100 transition-colors ${
+        `flex items-center justify-center gap-2 hover:text-amber-200 transition-colors ${
           isActive ? 'text-amber-300 font-semibold' : ''
         }`
       }

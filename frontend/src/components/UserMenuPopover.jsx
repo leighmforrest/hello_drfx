@@ -21,7 +21,7 @@ const UserMenuPopover = ({ user }) => {
     <li className="relative inline-block text-left" ref={popoverRef}>
       <span
         onClick={togglePopover}
-        className="cursor-pointer flex items-center justify-center gap-2 hover:text-amber-100"
+        className="cursor-pointer flex items-center justify-center gap-2 hover:text-amber-200"
       >
         {user.email}
       </span>
@@ -39,12 +39,9 @@ const UserMenuPopover = ({ user }) => {
               Hello, {user.email}!
             </div>
             <div className="border-t px-4 py-2 text-sm text-gray-600 dark:text-amber-50">
-              <a href="" className="block hover:text-amber-50">
-                Profile
-              </a>
               <Link
                 to="/password/change"
-                className="block hover:text-amber-100"
+                className="block hover:text-amber-200"
               >
                 Password Change
               </Link>

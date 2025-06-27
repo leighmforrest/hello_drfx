@@ -45,7 +45,7 @@ describe('UserMenuLink', () => {
     const indexLink = screen.getByRole('link', { name: /index/i });
 
     await user.hover(indexLink);
-    expect(indexLink).toHaveClass('hover:text-amber-100');
+    expect(indexLink).toHaveClass('hover:text-amber-200');
 
     await user.unhover(indexLink);
   });
