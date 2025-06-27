@@ -31,6 +31,8 @@ const UserMenuPopover = ({ user }) => {
           className="absolute left-1/2 -translate-x-1/2 z-20 mt-2 w-56"
           data-testid="userpopover"
         >
+          {/** Popover Caret */}
+          <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-white dark:bg-blue-900 ring-1 ring-black dark:ring-amber-100 ring-opacity-5 z-[-1]"></div>
           {/* Popover Panel */}
           <div className="rounded-md shadow-lg bg-white dark:bg-blue-900 ring-1 ring-black dark:ring-amber-100 ring-opacity-5">
             <div className="py-2 px-4 text-sm text-gray-700 dark:text-amber-400">
