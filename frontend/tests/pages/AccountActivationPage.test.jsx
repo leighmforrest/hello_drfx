@@ -29,11 +29,11 @@ describe('AccountActivationPage', () => {
     );
   };
 
-  it("displays spinner", () => {
-    renderComponent()
+  it('displays spinner', () => {
+    renderComponent();
 
-    expect(screen.getByTestId("spinner")).toBeInTheDocument()
-  })
+    expect(screen.getByTestId('spinner')).toBeInTheDocument();
+  });
   it('navigates to /login after successful activation', async () => {
     renderComponent();
 

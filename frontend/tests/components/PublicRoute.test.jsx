@@ -5,7 +5,6 @@ import PublicRoute from '../../src/components/PublicRoute';
 import { MemoryRouter, Routes, Route } from 'react-router';
 import { render, screen } from '@testing-library/react';
 
-
 describe('PublicRoute', () => {
   beforeEach(() => {
     mockUserContext.user = null;

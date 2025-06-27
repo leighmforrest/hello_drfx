@@ -1,8 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 import { ToastContainer } from 'react-toastify';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import ThemeProvider from './contexts/ThemeProvider';
 import UserProvider from './contexts/UserProvider';
@@ -40,7 +39,10 @@ const App = () => {
                 <Route element={<PublicRoute />}>
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/register" element={<RegistrationPage />} />
-                  <Route path='/activate/:uid/:token' element={<AccountActivationPage/>}/>
+                  <Route
+                    path="/activate/:uid/:token"
+                    element={<AccountActivationPage />}
+                  />
                 </Route>
                 <Route path="/password/reset" element={<PublicRoute />}>
                   <Route index element={<PasswordRestRequest />} />

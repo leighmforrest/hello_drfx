@@ -7,11 +7,12 @@ import UserProvider from '../src/contexts/UserProvider';
  * Providers needed when the full UserProvider is needed in tests.
  */
 export const TestUserProvider = ({ children }) => {
-    // Insert Tanstack Query Client here; you will need a fresh provider for every test
-    const queryClient = new QueryClient()
+  // Insert Tanstack Query Client here; you will need a fresh provider for every test
+  const queryClient = new QueryClient();
 
-    return (
-  <QueryClientProvider client={queryClient}>
-    <UserProvider>{children}</UserProvider>
-  </QueryClientProvider>   
-);}
+  return (
+    <QueryClientProvider client={queryClient}>
+      <UserProvider>{children}</UserProvider>
+    </QueryClientProvider>
+  );
+};
