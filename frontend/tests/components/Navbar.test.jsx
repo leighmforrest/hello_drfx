@@ -7,7 +7,6 @@ import userEvent from '@testing-library/user-event';
 
 import Navbar from '../../src/components/Navbar';
 import ThemeProvider from '../../src/contexts/ThemeProvider';
-import { expect } from 'vitest';
 
 describe('Navbar', () => {
   beforeEach(() => {
@@ -89,9 +88,29 @@ describe('Navbar', () => {
     await user.click(hamburger);
 
     expect(screen.getByText(/test@example.com/i)).toBeInTheDocument();
+    expect(screen.queryByTestId('userpopover')).not.toBeInTheDocument();
+
     expect(
       screen.getByRole('button', { name: /log out/i }),
     ).toBeInTheDocument();
+  });
+
+  it('displays popover menu when email is clicked', async () => {
+    mockUserContext.user = { email: 'test@example.com' };
+
+    const { hamburger, user } = renderComponent();
+    await user.click(hamburger);
+
+    const email = screen.getByText(/test@example.com/i);
+    await user.click(email);
+
+    expect(screen.queryByTestId('userpopover')).toBeInTheDocument();
+    expect(screen.queryByText(/password change/i)).toBeInTheDocument();
+
+    await user.click(email);
+
+    expect(screen.queryByTestId('userpopover')).not.toBeInTheDocument();
+    expect(screen.queryByText(/password change/i)).not.toBeInTheDocument();
   });
 
   it('displays spinner when loading', async () => {

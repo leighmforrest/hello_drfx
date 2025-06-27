@@ -11,7 +11,6 @@ const PasswordResetConfirm = () => {
   const { uid, token } = useParams();
 
   const handlePasswordResetConfirm = async ({ new_password }) => {
-    console.log({ new_password, uid, token });
     try {
       await api.post(endpoints.passwordResetConfirm, {
         new_password,

@@ -7,4 +7,5 @@ export const endpoints = {
   register: '/accounts/users/',
   passwordReset: '/accounts/users/reset_password/',
   passwordResetConfirm: '/accounts/users/reset_password_confirm/',
+  passwordChange: '/accounts/users/set_password/',
 };

@@ -1,8 +1,11 @@
 import { NavLink } from 'react-router';
 import { FaHome, FaSignInAlt } from 'react-icons/fa';
+
 import { useUser } from '../contexts/UserProvider';
+
 import Spinner from './Spinner';
 import UserMenuLink from './UserMenuLink';
+import UserMenuPopover from './UserMenuPopover';
 
 const UserMenu = ({ onLinkClick }) => {
   const { user, loading, logout } = useUser();
@@ -11,7 +14,7 @@ const UserMenu = ({ onLinkClick }) => {
 
   return user ? (
     <>
-      <li>{user.email}</li>
+      <UserMenuPopover user={user} />
       <li>
         <button onClick={logout}>Log Out</button>
       </li>

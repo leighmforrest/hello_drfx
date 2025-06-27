@@ -26,3 +26,14 @@ export const passwordResetConfirmSchema = yup.object({
     .required('Password is required.')
     .min(6, 'Password must be at least 6 characters.'),
 });
+
+export const passwordChangeSchema = yup.object({
+  new_password: yup
+    .string()
+    .required('Password is required.')
+    .min(6, 'Password must be at least 6 characters.'),
+  current_password: yup
+    .string()
+    .required('Password is required.')
+    .min(6, 'Password must be at least 6 characters.'),
+});
