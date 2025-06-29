@@ -16,6 +16,8 @@
     "@hookform/resolvers": "^5.1.1",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.8",
+    "@tanstack/react-query": "^5.81.5",
+    "@tanstack/react-query-devtools": "^5.81.5",
     "axios": "^1.9.0",
     "axios-jwt": "^4.0.3",
     "react": "^19.1.0",

@@ -1,11 +1,12 @@
-import * as UserProviderModule from '../../src/contexts/UserProvider';
+import { mockUserContext } from '../__mocks__/userProviderMock';
+import UserProvider from '../../src/contexts/UserProvider'; // must come after `vi.mock`
 
 import { MemoryRouter, Routes, Route } from 'react-router';
 import { render, screen } from '@testing-library/react';
 
 import BaseLayout from '../../src/layouts/BaseLayout';
-import MainContainer from '../../src/components/MainContainer';
 import ThemeProvider from '../../src/contexts/ThemeProvider';
+import MainContainer from '../../src/components/MainContainer';
 
 const TestContent = () => (
   <MainContainer>
@@ -19,13 +20,13 @@ describe('BaseLayout', () => {
       ...render(
         <MemoryRouter>
           <ThemeProvider>
-            <UserProviderModule.default>
+            <UserProvider>
               <Routes>
                 <Route element={<BaseLayout />}>
                   <Route path="/" element={<TestContent />} />
                 </Route>
               </Routes>
-            </UserProviderModule.default>
+            </UserProvider>
           </ThemeProvider>
         </MemoryRouter>,
       ),
@@ -42,5 +43,17 @@ describe('BaseLayout', () => {
     expect(footer).toBeInTheDocument();
     expect(mainContainer).toBeInTheDocument();
     expect(screen.getByText(/hello world!/i)).toBeInTheDocument();
+  });
+
+  test.each([
+    [null, 3],
+    [{ email: 'rod@example.com' }, 0],
+  ])('has navlink for %s', (userContext, navLinkCount) => {
+    mockUserContext.user = userContext;
+
+    renderComponent();
+
+    const menuLinks = screen.queryAllByTestId('usermenulink');
+    expect(menuLinks).toHaveLength(navLinkCount);
   });
 });

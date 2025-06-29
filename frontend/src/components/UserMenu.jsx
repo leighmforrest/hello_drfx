@@ -15,7 +15,7 @@ const UserMenu = ({ onLinkClick }) => {
   return user ? (
     <>
       <UserMenuPopover user={user} />
-      <li className='flex items-center justify-center hover:text-amber-200'>
+      <li className="flex items-center justify-center hover:text-amber-200">
         <button onClick={logout}>Log Out</button>
       </li>
     </>

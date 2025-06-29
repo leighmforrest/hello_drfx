@@ -1,5 +1,5 @@
-import * as UserProviderModule from '../../src/contexts/UserProvider';
 import { mockUserContext } from '../__mocks__/userProviderMock';
+import UserProvider from '../../src/contexts/UserProvider'; // must come after `vi.mock`
 
 import { screen, render, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
@@ -27,9 +27,9 @@ describe('Navbar', () => {
       ...render(
         <MemoryRouter>
           <ThemeProvider>
-            <UserProviderModule.default>
+            <UserProvider>
               <Navbar />
-            </UserProviderModule.default>
+            </UserProvider>
           </ThemeProvider>
         </MemoryRouter>,
       ),
@@ -88,6 +88,25 @@ describe('Navbar', () => {
     await user.click(hamburger);
 
     expect(screen.getByText(/test@example.com/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /log out/i }),
+    ).toBeInTheDocument();
+  });
+
+  it('displays spinner when loading', async () => {
+    mockUserContext.loading = true;
+    renderComponent(1076);
+
+    expect(screen.getByTestId('spinner')).toBeInTheDocument();
+  });
+
+  it('displays email if authenticated', async () => {
+    mockUserContext.user = { email: 'test@example.com' };
+
+    const { hamburger, user } = renderComponent();
+    await user.click(hamburger);
+
+    expect(screen.getByText(/test@example.com/i)).toBeInTheDocument();
     expect(screen.queryByTestId('userpopover')).not.toBeInTheDocument();
 
     expect(
@@ -111,13 +130,6 @@ describe('Navbar', () => {
 
     expect(screen.queryByTestId('userpopover')).not.toBeInTheDocument();
     expect(screen.queryByText(/password change/i)).not.toBeInTheDocument();
-  });
-
-  it('displays spinner when loading', async () => {
-    mockUserContext.loading = true;
-    renderComponent(1076);
-
-    expect(screen.getByTestId('spinner')).toBeInTheDocument();
   });
 
   test.each([

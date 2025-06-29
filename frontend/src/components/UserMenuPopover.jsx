@@ -41,7 +41,7 @@ const UserMenuPopover = ({ user }) => {
             <div className="border-t px-4 py-2 text-sm text-gray-600 dark:text-amber-50">
               <Link
                 to="/password/change"
-                className="block hover:text-amber-200"
+                className="block hover:text-amber-500"
               >
                 Password Change
               </Link>

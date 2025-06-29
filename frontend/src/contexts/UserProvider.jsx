@@ -1,65 +1,70 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext } from 'react';
 import api from '../apiClient.js';
-import { BASE_URL, endpoints } from '../../settings.js';
+import { endpoints } from '../../settings.js';
 import { clearAuthTokens, isLoggedIn, setAuthTokens } from 'axios-jwt';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    let isMounted = true;
-    setLoading(true);
+  const {
+    data: user,
+    isLoading: loading,
+    refetch: refetchUser,
+  } = useQuery({
+    queryKey: ['user'],
+    queryFn: async () => {
+      if (!(await isLoggedIn())) return null;
 
-    (async () => {
       try {
-        if (!(await isLoggedIn())) {
-          if (isMounted) setUser(null);
-        } else {
-          const { data: userData } = await api.get(endpoints.user);
-          if (isMounted) setUser(userData);
+        const { data } = await api.get(endpoints.user);
+        return data;
+      } catch (error) {
+        if (error?.response?.status === 401) {
+          await logout();
         }
-      } catch {
-        await clearAuthTokens();
-        if (isMounted) setUser(null);
-      } finally {
-        if (isMounted) setLoading(false);
+        throw error;
       }
-    })();
+    },
+    retry: false,
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: true,
+  });
 
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  const login = async (email, password) => {
-    try {
-      const { data } = await api.post(endpoints.login, { email, password });
+  const loginMutation = useMutation({
+    mutationFn: async (data) => {
+      const { data: tokens } = await api.post(endpoints.login, data);
       await setAuthTokens({
-        accessToken: data.access,
-        refreshToken: data.refresh,
+        accessToken: tokens.access,
+        refreshToken: tokens.refresh,
       });
 
       const { data: userData } = await api.get(endpoints.user);
-      console.log(`Fetching user with: ${BASE_URL}${endpoints.user}`);
-      setUser(userData);
+      return userData;
+    },
+    onSuccess: (userData) => queryClient.setQueryData(['user'], userData),
+    onError: (error) => console.log('Login failed', error),
+  });
+
+  const login = async (email, password) => {
+    try {
+      await loginMutation.mutateAsync({ email, password });
       return true;
-    } catch (error) {
-      console.log('The user could not be authenticated.', error);
+    } catch {
       return false;
     }
   };
 
   const logout = async () => {
     await clearAuthTokens();
-    setUser(null);
+    queryClient.setQueryData(['user'], null);
   };
 
   return (
-    <UserContext.Provider value={{ login, user, logout, loading }}>
+    <UserContext.Provider value={{ login, user, logout, loading, refetchUser }}>
       {children}
     </UserContext.Provider>
   );
