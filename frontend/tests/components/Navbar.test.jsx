@@ -133,9 +133,9 @@ describe('Navbar', () => {
   });
 
   test.each([
-    [null, 3],
-    [{ email: 'rod@example.com' }, 0],
-  ])('has navlink for %s', (userContext, navLinkCount) => {
+    [3, null],
+    [0, { email: 'rod@example.com' }],
+  ])('has %d navlinks for %s', (navLinkCount, userContext) => {
     mockUserContext.user = userContext;
 
     renderComponent();

@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ToastContainer } from 'react-toastify';
 
 import ThemeProvider from './contexts/ThemeProvider';
@@ -15,13 +17,13 @@ import PasswordChangePage from './pages/PasswordChangePage';
 
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <UserProvider>
         <ThemeProvider>
           <ToastContainer />
