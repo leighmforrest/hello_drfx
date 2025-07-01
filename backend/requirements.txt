@@ -15,6 +15,7 @@ djangorestframework_simplejwt==5.5.0
 djoser==2.3.1
 factory_boy==3.3.3
 Faker==37.3.0
+gunicorn==23.0.0
 idna==3.10
 iniconfig==2.1.0
 mypy_extensions==1.1.0
