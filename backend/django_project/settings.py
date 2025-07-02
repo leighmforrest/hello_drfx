@@ -37,7 +37,7 @@ THIRD_PARTY_APPS = [
     "rest_framework_simplejwt.token_blacklist",
 ]
 
-LOCAL_APPS = ["apps.accounts", "apps.api"]
+LOCAL_APPS = ["apps.accounts", "apps.api", "apps.pictures"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -120,6 +120,14 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 
+# MEDIA SETTINGS
+if S3:
+    pass
+else:
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = BASE_DIR / "media"
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -163,8 +171,11 @@ if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # SETTINGS FOR PRODUCTION
 else:
-    # EMAIL SETTINGS
-    pass
+    MAIL_HOST = env.str("MAIL_HOST")
+    EMAIL_PORT = env.str("EMAIL_PORT")
+    DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL")
+    EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
 
 # SECURITY SETTINGS NOTE: DEFAULTS ARE FOR PRODUCTION ENVIRONMENTS
 SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
