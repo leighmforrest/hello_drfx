@@ -4,7 +4,7 @@ from django.db import models
 
 def upload_to(instance, filename: str):
     ext = filename.split('.')[-1]
-    new_filename = f"{uuid.uuid4()}.{ext}"
+    new_filename = f"{instance.id}.{ext}"
     return f"pictures/{new_filename}"
 
 class Picture(models.Model):
