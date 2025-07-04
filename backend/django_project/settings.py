@@ -35,6 +35,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "djoser",
     "rest_framework_simplejwt.token_blacklist",
+    "storages",
 ]
 
 LOCAL_APPS = ["apps.accounts", "apps.api", "apps.pictures"]
@@ -122,7 +123,21 @@ STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 # MEDIA SETTINGS
 if S3:
-    pass
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
+        },
+    }
+
+    AWS_QUERYSTRING_AUTH = False
+    AWS_DEFAULT_ACL = "public-read"    
+    AWS_S3_ACCESS_KEY_ID = env("AWS_S3_ACCESS_KEY_ID")
+    AWS_S3_SECRET_ACCESS_KEY = env("AWS_S3_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+    AWS_S3_FILE_OVERWRITE = True
 else:
     MEDIA_URL = "/media/"
     MEDIA_ROOT = BASE_DIR / "media"
