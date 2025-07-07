@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import api from '../apiClient';
-import MainContainer from '../components/MainContainer';
+import ImageCardContainer from '../components/ImageCardContainer';
+
 
 const IndexPage = () => {
-  const [message, setMessage] = useState('');
+  const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -13,8 +14,8 @@ const IndexPage = () => {
       try {
         setIsLoading(true);
         const { data } = await api.get('/');
-        console.log(data.message);
-        setMessage(data.message);
+        console.log(data);
+        setImages(data);
       } catch (error) {
         console.log(error);
         setIsError(true);
@@ -29,13 +30,13 @@ const IndexPage = () => {
   if (isError) return <h1>Unable. Malfunction. Need input.</h1>;
 
   return (
-    <MainContainer>
-      <section className="min-h-[calc(100vh-7rem)] flex items-center justify-center relative">
-        <div className="bg-white dark:bg-blue-950 w-full sm:max-w-3xl min-h-[inherit] m-4 flex items-center justify-center rounded-2xl">
-          {message}
+    <main className='flex justify-center min-h-screen bg-blue-200 dark:bg-blue-900 dark:text-white'>
+      <section className="flex max-w-full lg:max-w-4/5">
+        <div className="bg-transparent w-full min-h-[inherit] m-4 rounded-2xl">
+          <ImageCardContainer images={images} />
         </div>
       </section>
-    </MainContainer>
+    </main>
   );
 };
 
