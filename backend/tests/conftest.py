@@ -50,6 +50,13 @@ def test_model_image_file():
     
     yield SimpleUploadedFile("test.png", buffer.getvalue(), content_type="image/png")
 
+@pytest.fixture
+def test_text_file():
+    yield SimpleUploadedFile(
+        "not_an_image.txt",
+        b"This is a text image. You hacker. You suck!",
+        content_type="text/plain"
+    )
 
 @pytest.fixture
 def test_model_picture(test_model_image_file, test_user):

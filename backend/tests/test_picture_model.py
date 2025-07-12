@@ -17,8 +17,10 @@ class TestPictureModel:
         first_dir = relative_path.parts[0]
         extension = full_path.suffix
 
-        assert extension == ".png"
         assert first_dir == "pictures"
+        assert full_path.glob(str(test_model_picture.pk))
+        assert extension == ".png"
+
 
     def test_valid_image(self, test_model_picture, tmpdir):
         full_path = Path(test_model_picture.picture.path)
