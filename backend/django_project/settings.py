@@ -158,6 +158,9 @@ DJOSER = {
     "PASSWORD_RESET_CONFIRM_RETYPE": False,
     "USER_CREATE_PASSWORD_RETYPE": False,
     "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
+    "SERIALIZERS": {
+        'current_user': 'apps.accounts.serializers.CustomUserSerializer',
+    }
 }
 
 
