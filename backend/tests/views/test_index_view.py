@@ -1,5 +1,4 @@
 import pytest
-from pathlib import Path
 from django.urls import reverse, resolve
 from rest_framework.test import APIClient
 
@@ -82,6 +81,16 @@ class TestIndexView:
 
     def test_anonymous_user_cannot_get(self, client: APIClient):
         response = client.get(self.url)
+        assert response.status_code == 401
+
+    def test_anonymous_user_cannot_upload_user(
+        self, client: APIClient, test_model_image_file
+    ):
+        response = client.post(
+            self.url,
+            data={"title": "lorem ipsum", "picture": test_model_image_file},
+            format="multipart",
+        )
         assert response.status_code == 401
 
     def test_index_view_resolves_indexview(self):

@@ -2,3 +2,4 @@ backend/db.sqlite3
 .env
 backend/.env
 backend/.coverage
+.DS_Store

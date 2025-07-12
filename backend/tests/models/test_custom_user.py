@@ -54,3 +54,11 @@ class TestCustomUser:
     def test_superuser_errors_raised(self, data):
         with pytest.raises(ValueError):
             CustomUser.objects.create_superuser(**data)
+
+    def test___str__custom_user(self, test_user):
+        assert str(test_user) == test_user.email
+    
+    def test_delete_custom_user(self, test_user):
+        user = test_user.delete()
+        pk = user[1]['accounts.CustomUser']
+        assert not CustomUser.objects.filter(pk=pk).exists()

@@ -29,7 +29,7 @@ def _media_storage(settings, tmpdir):
 
 @pytest.fixture
 def test_user(db):
-    yield User.objects.create_user("rod@example.com", "T3$TPa$$123")
+    return User.objects.create_user("rod@example.com", "T3$TPa$$123")
 
 
 @pytest.fixture
@@ -63,6 +63,6 @@ def test_text_file():
 
 @pytest.fixture
 def test_model_picture(test_model_image_file, test_user):
-    yield Picture.objects.create(
-        user=test_user, title="HELLO THERE", picture=test_model_image_file
-    )
+    picture = Picture(user=test_user, title="HELLO THERE")
+    picture.picture.save("test.png", test_model_image_file, save=True)
+    return picture
