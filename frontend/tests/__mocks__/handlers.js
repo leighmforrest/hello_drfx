@@ -4,7 +4,28 @@ import { authTokens, refreshedAuthTokens } from '../constants';
 
 export const handlers = [
   http.get(`${BASE_URL}`, () => {
-    return HttpResponse.json({ message: 'Hello World' });
+    return HttpResponse.json([
+    {
+        "pk": "3d86919c-c135-4faa-a769-2062b084b1d3",
+        "title": "Hello World!",
+        "picture": "https://test.s3.amazonaws.com/pictures/3d86919c-c135-4faa-a769-2062b084b1d3.jpeg"
+    },
+    {
+        "pk": "40bad992-47cc-4f31-956b-ae1e122d654e",
+        "title": "lorm ipsum ladeedee sdjfaksldfj;asd'fjs;'df",
+        "picture": "https://test.s3.amazonaws.com/pictures/40bad992-47cc-4f31-956b-ae1e122d654e.jpeg"
+    },
+    {
+        "pk": "0b076b38-7144-4e21-9ad7-26780ff9a769",
+        "title": "sdfasdfsdfsdfsdfdsfdsfsdfsdfdsfsdfsdfsdafadfsdfsdfsadfsdfasdfasdfsdfsadfasdfsdf",
+        "picture": "https://test.s3.amazonaws.com/pictures/0b076b38-7144-4e21-9ad7-26780ff9a769.jpeg"
+    },
+    {
+        "pk": "a72ed37e-9d12-42fa-9972-9c2b4de12e4d",
+        "title": "sadfsdfasdfsdfsadfadf",
+        "picture": "https://test.s3.amazonaws.com/pictures/a72ed37e-9d12-42fa-9972-9c2b4de12e4d.jpeg"
+    }
+]);
   }),
   http.post(`${BASE_URL}${endpoints.login}`, async ({ request }) => {
     const { email, password } = await request.json();

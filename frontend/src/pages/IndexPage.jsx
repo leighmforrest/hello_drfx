@@ -1,29 +1,10 @@
-import React, { useEffect, useState } from 'react';
-
-import api from '../apiClient';
 import ImageCardContainer from '../components/ImageCardContainer';
+import { usePicturesQuery } from '../queries/usePicturesQuery';
 
 
 const IndexPage = () => {
-  const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const { data: images, isLoading, isError } = usePicturesQuery();
 
-  useEffect(() => {
-    (async () => {
-      try {
-        setIsLoading(true);
-        const { data } = await api.get('/');
-        console.log(data);
-        setImages(data);
-      } catch (error) {
-        console.log(error);
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    })();
-  }, []);
 
   if (isLoading) return <h2>Loading...</h2>;
 

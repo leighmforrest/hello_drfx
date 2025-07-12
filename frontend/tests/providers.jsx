@@ -8,7 +8,13 @@ import UserProvider from '../src/contexts/UserProvider';
  */
 export const TestUserProvider = ({ children }) => {
   // Insert Tanstack Query Client here; you will need a fresh provider for every test
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false, // ✅ disables automatic retries
+      },
+    },
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
