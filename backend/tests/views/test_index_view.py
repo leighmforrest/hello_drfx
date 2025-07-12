@@ -69,7 +69,6 @@ class TestIndexView:
         assert response.status_code == 400
         assert "this field is required." in str(response.data["title"][0]).lower()
 
-        
     def test_upload_fail_invalid_image(self, authenticated_client, test_text_file):
         response = authenticated_client.post(
             self.url,
@@ -80,7 +79,6 @@ class TestIndexView:
         data = response.data
         assert response.status_code == 400
         assert "valid image" in str(data["picture"][0]).lower()
-
 
     def test_anonymous_user_cannot_get(self, client: APIClient):
         response = client.get(self.url)

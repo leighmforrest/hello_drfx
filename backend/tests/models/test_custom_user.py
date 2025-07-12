@@ -14,7 +14,7 @@ class TestCustomUser:
         assert test_user.is_active == True
         assert test_user.is_staff == False
         assert test_user.is_superuser == False
-    
+
     def test_create_superuser(self):
         result = CustomUser.objects.create_superuser(
             "clarke@dailyplanet.com", "T3$TP&$$321"
@@ -23,20 +23,22 @@ class TestCustomUser:
         assert result.is_active == True
         assert result.is_staff == True
         assert result.is_superuser == True
-    
+
     @pytest.mark.parametrize(
-        "data,error", [
+        "data,error",
+        [
             ({}, TypeError),
             ({"email": ""}, TypeError),
-            ({"email": "", "password": "FooBarBaz"}, ValueError)
-        ]
+            ({"email": "", "password": "FooBarBaz"}, ValueError),
+        ],
     )
-    def test_errors_raised(self, data,error):
+    def test_errors_raised(self, data, error):
         with pytest.raises(error):
             CustomUser.objects.create_user(**data)
-    
+
     @pytest.mark.parametrize(
-        "data", [
+        "data",
+        [
             {
                 "email": "clarke@dailyplanet.com",
                 "password": "T3$TPa$$123",
@@ -47,7 +49,7 @@ class TestCustomUser:
                 "password": "T3$TPa$$123",
                 "is_staff": False,
             },
-            ]
+        ],
     )
     def test_superuser_errors_raised(self, data):
         with pytest.raises(ValueError):

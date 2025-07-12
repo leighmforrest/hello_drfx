@@ -9,5 +9,5 @@ class PictureSerializer(ModelSerializer):
 
     class Meta:
         model = Picture
-        fields = ["pk","title", "picture", "user"]
+        fields = ["pk", "title", "picture", "user"]
         read_only_fields = ["id", "user"]

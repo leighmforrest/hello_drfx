@@ -4,10 +4,12 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 def upload_to(instance, filename: str):
-    ext = filename.split('.')[-1]
+    ext = filename.split(".")[-1]
     new_filename = f"{instance.id}.{ext}"
     return f"pictures/{new_filename}"
+
 
 class Picture(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -17,4 +19,3 @@ class Picture(models.Model):
 
     def __str__(self):
         return self.title
-    
