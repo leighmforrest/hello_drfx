@@ -37,7 +37,7 @@ class TestIndexView:
         assert any(pic["pk"] == str(test_model_picture.pk) for pic in data)
 
         for datum in data:
-            url = Path(datum["picture"])
+            url = datum["picture"]
             pk = datum["pk"]
             self.pk_in_image_name(url, pk)
 
@@ -57,6 +57,19 @@ class TestIndexView:
         assert data["title"] == "lorem ipsum"
         self.pk_in_image_name(data["picture"], data["pk"])
 
+    def test_authenticated_upload_image_fail_no_title(
+        self, authenticated_client: APIClient, test_model_image_file, test_user
+    ):
+        response = authenticated_client.post(
+            self.url,
+            data={"picture": test_model_image_file},
+            format="multipart",
+        )
+
+        assert response.status_code == 400
+        assert "this field is required." in str(response.data["title"][0]).lower()
+
+        
     def test_upload_fail_invalid_image(self, authenticated_client, test_text_file):
         response = authenticated_client.post(
             self.url,
