@@ -12,7 +12,7 @@ const Input = ({ label, id, register, errors }) => {
         id={id}
         multiple={false}
         type="file"
-        accept="image/*"
+        // accept="image/*"
         className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 dark:text-gray-200 leading-tight focus:outline-none focus:shadow-outline ${
           errors[id] ? 'border-red-400 dark:border-red-500' : ''
         }`}

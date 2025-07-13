@@ -53,6 +53,7 @@ const UserProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       await loginMutation.mutateAsync({ email, password });
+
       await refetchUser()
       return true;
     } catch {
@@ -64,6 +65,7 @@ const UserProvider = ({ children }) => {
     await clearAuthTokens();
     queryClient.setQueryData(["user"], null)
     queryClient.removeQueries(["user"])
+    await refetchUser()
   };
 
   return (
