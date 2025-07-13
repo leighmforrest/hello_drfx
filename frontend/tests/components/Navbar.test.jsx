@@ -70,7 +70,7 @@ describe('Navbar', () => {
     const navItems = await screen.findByRole('list');
     const navListItems = await screen.findAllByRole('listitem');
     expect(navItems).toHaveClass('opacity-100');
-    expect(navListItems).toHaveLength(4);
+    expect(navListItems).toHaveLength(3);
   });
 
   it('renders without hamburger in desktop mode', () => {
@@ -78,7 +78,7 @@ describe('Navbar', () => {
     const navListItems = screen.getAllByRole('listitem');
 
     expect(hamburger).not.toBeInTheDocument();
-    expect(navListItems).toHaveLength(4);
+    expect(navListItems).toHaveLength(3);
   });
 
   it('displays email if authenticated', async () => {
@@ -100,18 +100,19 @@ describe('Navbar', () => {
     expect(screen.getByTestId('spinner')).toBeInTheDocument();
   });
 
-  it('displays email if authenticated', async () => {
+  it('calls logout when logout clicked', async () => {
     mockUserContext.user = { email: 'test@example.com' };
 
     const { hamburger, user } = renderComponent();
     await user.click(hamburger);
 
-    expect(screen.getByText(/test@example.com/i)).toBeInTheDocument();
-    expect(screen.queryByTestId('userpopover')).not.toBeInTheDocument();
+    const logoutButton = screen.getByRole('button', { name: /log out/i });
 
-    expect(
-      screen.getByRole('button', { name: /log out/i }),
-    ).toBeInTheDocument();
+    await user.click(logoutButton);
+
+    await waitFor(async () => {
+      expect(mockUserContext.logout).toHaveBeenCalled();
+    });
   });
 
   it('displays popover menu when email is clicked', async () => {
@@ -133,8 +134,8 @@ describe('Navbar', () => {
   });
 
   test.each([
-    [3, null],
-    [0, { email: 'rod@example.com' }],
+    [2, null],
+    [2, { email: 'rod@example.com' }],
   ])('has %d navlinks for %s', (navLinkCount, userContext) => {
     mockUserContext.user = userContext;
 

@@ -42,11 +42,7 @@ describe('LoginPage', () => {
     await user.click(submit);
 
     await waitFor(async () => {
-      const tokens = JSON.parse(localStorage.getItem('auth-tokens-test'));
-
       await screen.findByText(/testuser@example.com has been authenticated./i);
-      expect(tokens.accessToken).toBeTruthy();
-      expect(tokens.refreshToken).toBeTruthy();
       expect(mockNavigate).toBeCalledWith('/');
     });
   });

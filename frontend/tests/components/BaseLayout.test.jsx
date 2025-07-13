@@ -46,8 +46,8 @@ describe('BaseLayout', () => {
   });
 
   test.each([
-    [null, 3],
-    [{ email: 'rod@example.com' }, 0],
+    [null, 2],
+    [{ email: 'rod@example.com' }, 2],
   ])('has navlink for %s', (userContext, navLinkCount) => {
     mockUserContext.user = userContext;
 

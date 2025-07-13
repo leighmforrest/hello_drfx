@@ -42,6 +42,7 @@ const UserProvider = ({ children }) => {
         refreshToken: tokens.refresh,
       });
 
+      console.log(localStorage)
       const { data: userData } = await api.get(endpoints.user);
       return userData;
     },
@@ -52,6 +53,7 @@ const UserProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       await loginMutation.mutateAsync({ email, password });
+      await refetchUser()
       return true;
     } catch {
       return false;
@@ -60,7 +62,8 @@ const UserProvider = ({ children }) => {
 
   const logout = async () => {
     await clearAuthTokens();
-    queryClient.setQueryData(['user'], null);
+    queryClient.setQueryData(["user"], null)
+    queryClient.removeQueries(["user"])
   };
 
   return (
