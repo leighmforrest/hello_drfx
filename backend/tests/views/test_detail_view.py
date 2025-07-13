@@ -28,6 +28,16 @@ class TestDetailView:
         assert response.data["title"] == "lorem ipsum hahah"
         assert str(test_model_picture.pk) in response.data["picture"]
     
+    def test_patch_title_owner_returns_200(self, authenticated_client, test_model_picture):
+        url = self.get_url(test_model_picture.pk)
+        response = authenticated_client.patch(
+            url,
+            data={"title": "lorem ipsum patch"},
+        )
+
+        assert response.status_code == 200
+        assert response.data["title"] == "lorem ipsum patch"
+    
     def test_delete_picture_204(self, test_model_picture, authenticated_client):
         pk = test_model_picture.pk
         url = self.get_url(pk)

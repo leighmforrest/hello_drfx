@@ -3,3 +3,5 @@ backend/db.sqlite3
 backend/.env
 backend/.coverage
 .DS_Store
+backend/.DS_Store
+backend/.DS_Store
