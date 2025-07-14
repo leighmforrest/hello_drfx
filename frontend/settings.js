@@ -11,4 +11,5 @@ export const endpoints = {
   passwordReset: '/accounts/users/reset_password/',
   passwordResetConfirm: '/accounts/users/reset_password_confirm/',
   passwordChange: '/accounts/users/set_password/',
+  pictureCreate: '/'
 };

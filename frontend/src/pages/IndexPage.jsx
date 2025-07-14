@@ -1,4 +1,5 @@
 import ImageCardContainer from '../components/ImageCardContainer';
+import Spinner from '../components/Spinner';
 import { usePicturesQuery } from '../queries/usePicturesQuery';
 
 
@@ -6,7 +7,7 @@ const IndexPage = () => {
   const { data: images, isLoading, isError } = usePicturesQuery();
 
 
-  if (isLoading) return <h2>Loading...</h2>;
+  if (isLoading) return <Spinner/>;
 
   if (isError) return <h1>Unable. Malfunction. Need input.</h1>;
 

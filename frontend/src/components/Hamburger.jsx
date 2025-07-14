@@ -3,7 +3,7 @@ import React from 'react';
 const Hamburger = ({ onButtonClick, isOpen }) => {
   return (
     <button
-      className="sm:hidden flex flex-col justify-center items-center space-y-2 w-8 h-8"
+      className="md:hidden flex flex-col justify-center items-center space-y-2 w-8 h-8"
       onClick={onButtonClick}
       aria-label="Toggle menu"
       type="button"

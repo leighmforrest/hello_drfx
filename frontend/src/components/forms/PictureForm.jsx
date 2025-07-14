@@ -13,7 +13,9 @@ const PictureForm = ({ onUpload }) => {
     resolver: yupResolver(pictureSchema),
   });
 
-  const onSubmit = (data) => onUpload(data);
+  const onSubmit = (data) => {
+    onUpload(data);
+  }
 
   return (
     <form

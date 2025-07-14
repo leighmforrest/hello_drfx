@@ -5,12 +5,12 @@ import UserMenu from './UserMenu';
 import Hamburger from './Hamburger';
 
 const Navbar = () => {
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 720);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 640);
+      setIsMobile(window.innerWidth < 720);
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
