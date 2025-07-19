@@ -1,5 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import UserProvider from '../src/contexts/UserProvider';
+import { MemoryRouter } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 /**
  * TestUserProvider
@@ -17,8 +19,11 @@ export const TestUserProvider = ({ children }) => {
   });
 
   return (
+    <MemoryRouter>
     <QueryClientProvider client={queryClient}>
+      <ToastContainer />
       <UserProvider>{children}</UserProvider>
     </QueryClientProvider>
+    </MemoryRouter>
   );
 };

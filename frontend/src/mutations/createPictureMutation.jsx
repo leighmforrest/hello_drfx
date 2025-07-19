@@ -1,22 +1,30 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { createPicture } from '../apiCalls';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
-const createPictureMutation = async ({ title, picture }) => {
+const createPictureMutation = async ({ title, picture, onProgress }) => {
   const formData = new FormData();
 
   formData.append('picture', picture);
   formData.append('title', title);
 
-  const response = await createPicture(formData);
-
-  return response;
+  return createPicture(formData, onProgress)
 };
 
-export const useCreatePictureMutation = () => {
+export const useCreatePictureMutation = (setUploadProgress) => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
   return useMutation({
-    mutationFn: createPictureMutation,
-    onSuccess: () => queryClient.invalidateQueries(['pictures']),
+    mutationFn: ({title, picture }) =>
+      createPictureMutation({title, picture, onProgress: setUploadProgress}),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['pictures']);
+      setUploadProgress(0);
+      toast("Image was uploaded.")
+      navigate("/")
+    },
   });
 };

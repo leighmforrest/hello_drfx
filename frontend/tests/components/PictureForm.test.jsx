@@ -46,7 +46,6 @@ describe('PictureForm', () => {
     await user.click(submit);
 
     expect(handler).toHaveBeenCalled();
-    screen.debug();
   });
 
   it.each([

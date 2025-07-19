@@ -76,6 +76,17 @@ export const handlers = [
   http.post(`${BASE_URL}${endpoints.passwordChange}`, async () => {
     return HttpResponse.json({}, { status: 204 });
   }),
+  http.post(`${BASE_URL}${endpoints.pictureCreate}`, async () => {
+    return HttpResponse.json({
+  "pk": "d1fd0c18-4348-4b57-b95d-e37ba2e3f784",
+  "title": "Hello Gorgeous",
+  "picture": "https://picturemedia/pictures/d1fd0c18-4348-4b57-b95d-e37ba2e3f784.jpeg",
+  "user": {
+    "pk": 1,
+    "email": "rod@example.com"
+  }
+}, {status: 201})
+  }),
   http.all('*', ({ request }) => {
     console.log('🔴 Unhandled request to:', request.url);
     return new HttpResponse(null, { status: 500 });
