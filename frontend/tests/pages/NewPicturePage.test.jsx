@@ -2,14 +2,13 @@ import '../__mocks__/mockApiClient';
 
 import api from '../../src/apiClient'; // <-- mocked now
 
-// ✅ Now it’s safe to import everything else
 import { screen, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { TestUserProvider } from '../providers';
 import { testFile } from '../helpers';
 import NewPicturePage from '../../src/pages/NewPicturePage';
-import { expect } from 'vitest';
+
 
 describe('NewPicturePage', () => {
   beforeEach(() => {
@@ -105,7 +104,7 @@ describe('NewPicturePage', () => {
   });
 
   it("shows error page on error", async ()=> {
-    api.__mock__.post.mockImplementation((url, formData, config) => {
+    api.__mock__.post.mockImplementation(() => {
       return Promise.reject();
     });
 
