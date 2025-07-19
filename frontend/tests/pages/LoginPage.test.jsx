@@ -9,8 +9,6 @@ import userEvent from '@testing-library/user-event';
 import { ToastContainer } from 'react-toastify';
 
 describe('LoginPage', () => {
-  beforeEach(() => localStorage.clear());
-
   const renderComponent = () => {
     return {
       ...render(

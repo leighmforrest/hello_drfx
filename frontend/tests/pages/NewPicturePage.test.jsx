@@ -1,38 +1,22 @@
-import { vi } from 'vitest';
-
-vi.mock('../../src/apiClient', () => {
-  const mockPost = vi.fn();
-  const mockGet = vi.fn();
-
-  return {
-    default: {
-      post: mockPost,
-      get: mockGet,
-      interceptors: {
-        request: { use: vi.fn(), eject: vi.fn() },
-        response: { use: vi.fn(), eject: vi.fn() },
-      },
-      __mock__: {
-        post: mockPost,
-        get: mockGet,
-      },
-    },
-  };
-});
+import '../__mocks__/mockApiClient';
 
 import api from '../../src/apiClient'; // <-- mocked now
 
 // ✅ Now it’s safe to import everything else
 import { screen, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { expect } from 'vitest';
 
-import { mockNavigate } from '../__mocks__/reactRouterMock'; // ✅ assume this works
 import { TestUserProvider } from '../providers';
 import { testFile } from '../helpers';
 import NewPicturePage from '../../src/pages/NewPicturePage';
+import { expect } from 'vitest';
 
 describe('NewPicturePage', () => {
+  beforeEach(() => {
+    api.__mock__.post.mockReset();
+    api.__mock__.get.mockReset();
+  });
+
   const renderComponent = () => ({
     ...render(
       <TestUserProvider>
@@ -95,12 +79,8 @@ describe('NewPicturePage', () => {
 
     // Mock implementation to simulate progress events:
     api.__mock__.post.mockImplementation((url, formData, config) => {
-      // Simulate progress at 30%
-      config.onUploadProgress?.({ loaded: 30, total: 100 });
-      // Simulate progress at 60%
-      config.onUploadProgress?.({ loaded: 60, total: 100 });
       // Simulate progress at 100%
-      config.onUploadProgress?.({ loaded: 100, total: 100 });
+      config.onUploadProgress?.({ loaded: 30, total: 30 });
 
       return Promise.resolve({
         data: {
@@ -123,4 +103,20 @@ describe('NewPicturePage', () => {
 
     expect(progressBar).toBeInTheDocument();
   });
+
+  it("shows error page on error", async ()=> {
+    api.__mock__.post.mockImplementation((url, formData, config) => {
+      return Promise.reject();
+    });
+
+    const imageFile = testFile();
+
+    const { title, picture, submit, user } = renderComponent();
+
+    await user.type(title, 'Hello World!');
+    await user.upload(picture, imageFile);
+    await user.click(submit);
+
+    expect(screen.getByText(/unable. malfunction./i)).toBeInTheDocument()
+  })
 });

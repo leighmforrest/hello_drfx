@@ -20,10 +20,10 @@ export const TestUserProvider = ({ children }) => {
 
   return (
     <MemoryRouter>
-    <QueryClientProvider client={queryClient}>
-      <ToastContainer />
-      <UserProvider>{children}</UserProvider>
-    </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <ToastContainer />
+        <UserProvider>{children}</UserProvider>
+      </QueryClientProvider>
     </MemoryRouter>
   );
 };
