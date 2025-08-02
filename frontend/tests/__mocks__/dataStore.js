@@ -16,7 +16,7 @@ export const pictureFactory = factory.define({
         pk: () => faker.string.uuid(),
         title: () => faker.lorem.sentence(15),
         picture: () => faker.image.url(),
-        user: () => userFactory.build()
+        user: () => userFactory.props({email: () => faker.internet.email()}).build()
     },
     vars: {}
 })

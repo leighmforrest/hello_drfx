@@ -2,7 +2,6 @@ import { http, HttpResponse } from 'msw';
 import { BASE_URL, endpoints } from '../../settings';
 import {
   pictures,
-  PICTURE_SIZE,
   pictureFactory,
   userFactory,
 } from './dataStore';
@@ -11,7 +10,7 @@ import { paginatedResults } from '../helpers';
 
 export const handlers = [
   http.get(`${BASE_URL}${endpoints.index}`, async ({ request }) => {
-    const data = paginatedResults(pictures, request.url, endpoints.index)
+    const data = paginatedResults({allData: pictures, requestURL: request.url, endpoint: endpoints.index})
 
         return HttpResponse.json(data);
   }),
