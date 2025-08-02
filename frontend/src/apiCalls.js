@@ -1,8 +1,8 @@
-import { endpoints } from '../settings';
+import { endpoints, LIMIT } from '../settings';
 import api from './apiClient';
 
-export const fetchPictures = async () => {
-  const { data } = await api.get('/');
+export const fetchPictures = async (offset= 0, limit=LIMIT) => {
+  const { data } = await api.get(`/?offset=${offset}&limit=${limit}`);
   return data;
 };
 
