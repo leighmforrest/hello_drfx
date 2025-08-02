@@ -9,7 +9,6 @@ import userEvent from '@testing-library/user-event';
 
 import PasswordChangePage from '../../src/pages/PasswordChangePage';
 import { BASE_URL, endpoints } from '../../settings';
-import { expect } from 'vitest';
 
 describe('PasswordChangePage', () => {
   const renderComponent = () => {

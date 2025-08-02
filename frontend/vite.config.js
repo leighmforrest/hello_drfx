@@ -11,12 +11,14 @@ export default defineConfig({
     setupFiles: ['./tests/setup.js', 'vitest-localstorage-mock'],
     mockReset: true,
     coverage: {
+      reporter: ['text', 'html'], // 'html' is what you want
+      reportsDirectory: './coverage', // optional, default is 'coverage'
       provider: 'v8',
       exclude: [
         'src/main.jsx',
         'src/App.jsx',
         '*.config.js',
-        'tests/__mocks__/*',
+        'tests/*',
       ],
     },
   },

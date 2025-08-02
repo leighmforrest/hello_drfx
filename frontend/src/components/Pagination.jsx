@@ -2,7 +2,9 @@ import { MdNavigateNext, MdNavigateBefore } from 'react-icons/md';
 
 const Pagination = ({ onNext, onPrev, nextDisabled, prevDisabled }) => {
   return (
-    <div className="flex items-center justify-between bg-transparent mt-4">
+    <div className="flex items-center justify-between bg-transparent mt-4"
+    data-testid="pagination"
+    >
       <button
         onClick={onPrev}
         disabled={prevDisabled}
