@@ -30,6 +30,5 @@ jobs:
           script: | 
             cd ${{secrets.APP_DIRECTORY}}/frontend
             npm run build
-            echo ${{secrets.APP_DIRECTORY}}
-            cp -r ${{secrets.APP_DIRECTORY}}/dist/* /var/www/hello/frontend
+            cp -r ${{secrets.APP_DIRECTORY}}/frontend/dist/* /var/www/hello/frontend
      
