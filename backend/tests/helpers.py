@@ -2,6 +2,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from PIL import Image
 from io import BytesIO
 
+
 def generate_image_file(name="test.png"):
     image = Image.new("RGB", (100, 100))
     buffer = BytesIO()

@@ -6,9 +6,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 
 from apps.pictures.models import Picture
 from tests.helpers import generate_image_file
-
-
-User = get_user_model()
+from tests.factories import UserFactory, PictureFactory
 
 
 @pytest.fixture(autouse=True)
@@ -28,13 +26,12 @@ def _media_storage(settings, tmpdir):
 
 @pytest.fixture
 def test_user(db):
-    return User.objects.create_user("rod@example.com", "T3$TPa$$123")
+    return UserFactory.create()
 
 
 @pytest.fixture
 def alternate_test_user(db):
-    return User.objects.create_user("scrubby@example.com", "T3$TPa$$123")
-
+    return UserFactory.create(email="scrubby@example.com", password="JEKKJEKKJEKK")
 
 
 @pytest.fixture
@@ -69,7 +66,5 @@ def test_text_file():
 
 
 @pytest.fixture
-def test_model_picture(test_model_image_file, test_user):
-    picture = Picture(user=test_user, title="HELLO THERE")
-    picture.picture.save("test.png", test_model_image_file, save=True)
-    return picture
+def test_model_picture(test_user):
+    return PictureFactory(user=test_user, title="HELLO THERE")

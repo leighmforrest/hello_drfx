@@ -30,7 +30,7 @@ class TestIndexView:
         self, authenticated_client: APIClient, test_model_picture
     ):
         response = authenticated_client.get(self.url)
-        data = response.data
+        data = response.data["results"]
 
         assert isinstance(data, list)
         assert any(pic["pk"] == str(test_model_picture.pk) for pic in data)

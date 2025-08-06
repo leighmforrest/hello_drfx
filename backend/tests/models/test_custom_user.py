@@ -10,7 +10,7 @@ class TestCustomUser:
     def test_create_user(self, test_user):
         assert isinstance(test_user, CustomUser)
         assert test_user.username is None
-        assert test_user.email == "rod@example.com"
+        assert len(test_user.email) > 0
         assert test_user.is_active == True
         assert test_user.is_staff == False
         assert test_user.is_superuser == False
@@ -57,8 +57,8 @@ class TestCustomUser:
 
     def test___str__custom_user(self, test_user):
         assert str(test_user) == test_user.email
-    
+
     def test_delete_custom_user(self, test_user):
         user = test_user.delete()
-        pk = user[1]['accounts.CustomUser']
+        pk = user[1]["accounts.CustomUser"]
         assert not CustomUser.objects.filter(pk=pk).exists()
