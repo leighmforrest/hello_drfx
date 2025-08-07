@@ -6,7 +6,7 @@ import IndexPage from '../../src/pages/IndexPage';
 import { TestUserProvider } from '../providers';
 import { BASE_URL } from '../../settings';
 import { server } from '../__mocks__/server';
-import { expect } from 'vitest';
+
 
 describe('IndexPage', () => {
   const renderCompnent = () => {
