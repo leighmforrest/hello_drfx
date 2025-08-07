@@ -15,6 +15,7 @@ import PasswordResetConfirm from './pages/PasswordResetConfirm';
 import PasswordResetRequest from './pages/PasswordResetRequest';
 import PasswordChangePage from './pages/PasswordChangePage';
 import NewPicturePage from './pages/NewPicturePage';
+import DetailPage from './pages/DetailPage';
 
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
@@ -35,6 +36,7 @@ const App = () => {
                 <Route element={<PrivateRoute />}>
                   <Route index element={<IndexPage />} />
                   <Route path="/picture/new" element={<NewPicturePage />} />
+                   <Route path="/picture/:pk" element={<DetailPage />} />
                   <Route
                     path="/password/change"
                     element={<PasswordChangePage />}
