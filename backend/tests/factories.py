@@ -16,6 +16,7 @@ class UserFactory(factory.django.DjangoModelFactory):
         model = User
 
     email = fake.email()
+    handle = factory.Faker("user_name")
     password = factory.django.Password("TesP&$$123")
 
 

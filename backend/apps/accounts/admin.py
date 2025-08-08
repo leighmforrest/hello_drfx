@@ -11,17 +11,19 @@ class Admin(UserAdmin):
     form = CustomUserCreationForm
     model = CustomUser
     list_display = (
+        "handle",
         "email",
         "is_staff",
         "is_active",
     )
     list_filter = (
+        "handle",
         "email",
         "is_staff",
         "is_active",
     )
     fieldsets = (
-        (None, {"fields": ("email", "password")}),
+        (None, {"fields": ("email", "handle", "password")}),
         (
             "Permissions",
             {"fields": ("is_staff", "is_active", "groups", "user_permissions")},
@@ -34,6 +36,7 @@ class Admin(UserAdmin):
                 "classes": ("wide,"),
                 "fields": (
                     "email",
+                    "handle",
                     "password1",
                     "password2",
                     "is_staff",

@@ -13,5 +13,6 @@ export const endpoints = {
   passwordResetConfirm: '/accounts/users/reset_password_confirm/',
   passwordChange: '/accounts/users/set_password/',
   index: '/',
-  pictureCreate: '/'
+  pictureCreate: '/',
+  pictureDetail: '/'
 };

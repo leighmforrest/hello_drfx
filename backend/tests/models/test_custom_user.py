@@ -11,15 +11,17 @@ class TestCustomUser:
         assert isinstance(test_user, CustomUser)
         assert test_user.username is None
         assert len(test_user.email) > 0
+        assert len(test_user.handle) > 0
         assert test_user.is_active == True
         assert test_user.is_staff == False
         assert test_user.is_superuser == False
 
     def test_create_superuser(self):
         result = CustomUser.objects.create_superuser(
-            "clarke@dailyplanet.com", "T3$TP&$$321"
+            "clarke@dailyplanet.com", "T3$TP&$$321", "supes"
         )
         assert result.email == "clarke@dailyplanet.com"
+        assert result.handle == "supes"
         assert result.is_active == True
         assert result.is_staff == True
         assert result.is_superuser == True
@@ -28,7 +30,7 @@ class TestCustomUser:
         "data,error",
         [
             ({}, TypeError),
-            ({"email": ""}, TypeError),
+            ({"email": ""}, ValueError),
             ({"email": "", "password": "FooBarBaz"}, ValueError),
         ],
     )
@@ -59,6 +61,7 @@ class TestCustomUser:
         assert str(test_user) == test_user.email
 
     def test_delete_custom_user(self, test_user):
-        user = test_user.delete()
-        pk = user[1]["accounts.CustomUser"]
-        assert not CustomUser.objects.filter(pk=pk).exists()
+        def test_delete_custom_user(self, test_user):
+            pk = test_user.pk
+            test_user.delete()
+            assert not CustomUser.objects.filter(pk=pk).exists()

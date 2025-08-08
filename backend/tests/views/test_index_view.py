@@ -51,7 +51,7 @@ class TestIndexView:
 
         data = response.data
 
-        assert test_user.email in data["user"]["email"]
+        assert test_user.handle in data["user"]["handle"]
         assert test_user.pk == data["user"]["pk"]
         assert data["title"] == "lorem ipsum"
         self.pk_in_image_name(data["picture"], data["pk"])

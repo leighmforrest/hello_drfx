@@ -1,11 +1,11 @@
 from rest_framework.serializers import ModelSerializer
 
 from .models import Picture
-from apps.accounts.serializers import CustomUserSerializer
+from apps.accounts.serializers import ShortCustomUserSerializer
 
 
 class PictureSerializer(ModelSerializer):
-    user = CustomUserSerializer(read_only=True)
+    user = ShortCustomUserSerializer(read_only=True)
 
     class Meta:
         model = Picture

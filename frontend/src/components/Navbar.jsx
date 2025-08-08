@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, } from 'react';
 import { Link } from 'react-router';
 import DarkModeButton from './DarkModeButton';
 import UserMenu from './UserMenu';
@@ -7,25 +7,16 @@ import Hamburger from './Hamburger';
 const Navbar = () => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 720);
   const [isOpen, setIsOpen] = useState(false);
-  const navbarRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 720);
     };
 
-    const handleClickOutside = (event) => {
-      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    }
-
-    window.addEventListener("mousedown", handleClickOutside);
     window.addEventListener('resize', handleResize);
     
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -42,7 +33,6 @@ const Navbar = () => {
           {isMobile && <Hamburger onButtonClick={toggleMenu} isOpen={isOpen} />}
 
           <ul
-            ref={navbarRef}
             className={`
     ${
       isMobile

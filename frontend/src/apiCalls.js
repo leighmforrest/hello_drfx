@@ -22,3 +22,10 @@ export const createPicture = async (formData, onProgress) => {
 
   return data
 };
+
+
+export const fetchPicture = async (pictureId) => {
+  console.log("PICTURE ID", pictureId)
+  const { data } = await api.get(`${endpoints.pictureDetail}${pictureId}`);
+  return data;
+};

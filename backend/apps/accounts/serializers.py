@@ -6,4 +6,10 @@ from .models import CustomUser
 class CustomUserSerializer(ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ["pk", "email"]
+        fields = ["pk", "email", "handle"]
+
+
+class ShortCustomUserSerializer(ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ["pk", "handle"]
