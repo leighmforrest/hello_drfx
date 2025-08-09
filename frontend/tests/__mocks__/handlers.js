@@ -43,8 +43,8 @@ export const handlers = [
     return HttpResponse.json(user);
   }),
   http.post(`${BASE_URL}${endpoints.register}`, async ({ request }) => {
-    const { email: registerEmail } = await request.json();
-
+    const { email: registerEmail, handle } = await request.json();
+    console.log(handle)
     const user = await userFactory.props({ email: () => registerEmail });
 
     return HttpResponse.json(user, { status: 201 });

@@ -6,6 +6,15 @@ export const PICTURE_SIZE = 50
 export const userFactory = factory.define({
   props: {
     email: () => "testuser@example.com",
+    handle: () => faker.internet.username(),
+    pk: seq(1, (n) => n),
+  },
+  vars: {}
+});
+
+export const shortUserFactory = factory.define({
+  props: {
+    handle: () => faker.internet.username(),
     pk: seq(1, (n) => n),
   },
   vars: {}
@@ -16,7 +25,7 @@ export const pictureFactory = factory.define({
         pk: () => faker.string.uuid(),
         title: () => faker.lorem.sentence(15),
         picture: () => faker.image.url(),
-        user: () => userFactory.props({email: () => faker.internet.email()}).build()
+        user: () => shortUserFactory.props({email: () => faker.internet.email()}).build()
     },
     vars: {}
 })

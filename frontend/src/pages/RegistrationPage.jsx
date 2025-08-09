@@ -8,9 +8,9 @@ import { endpoints } from '../../settings';
 const RegisterPage = () => {
   const navigate = useNavigate();
 
-  const submitHandler = async ({ email, password }, setError) => {
+  const submitHandler = async ({ email, password, handle }, setError) => {
     try {
-      await api.post(endpoints.register, { email, password });
+      await api.post(endpoints.register, { email, password, handle });
       toast.success('You have successfully registered.');
       navigate('/login');
     } catch (error) {

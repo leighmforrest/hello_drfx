@@ -21,6 +21,8 @@ const Navbar = () => {
   }, []);
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
+  const closeMenu = () => setIsOpen(false);
+
 
   return (
     <header className="w-full h-14" data-testid="navbar">
@@ -47,7 +49,7 @@ const Navbar = () => {
     }
   `}
           >
-            <UserMenu />
+            <UserMenu onLinkClick={closeMenu} />
             <li className="flex justify-center sm:justify-start">
               <DarkModeButton />
             </li>

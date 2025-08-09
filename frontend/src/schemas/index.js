@@ -11,6 +11,11 @@ export const loginSchema = yup.object({
 
 export const registerSchema = yup.object({
   email: yup.string().email('Invalid email.').required('Email is required.'),
+  handle: yup
+    .string()
+    .required('Handle is required.')
+    .min(5, 'Handle must be at least 5 characters.')
+    .max(26, 'Handle must not be longer than 26 characters.'),
   password: yup
     .string()
     .required('Password is required.')
@@ -47,7 +52,11 @@ export const pictureSchema = yup.object({
     .max(126, 'Title must not exceed 126 characters.'),
   picture: yup
     .mixed()
-    .test("required", 'A picture is required.', (value)=> value && value.length > 0)
+    .test(
+      'required',
+      'A picture is required.',
+      (value) => value && value.length > 0,
+    )
     .test('fileSize', 'This file is too large (max 5MB).', (value) => {
       if (!value || !value.length) return true;
       return value && value[0] && value[0].size <= MAX_FILE_SIZE;

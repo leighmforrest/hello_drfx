@@ -14,6 +14,7 @@ const RegisterForm = ({ onRegister }) => {
   });
 
   const onSubmit = (data) => {
+    console.log(data)
     onRegister(data, setError);
   };
   return (
@@ -30,6 +31,13 @@ const RegisterForm = ({ onRegister }) => {
         id="email"
         label="Email"
         placeholder="Email Address"
+        register={register}
+        errors={errors}
+      />
+      <Input
+        id="handle"
+        label="Handle"
+        placeholder="Enter name you want to be known by"
         register={register}
         errors={errors}
       />

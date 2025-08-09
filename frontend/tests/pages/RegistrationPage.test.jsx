@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 
 import RegistrationPage from '../../src/pages/RegistrationPage';
 import { BASE_URL, endpoints } from '../../settings';
+import { expect } from 'vitest';
 
 describe('RegistrationPage', () => {
   const renderComponent = () => {
@@ -25,22 +26,25 @@ describe('RegistrationPage', () => {
       user: userEvent.setup(),
       email: screen.getByLabelText(/email/i),
       password: screen.getByLabelText(/password/i),
+      handle: screen.getByPlaceholderText(/enter name you want/i),
       submit: screen.getByRole('button', { name: /register/i }),
     };
   };
 
   it('renders', () => {
-    const { email, password, submit } = renderComponent();
+    const { email, password, handle, submit } = renderComponent();
 
     expect(email).toBeInTheDocument();
     expect(password).toBeInTheDocument();
+    expect(handle).toBeInTheDocument();
     expect(submit).toBeInTheDocument();
   });
 
   it('successfully registers', async () => {
-    const { email, password, submit, user } = renderComponent();
+    const { email, password, handle, submit, user } = renderComponent();
     await user.type(email, 'testuser@email.com');
     await user.type(password, 'TestPass1234');
+    await user.type(handle, 'testuser');
     await user.click(submit);
 
     await waitFor(async () => {
@@ -64,14 +68,41 @@ describe('RegistrationPage', () => {
       }),
     );
 
-    const { email, password, submit, user } = renderComponent();
+    const { email, password, handle, submit, user } = renderComponent();
     await user.type(email, 'testuser@email.com');
     await user.type(password, 'TestPass1234');
+    await user.type(handle, 'testuser');
     await user.click(submit);
 
     await waitFor(async () => {
       expect(
         await screen.findByText(/user with this email address already exists/i),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it('fails to register with duplicate handle', async () => {
+    // override msw handler
+    server.use(
+      http.post(`${BASE_URL}${endpoints.register}`, async () => {
+        return HttpResponse.json(
+          {
+            handle: ['user with this handle already exists.'],
+          },
+          { status: 400 },
+        );
+      }),
+    );
+
+    const { email, password, handle, submit, user } = renderComponent();
+    await user.type(email, 'testuser@email.com');
+    await user.type(password, 'TestPass1234');
+    await user.type(handle, 'testuser');
+    await user.click(submit);
+
+    await waitFor(async () => {
+      expect(
+        await screen.findByText(/user with this handle already exists/i),
       ).toBeInTheDocument();
     });
   });
@@ -83,9 +114,10 @@ describe('RegistrationPage', () => {
       }),
     );
 
-    const { email, password, submit, user } = renderComponent();
+    const { email, password, handle, submit, user } = renderComponent();
     await user.type(email, 'testuser@email.com');
     await user.type(password, 'TestPass1234');
+    await user.type(handle, 'testuser');
     await user.click(submit);
 
     expect(
