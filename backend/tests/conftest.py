@@ -66,5 +66,16 @@ def test_text_file():
 
 
 @pytest.fixture
-def test_model_picture(test_user):
+def test_model_picture(db, test_user):
     return PictureFactory(user=test_user, title="HELLO THERE")
+
+
+@pytest.fixture
+def test_model_picture_five_likes(db, test_model_picture):
+    likers = UserFactory.create_batch(5)
+
+    test_model_picture.likes.add(*likers)
+
+    yield test_model_picture
+
+    test_model_picture.likes.clear()

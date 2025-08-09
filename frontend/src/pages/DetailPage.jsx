@@ -1,4 +1,5 @@
 import { useParams } from 'react-router';
+import { FcLike, FcLikePlaceholder } from "react-icons/fc";
 import MainContainer from '../components/MainContainer';
 import { usePictureQuery } from '../queries/usePictureQuery';
 import Spinner from '../components/Spinner';
@@ -23,7 +24,15 @@ const DetailPage = () => {
             className="w-full object-cover aspect-square"
           />
           <p className="m-4">{picture.title}</p>
-          <p className="m-4">{picture.user.handle}</p>
+          <div className='flex items-center justify-between m-4'>
+            <p className=" text-gray-400 dark:text-gray-300">
+              {picture.user.handle}
+            </p>
+            <div className='flex items-center gap-3'>
+              <FcLike />
+              <span>100</span>
+            </div>
+          </div>
         </div>
 
         {/* Comments card */}
