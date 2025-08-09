@@ -42,7 +42,7 @@ class TestPictureModel:
 
     def test_likes_none(self, test_model_picture):
         assert test_model_picture.likes.count() == 0
-    
+
     def test_likes_five(self, test_model_picture_five_likes):
         assert test_model_picture_five_likes.likes.count() == 5
 

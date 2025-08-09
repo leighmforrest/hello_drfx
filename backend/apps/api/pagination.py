@@ -3,7 +3,7 @@ from rest_framework.pagination import LimitOffsetPagination
 
 
 class StandardPaginationClass(LimitOffsetPagination):
-    default_limit = 3
+    default_limit = 6
 
     def get_next_link(self):
         if self.count is None or self.offset + self.limit >= self.count:

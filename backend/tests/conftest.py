@@ -69,6 +69,11 @@ def test_model_picture(db, test_user):
 
 
 @pytest.fixture
+def test_model_pictures_paginated(db):
+    return PictureFactory.create_batch(12)
+
+
+@pytest.fixture
 def test_model_picture_five_likes(db, test_model_picture):
     likers = UserFactory.create_batch(5)
 

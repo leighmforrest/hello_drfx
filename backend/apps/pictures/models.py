@@ -16,7 +16,7 @@ class Picture(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=126)
     picture = models.ImageField(upload_to=upload_to)
-    likes = models.ManyToManyField(User, related_name='likes')
+    likes = models.ManyToManyField(User, related_name="likes")
 
     def __str__(self):
         return self.title
