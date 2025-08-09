@@ -1,10 +1,8 @@
 import pytest
 
 from rest_framework.test import APIClient
-from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from apps.pictures.models import Picture
 from tests.helpers import generate_image_file
 from tests.factories import UserFactory, PictureFactory
 
@@ -67,7 +65,7 @@ def test_text_file():
 
 @pytest.fixture
 def test_model_picture(db, test_user):
-    return PictureFactory(user=test_user, title="HELLO THERE")
+    return PictureFactory(user=test_user)
 
 
 @pytest.fixture
