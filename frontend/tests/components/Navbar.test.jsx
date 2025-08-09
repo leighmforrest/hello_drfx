@@ -81,13 +81,13 @@ describe('Navbar', () => {
     expect(navListItems).toHaveLength(3);
   });
 
-  it('displays email if authenticated', async () => {
-    mockUserContext.user = { email: 'test@example.com' };
+  it('displays handle if authenticated', async () => {
+    mockUserContext.user = { email: 'test@example.com', handle: 'testuser' };
 
     const { hamburger, user } = renderComponent();
     await user.click(hamburger);
 
-    expect(screen.getByText(/test@example.com/i)).toBeInTheDocument();
+    expect(screen.getByText(/testuser/i)).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: /log out/i }),
     ).toBeInTheDocument();
@@ -101,7 +101,7 @@ describe('Navbar', () => {
   });
 
   it('calls logout when logout clicked', async () => {
-    mockUserContext.user = { email: 'test@example.com' };
+    mockUserContext.user = { email: 'test@example.com', handle: 'testuser' };
 
     const { hamburger, user } = renderComponent();
     await user.click(hamburger);
@@ -115,22 +115,24 @@ describe('Navbar', () => {
     });
   });
 
-  it('displays popover menu when email is clicked', async () => {
-    mockUserContext.user = { email: 'test@example.com' };
+  it('displays popover menu when handle is clicked', async () => {
+    mockUserContext.user = { email: 'test@example.com', handle: 'testuser' };
 
     const { hamburger, user } = renderComponent();
     await user.click(hamburger);
 
-    const email = screen.getByText(/test@example.com/i);
-    await user.click(email);
+    const handle = screen.getByText(/testuser/i);
+    await user.click(handle);
 
     expect(screen.queryByTestId('userpopover')).toBeInTheDocument();
     expect(screen.queryByText(/password change/i)).toBeInTheDocument();
+    expect(screen.queryByText(/test@example.com/i)).toBeInTheDocument();
 
-    await user.click(email);
+    await user.click(handle);
 
     expect(screen.queryByTestId('userpopover')).not.toBeInTheDocument();
     expect(screen.queryByText(/password change/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/test@example.com/i)).not.toBeInTheDocument();
   });
 
   test.each([

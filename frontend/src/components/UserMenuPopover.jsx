@@ -23,7 +23,7 @@ const UserMenuPopover = ({ user }) => {
         onClick={togglePopover}
         className="cursor-pointer flex items-center justify-center gap-2 hover:text-amber-200"
       >
-        {user.email}
+        {user.handle}
       </span>
 
       {isOpen && (
