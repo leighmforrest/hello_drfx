@@ -15,8 +15,18 @@ class TestDetailView:
         response = authenticated_client.get(url)
 
         assert response.status_code == 200
+    
+    def test_get_picture_data(self, test_model_picture, authenticated_client):
+        url = self.get_url(test_model_picture.pk)
+        response = authenticated_client.get(url)
 
-    def test_put_owner_returns_200(self, authenticated_client, test_model_picture):
+        assert response.data["is_user"] == True
+        assert response.data["total_likes"] == 0
+        assert response.data["is_liked"] == False
+        assert len(response.data['title']) > 0
+        assert str(response.data["pk"]) in response.data["picture"]
+
+    def test_put_owner_returns_200(self, authenticated_client, test_model_picture, test_user):
         url = self.get_url(test_model_picture.pk)
         image_file = generate_image_file()
         response = authenticated_client.put(
@@ -24,8 +34,9 @@ class TestDetailView:
             data={"title": "lorem ipsum hahah", "picture": image_file},
             format="multipart",
         )
-        print(response.data)
+
         assert response.status_code == 200
+        assert response.data["is_user"] == True
         assert response.data["title"] == "lorem ipsum hahah"
         assert str(test_model_picture.pk) in response.data["picture"]
 
