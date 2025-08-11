@@ -25,7 +25,17 @@ export const createPicture = async (formData, onProgress) => {
 
 
 export const fetchPicture = async (pictureId) => {
-  console.log("PICTURE ID", pictureId)
   const { data } = await api.get(`${endpoints.pictureDetail}${pictureId}`);
   return data;
+};
+
+
+export const like = async (pictureId) => {
+  const response = await api.post(`${endpoints.like}${pictureId}/like`);
+  return response.data;
+};
+
+export const unlike = async (pictureId) => {
+  const response = await api.delete(`${endpoints.like}${pictureId}/like`);
+  return response.data;
 };

@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { FcLike } from 'react-icons/fc';
+import { FcLike, FcLikePlaceholder } from 'react-icons/fc';
 
-const DetailImageCard = ({ picture, onLikeClick, onDelete }) => {
+const DetailImageCard = ({ picture, onLikeClick, onUnlikeClick, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((prev) => !prev);
-  
+
   const commonTextStyles =
     'w-full border rounded p-2 text-base leading-relaxed';
 
@@ -24,7 +24,10 @@ const DetailImageCard = ({ picture, onLikeClick, onDelete }) => {
       />
 
       <div className="p-4">
-        <form onSubmit={handleSubmit} className="flex flex-col w-full min-h-[8rem]">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col w-full min-h-[8rem]"
+        >
           {isEditing ? (
             <>
               <textarea
@@ -49,35 +52,48 @@ const DetailImageCard = ({ picture, onLikeClick, onDelete }) => {
       </div>
 
       <div className="flex items-center justify-between p-4 border-t border-gray-200 dark:border-gray-300 pt-4">
-
         <p className="text-gray-400 dark:text-gray-300">
           {picture.user.handle}
         </p>
 
         <div className="flex items-center justify-between gap-3">
-          <button type="button" onClick={onLikeClick}>
-            <FcLike className="text-xl hover:text-2xl w-6" />
-          </button>
+          {picture.is_liked ? (
+            <button type="button" onClick={onUnlikeClick}>
+              <FcLike className="text-xl hover:text-2xl w-6" />
+            </button>
+          ) : (
+            <button type="button" onClick={onLikeClick}>
+              <FcLikePlaceholder className="text-xl hover:text-2xl w-6" />
+            </button>
+          )}
           <span>{picture.total_likes}</span>
         </div>
 
         <div className="flex items-center gap-2 w-[5rem] justify-end">
-          {isEditing ? (
-            <button type="button" onClick={toggleEdit}>
-              Reset
-            </button>
-          ) : (
+          {picture.is_user && (
             <>
-              <button
-                type="button"
-                className="hover:underline"
-                onClick={toggleEdit}
-              >
-                Edit
-              </button>
-              <button type="button" className="hover:underline" onClick={onDelete}>
-                Delete
-              </button>
+              {isEditing ? (
+                <button type="button" onClick={toggleEdit}>
+                  Reset
+                </button>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    className="hover:underline"
+                    onClick={toggleEdit}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    className="hover:underline"
+                    onClick={onDelete}
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
             </>
           )}
         </div>

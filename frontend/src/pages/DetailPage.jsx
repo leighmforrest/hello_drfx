@@ -1,5 +1,6 @@
 import { useParams } from 'react-router';
 import MainContainer from '../components/MainContainer';
+import { useLikePicture } from '../mutations/likePictureMutation';
 import { usePictureQuery } from '../queries/usePictureQuery';
 
 import CommentsCard from '../components/CommentsCard';
@@ -10,8 +11,10 @@ const DetailPage = () => {
   const { pk } = useParams();
 
   const { data: picture, isLoading, error } = usePictureQuery(pk);
+  const {likeMutation, unlikeMutation } = useLikePicture(pk)
 
-  const likeButtonHandler = () => alert('LIKE CLICK');
+  const likeButtonHandler = () => likeMutation.mutate( );
+  const unlikeButtonHandler = () => unlikeMutation.mutate();
   const deleteButtonHandler = () => alert('DELETE!!!!');
 
   if (isLoading) return <Spinner />;
@@ -24,6 +27,7 @@ const DetailPage = () => {
         {/* Picture card */}
         <DetailImageCard
           picture={picture}
+          onUnlikeClick={unlikeButtonHandler}
           onLikeClick={likeButtonHandler}
           onDelete={deleteButtonHandler}
         />
