@@ -5,7 +5,7 @@ import React from 'react';
  */
 const MainContainer = ({ children }) => (
   <main
-    className="min-h-screen flex-1 w-full bg-blue-200 dark:bg-blue-900 dark:text-white"
+    className="min-h-screen flex-1 w-full bg-blue-200 dark:bg-blue-900 dark:text-white justify-center items-center"
     data-testid="maincontainer"
   >
     {children}

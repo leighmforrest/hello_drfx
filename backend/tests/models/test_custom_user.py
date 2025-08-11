@@ -31,6 +31,7 @@ class TestCustomUser:
         [
             ({}, TypeError),
             ({"email": ""}, ValueError),
+            ({"email": "rod@example.com", "password": "FooBarBaz"}, ValueError),
             ({"email": "", "password": "FooBarBaz"}, ValueError),
         ],
     )

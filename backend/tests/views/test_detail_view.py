@@ -83,3 +83,17 @@ class TestDetailView:
 
         assert response.status_code == 403
         assert Picture.objects.filter(pk=pk).exists()
+
+    def test_get_likes_liked_by_user(self, authenticated_client, test_model_picture_liked_by_user, test_user):
+        pk = test_model_picture_liked_by_user.pk
+        url = self.get_url(pk)
+        response = authenticated_client.get(url)
+
+        assert response.data["is_liked"] == True
+
+    def test_get_likes_not_liked_by_user(self, authenticated_client, test_model_picture, test_user):
+        pk = test_model_picture.pk
+        url = self.get_url(pk)
+        response = authenticated_client.get(url)
+
+        assert response.data["is_liked"] == False

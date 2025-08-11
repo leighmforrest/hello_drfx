@@ -1,13 +1,18 @@
 import { useParams } from 'react-router';
-import { FcLike, FcLikePlaceholder } from "react-icons/fc";
 import MainContainer from '../components/MainContainer';
 import { usePictureQuery } from '../queries/usePictureQuery';
+
+import CommentsCard from '../components/CommentsCard';
+import DetailImageCard from '../components/DetailImageCard';
 import Spinner from '../components/Spinner';
 
 const DetailPage = () => {
   const { pk } = useParams();
 
   const { data: picture, isLoading, error } = usePictureQuery(pk);
+
+  const likeButtonHandler = () => alert('LIKE CLICK');
+  const deleteButtonHandler = () => alert('DELETE!!!!');
 
   if (isLoading) return <Spinner />;
 
@@ -17,28 +22,13 @@ const DetailPage = () => {
     <MainContainer>
       <div className="grid grid-cols-1 sm:grid-cols-5 gap-4 w-full p-4 items-stretch">
         {/* Picture card */}
-        <div className="col-span-1 sm:col-span-2 flex flex-col rounded-2xl overflow-hidden shadow-lg bg-white dark:bg-blue-700">
-          <img
-            src={picture.picture}
-            alt={picture.title}
-            className="w-full object-cover aspect-square"
-          />
-          <p className="m-4">{picture.title}</p>
-          <div className='flex items-center justify-between m-4'>
-            <p className=" text-gray-400 dark:text-gray-300">
-              {picture.user.handle}
-            </p>
-            <div className='flex items-center gap-3'>
-              <FcLike />
-              <span>100</span>
-            </div>
-          </div>
-        </div>
-
+        <DetailImageCard
+          picture={picture}
+          onLikeClick={likeButtonHandler}
+          onDelete={deleteButtonHandler}
+        />
         {/* Comments card */}
-        <div className="col-span-1 sm:col-span-3 flex flex-col rounded-2xl overflow-hidden shadow-lg bg-white dark:bg-blue-700">
-          <p className="m-4 text-center text-4xl">COMMENTS CARD</p>
-        </div>
+        <CommentsCard />
       </div>
     </MainContainer>
   );

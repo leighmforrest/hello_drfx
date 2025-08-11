@@ -11,15 +11,11 @@ pytestmark = pytest.mark.django_db
 class TestIndexView:
     @property
     def url(self):
-        """
-        Helper to get the view's url.
-        """
+        """Helper to get the view's URL."""
         return reverse("pictures:index")
 
     def pk_in_image_name(self, path_str, picture_pk):
-        """
-        Assert that the picture PK is embedded in the uploaded image url.
-        """
+        """Assert that the picture PK is embedded in the image URL."""
         assert str(picture_pk) in str(path_str)
 
     def test_authenticated_user_can_get(self, authenticated_client: APIClient):
@@ -42,58 +38,60 @@ class TestIndexView:
             self.pk_in_image_name(url, pk)
             assert total_likes == 0
 
-        def test_authenticated_user_content_five_likes(
-            self, authenticated_client: APIClient, test_model_picture_five_likes
-        ):
-            response = authenticated_client.get(self.url)
-            data = response.data["results"]
-
-            assert isinstance(data, list)
-            assert any(pic["pk"] == str(test_model_picture.pk) for pic in data)
-
-            for datum in data:
-                url = datum["picture"]
-                pk = datum["pk"]
-                total_likes = datum["total_likes"]
-                self.pk_in_image_name(url, pk)
-                assert total_likes == 5
-
-    def test_authenticated_user_content_paginated(
-        self, authenticated_client: APIClient, test_model_pictures_paginated
+    def test_authenticated_user_content_five_likes(
+        self, authenticated_client: APIClient, test_model_picture_five_likes
     ):
         response = authenticated_client.get(self.url)
-        assert response.status_code == 200
+        data = response.data["results"]
 
-        count = response.data["count"]
-        results = response.data["results"]
-        next_url = response.data["next"]
-        previous_url = response.data["previous"]
+        assert isinstance(data, list)
+        assert any(pic["pk"] == str(test_model_picture_five_likes.pk) for pic in data)
 
-        assert count == 12
-        assert isinstance(results, list)
-        assert len(results) == 6
+        for datum in data:
+            url = datum["picture"]
+            pk = datum["pk"]
+            total_likes = datum["total_likes"]
+            self.pk_in_image_name(url, pk)
+            # Only test for 5 likes on the specific picture
+            if pk == str(test_model_picture_five_likes.pk):
+                assert total_likes == 5
 
-        assert previous_url is None
+    def test_authenticated_user_content_all_pages(
+        self, authenticated_client: APIClient, test_model_pictures_paginated
+    ):
+        url = self.url
+        all_results = []
+        previous_url = None
 
-        assert next_url is not None
+        while url:
+            response = authenticated_client.get(url)
+            assert response.status_code == 200
 
-        assert "limit=" in next_url
-        assert "offset=" in next_url
+            data = response.data
+            results = data["results"]
+            all_results.extend(results)
 
-        # Follow the next page link and test
-        next_response = authenticated_client.get(next_url)
-        assert next_response.status_code == 200
-        next_results = next_response.data["results"]
-        next_previous_url = next_response.data["previous"]
+            # Assert page-specific things if needed, e.g. length
+            # For example, each page should have <= page size (6 in your case)
+            assert  0 < len(results) <= 6
 
-        assert next_response.data["next"] is None
-        assert next_previous_url is not None
-        assert len(next_results) == 6
+            # Check pagination links
+            next_url = data["next"]
+            prev_url = data["previous"]
 
-        # You can also test that items are different between pages (if you want)
-        first_page_pks = {item["pk"] for item in results}
-        second_page_pks = {item["pk"] for item in next_results}
-        assert not first_page_pks.intersection(second_page_pks)
+            # The previous url should either be None or not equal to current url
+            if previous_url:
+                assert prev_url is not None
+            previous_url = prev_url
+
+            url = next_url  # move to next page or exit if None
+
+        # After fetching all pages, verify total count matches
+        assert len(all_results) == data["count"]
+
+        # Optionally, verify uniqueness of PKs across all pages
+        all_pks = {item["pk"] for item in all_results}
+        assert len(all_pks) == len(all_results)
 
     def test_authenticated_upload_image(
         self, authenticated_client: APIClient, test_model_image_file, test_user

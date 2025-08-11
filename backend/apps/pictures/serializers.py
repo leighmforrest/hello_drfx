@@ -5,12 +5,18 @@ from apps.accounts.serializers import ShortCustomUserSerializer
 
 class PictureSerializer(serializers.ModelSerializer):
     user = ShortCustomUserSerializer(read_only=True)
-    total_likes = serializers.SerializerMethodField()
+    total_likes = serializers.SerializerMethodField(read_only=True)
+    is_liked = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Picture
-        fields = ["pk", "title", "picture", "user", "total_likes"]
+        fields = ["pk", "title", "picture", "user", "total_likes", "is_liked"]
         read_only_fields = ["id", "user"]
     
     def get_total_likes(self, obj: Picture):
         return obj.likes.count()
+    
+    def get_is_liked(self, obj: Picture):
+        request = self.context.get('request')
+
+        return request.user.is_authenticated and obj.likes.filter(id=request.user.pk).exists()
