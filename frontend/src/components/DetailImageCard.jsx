@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { FcLike, FcLikePlaceholder } from 'react-icons/fc';
+import { FcLikePlaceholder } from 'react-icons/fc';
 import { useUpdatePicture } from '../mutations/updatePictureMutation';
 import PictureUpdateForm from './forms/PictureUpdateForm';
 import { toast } from 'react-toastify';
 import TitleDisplay from './TitleDisplay';
+import LikeBar from './LikeBar';
 
 const DetailImageCard = ({ picture, onLikeClick, onUnlikeClick, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -23,29 +24,29 @@ const DetailImageCard = ({ picture, onLikeClick, onUnlikeClick, onDelete }) => {
         alt={picture.title}
         className="w-full object-cover aspect-square"
       />
-      {picture.is_user ? <PictureUpdateForm
-        isEditing={isEditing}
-        onSubmitHandler={handleSubmit}
-        title={picture.title}
-      /> : <TitleDisplay title={picture.title} className="flex flex-col w-full min-h-[9.125rem] p-4"/>}
+      {picture.is_user ? (
+        <PictureUpdateForm
+          isEditing={isEditing}
+          onSubmitHandler={handleSubmit}
+          title={picture.title}
+        />
+      ) : (
+        <TitleDisplay
+          title={picture.title}
+          className="flex flex-col w-full min-h-[9.125rem] p-4"
+        />
+      )}
 
       <div className="flex items-center justify-between p-4 border-t border-gray-200 dark:border-gray-300 pt-4">
         <p className="text-gray-400 dark:text-gray-300">
           {picture.user.handle}
         </p>
 
-        <div className="flex items-center justify-between gap-3">
-          {picture.is_liked ? (
-            <button type="button" onClick={onUnlikeClick}>
-              <FcLike className="text-xl hover:text-2xl w-6" />
-            </button>
-          ) : (
-            <button type="button" onClick={onLikeClick}>
-              <FcLikePlaceholder className="text-xl hover:text-2xl w-6" />
-            </button>
-          )}
-          <span>{picture.total_likes}</span>
-        </div>
+          <LikeBar
+            picture={picture}
+            onLikeClick={onLikeClick}
+            onUnlikeClick={onUnlikeClick}
+          />
 
         <div className="flex items-center gap-2 w-[5rem] justify-end">
           {picture.is_user && (

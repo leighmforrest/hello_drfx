@@ -16,7 +16,7 @@ const ImageCard = ({ image }) => (
       </Link>
     </div>
     {/* Card Content */}
-    <div className="flex flex-col justify-center px-6 py-4 flex-grow bg-white h-32">
+    <div className="flex flex-col justify-start px-6 py-4 flex-grow bg-white h-32">
       <p className="text-gray-700 text-base break-words">{image.title}</p>
     </div>
   </div>
