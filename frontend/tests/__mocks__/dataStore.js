@@ -7,6 +7,9 @@ export const userFactory = factory.define({
   props: {
     email: () => "testuser@example.com",
     handle: () => faker.internet.username(),
+    is_user: () => false,
+    is_liked: () => false,
+    likes: () => faker.number.int(),
     pk: seq(1, (n) => n),
   },
   vars: {}
@@ -30,4 +33,5 @@ export const pictureFactory = factory.define({
     vars: {}
 })
 
+export const picture = await pictureFactory.build()
 export const pictures = await pictureFactory.buildList(PICTURE_SIZE)

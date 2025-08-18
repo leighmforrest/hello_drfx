@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { BASE_URL, endpoints } from '../../settings';
 import {
+  picture,
   pictures,
   pictureFactory,
   userFactory,

@@ -1,18 +1,19 @@
 import { useState } from 'react';
 import { FcLike, FcLikePlaceholder } from 'react-icons/fc';
+import { useUpdatePicture } from '../mutations/updatePictureMutation';
+import PictureUpdateForm from './forms/PictureUpdateForm';
+import { toast } from 'react-toastify';
+import TitleDisplay from './TitleDisplay';
 
 const DetailImageCard = ({ picture, onLikeClick, onUnlikeClick, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const updateMutation = useUpdatePicture(picture.pk);
 
   const toggleEdit = () => setIsEditing((prev) => !prev);
-
-  const commonTextStyles =
-    'w-full border rounded p-2 text-base leading-relaxed';
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert('Saving title');
-    toggleEdit();
+  const handleSubmit = (data) => {
+    updateMutation.mutate(data.title);
+    setIsEditing(false);
+    toast.success(`The picture has been updated.`);
   };
 
   return (
@@ -22,34 +23,11 @@ const DetailImageCard = ({ picture, onLikeClick, onUnlikeClick, onDelete }) => {
         alt={picture.title}
         className="w-full object-cover aspect-square"
       />
-
-      <div className="p-4">
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col w-full min-h-[8rem]"
-        >
-          {isEditing ? (
-            <>
-              <textarea
-                defaultValue={picture.title}
-                className={`${commonTextStyles} resize-none`}
-                rows={3} // approx height for 3 lines
-              />
-              <div className="flex items-center justify-end mt-1">
-                <button type="submit" className="hover:underline">
-                  Save
-                </button>
-              </div>
-            </>
-          ) : (
-            <p
-              className={`${commonTextStyles} whitespace-pre-wrap border-transparent`}
-            >
-              {picture.title}
-            </p>
-          )}
-        </form>
-      </div>
+      {picture.is_user ? <PictureUpdateForm
+        isEditing={isEditing}
+        onSubmitHandler={handleSubmit}
+        title={picture.title}
+      /> : <TitleDisplay title={picture.title} className="flex flex-col w-full min-h-[9.125rem] p-4"/>}
 
       <div className="flex items-center justify-between p-4 border-t border-gray-200 dark:border-gray-300 pt-4">
         <p className="text-gray-400 dark:text-gray-300">

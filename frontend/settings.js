@@ -14,6 +14,7 @@ export const endpoints = {
   passwordChange: '/accounts/users/set_password/',
   index: '/',
   pictureCreate: '/',
+  pictureUpdate: '/',
   pictureDetail: '/',
   like: '/'
 };

@@ -39,3 +39,9 @@ export const unlike = async (pictureId) => {
   const response = await api.delete(`${endpoints.like}${pictureId}/like`);
   return response.data;
 };
+
+
+export const updatePicture = async (pictureId, title) => {
+  const response = await api.patch(`${pictureId}`, { title });
+  return response.data;
+}
