@@ -1,45 +1,38 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-
-import TitleDisplay from '../TitleDisplay';
-import TextArea from './TextArea';
 import { pictureUpdateSchema } from '../../schemas';
+import TextArea from '../forms/TextArea';
 
-const PictureUpdateCard = ({ title, isEditing, onSubmitHandler }) => {
-    
+const PictureUpdateForm = ({ title, onUpdate, toggleEditing }) => {
+
 
   const { handleSubmit, control, reset } = useForm({
-    resolver: yupResolver(pictureUpdateSchema),
     defaultValues: { title },
-    mode: 'onChange',
+    resolver: yupResolver(pictureUpdateSchema),
   });
-
-  useEffect(() => {
-    reset({ title: title || '' });
-  }, [title, reset]);
+  
+  const onResetHandler = () => {
+    reset({ title });
+    toggleEditing()
+  };
 
   return (
-    <div className="p-4">
-      <form
-        onSubmit={handleSubmit(onSubmitHandler)}
-        className="flex flex-col w-full min-h-[9.125rem]"
-      >
-        {isEditing ? (
-          <>
-            <TextArea name="title" control={control} rows={3} />
-            <div className="flex items-center justify-end mt-1">
-              <button type="submit" className="hover:underline">
-                Save
-              </button>
-            </div>
-          </>
-        ) : (
-          <TitleDisplay title={title}/>
-        )}
+    <div>
+      <form className="flex flex-col w-full" onSubmit={handleSubmit(onUpdate)}>
+        <TextArea name="title" control={control} rows={4} />
+        <div className="flex justify-end gap-4">
+          <button
+            type="button"
+            className="hover:underline"
+            onClick={onResetHandler}
+          >
+            Reset
+          </button>
+          <input type="submit" value="Save" className="hover:underline" />
+        </div>
       </form>
     </div>
   );
 };
 
-export default PictureUpdateCard;
+export default PictureUpdateForm;

@@ -1,37 +1,38 @@
 import { useParams } from 'react-router';
-import MainContainer from '../components/MainContainer';
-import { useLikePicture } from '../mutations/likePictureMutation';
 import { usePictureQuery } from '../queries/usePictureQuery';
-
-import CommentsCard from '../components/CommentsCard';
-import DetailImageCard from '../components/DetailImageCard';
 import Spinner from '../components/Spinner';
+import ErrorPage from '../pages/ErrorPage';
+import MainContainer from '../components/MainContainer';
+import CommentsCard from '../components/CommentsCard';
+import PictureDetailCard from '../components/PictureDetailCard';
+import NotFoundPage from './NotFoundPage';
 
 const DetailPage = () => {
   const { pk } = useParams();
-
   const { data: picture, isLoading, error } = usePictureQuery(pk);
-  const {likeMutation, unlikeMutation } = useLikePicture(pk)
 
-  const likeButtonHandler = () => likeMutation.mutate( );
-  const unlikeButtonHandler = () => unlikeMutation.mutate();
-  const deleteButtonHandler = () => alert('DELETE!!!!');
+  /**
+   * Event Handlers
+   */
+
+  const onDeleteHandler = () => {
+    alert("DELETE")
+  };
 
   if (isLoading) return <Spinner />;
 
-  if (error) return <p>Unable. Malfunction. Need Input.</p>;
+  if (error) {
+    if (error?.response.status === 404) {
+      return <NotFoundPage />
+    }
+    
+    return <ErrorPage />
+  }
 
   return (
     <MainContainer>
-      <div className="grid grid-cols-1 sm:grid-cols-5 gap-4 w-full p-4 items-stretch">
-        {/* Picture card */}
-        <DetailImageCard
-          picture={picture}
-          onUnlikeClick={unlikeButtonHandler}
-          onLikeClick={likeButtonHandler}
-          onDelete={deleteButtonHandler}
-        />
-        {/* Comments card */}
+      <div className="grid grid-cols-1 sm:grid-cols-5 gap-4 w-full p-4 items-stretch border-red-600">
+        <PictureDetailCard picture={picture} onDelete={onDeleteHandler}/>
         <CommentsCard />
       </div>
     </MainContainer>

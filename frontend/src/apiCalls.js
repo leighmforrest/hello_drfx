@@ -45,3 +45,8 @@ export const updatePicture = async (pictureId, title) => {
   const response = await api.patch(`${pictureId}`, { title });
   return response.data;
 }
+
+export const deletePicture = async (pictureId) => {
+  const response = await api.delete(`${pictureId}`);
+  return response.data;
+};
