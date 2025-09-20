@@ -7,15 +7,17 @@ export function useLikePicture(pictureId) {
   const likeMutation = useMutation({
     mutationFn: () => like(pictureId),
     onSuccess: () => {
-      queryClient.invalidateQueries(['pictures']);
-    }
+      queryClient.invalidateQueries({ queryKey: ['pictures'] });
+      queryClient.invalidateQueries({ queryKey: ['picture', pictureId] });
+    },
   });
 
   const unlikeMutation = useMutation({
     mutationFn: () => unlike(pictureId),
     onSuccess: () => {
       queryClient.invalidateQueries(['pictures']);
-    }
+      queryClient.invalidateQueries({ queryKey: ['picture', pictureId] });
+    },
   });
 
   return { likeMutation, unlikeMutation };

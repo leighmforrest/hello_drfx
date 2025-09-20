@@ -1,4 +1,4 @@
-import { endpoints, LIMIT } from '../settings';
+import { endpoints, LIMIT, BASE_URL } from '../settings';
 import api from './apiClient';
 
 export const fetchPictures = async (offset= 0, limit=LIMIT) => {
@@ -25,7 +25,8 @@ export const createPicture = async (formData, onProgress) => {
 
 
 export const fetchPicture = async (pictureId) => {
-  const { data } = await api.get(`${endpoints.pictureDetail}${pictureId}`);
+  const url = `${BASE_URL}/${pictureId}`
+  const { data } = await api.get(url);
   return data;
 };
 

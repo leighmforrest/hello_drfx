@@ -1,18 +1,15 @@
-import { factory, seq } from "@factory-js/factory";
-import { faker } from "@faker-js/faker";
+import { factory, seq } from '@factory-js/factory';
+import { faker } from '@faker-js/faker';
 
-export const PICTURE_SIZE = 50
- 
+export const PICTURE_SIZE = 50;
+
 export const userFactory = factory.define({
   props: {
-    email: () => "testuser@example.com",
+    email: () => 'testuser@example.com',
     handle: () => faker.internet.username(),
-    is_user: () => false,
-    is_liked: () => false,
-    likes: () => faker.number.int(),
     pk: seq(1, (n) => n),
   },
-  vars: {}
+  vars: {},
 });
 
 export const shortUserFactory = factory.define({
@@ -20,18 +17,22 @@ export const shortUserFactory = factory.define({
     handle: () => faker.internet.username(),
     pk: seq(1, (n) => n),
   },
-  vars: {}
+  vars: {},
 });
 
 export const pictureFactory = factory.define({
-    props: {
-        pk: () => faker.string.uuid(),
-        title: () => faker.lorem.sentence(15),
-        picture: () => faker.image.url(),
-        user: () => shortUserFactory.props({email: () => faker.internet.email()}).build()
-    },
-    vars: {}
-})
+  props: {
+    pk: () => faker.string.uuid(),
+    title: () => faker.lorem.sentence(15),
+    picture: () => faker.image.url(),
+    is_user: () => false,
+    is_liked: () => false,
+    total_likes: () => faker.number.int(),
+    user: () =>
+      shortUserFactory.props({ email: () => faker.internet.email() }).build(),
+  },
+  vars: {},
+});
 
-export const picture = await pictureFactory.build()
-export const pictures = await pictureFactory.buildList(PICTURE_SIZE)
+export const picture = await pictureFactory.build();
+export const pictures = await pictureFactory.buildList(PICTURE_SIZE);

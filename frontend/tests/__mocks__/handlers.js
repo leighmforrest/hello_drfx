@@ -1,7 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import { BASE_URL, endpoints } from '../../settings';
 import {
-  picture,
   pictures,
   pictureFactory,
   userFactory,
@@ -46,7 +45,7 @@ export const handlers = [
   http.post(`${BASE_URL}${endpoints.register}`, async ({ request }) => {
     const { email: registerEmail, handle } = await request.json();
     console.log(handle)
-    const user = await userFactory.props({ email: () => registerEmail });
+    const user = userFactory.props({ email: () => registerEmail });
 
     return HttpResponse.json(user, { status: 201 });
   }),
