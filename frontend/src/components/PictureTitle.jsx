@@ -1,15 +1,16 @@
-import React from 'react'
+import React from 'react';
+import PictureEditForm from './forms/PictureEditForm';
 
-const PictureTitle = ({title, isEditing, cancelEditing, onUpdate}) => {
+const PictureTitle = ({ title, isEditing, onUpdate, toggleEditing }) => {
   return (
-    (<div>
-        {isEditing ? <p>
-            <textarea value={title}></textarea>
-            <button onClick={cancelEditing}>Cancel</button>
-            <button onClick={onUpdate}>Update</button>
-        </p>: <p>{title}</p>}
-    </div>)
-  )
-}
+    <div>
+      {isEditing ? (
+        <PictureEditForm onUpdate={onUpdate} title={title} toggleEditing={toggleEditing} />
+      ) : (
+        <p>{title}</p>
+      )}
+    </div>
+  );
+};
 
-export default PictureTitle
+export default PictureTitle;

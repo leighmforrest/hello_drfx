@@ -40,7 +40,7 @@ const DetailPage = () => {
           <PictureTitle
             title={picture.title}
             isEditing={isEditing}
-            cancelEditing={cancelEditing}
+            toggleEditing={toggleEditing}
             onUpdate={onUpdateHandler}
           />
           <PictureFooter

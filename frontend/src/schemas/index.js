@@ -66,3 +66,11 @@ export const pictureSchema = yup.object({
       return value && value[0] && SUPPORTED_FORMATS.includes(value[0].type);
     }),
 });
+
+export const pictureEditSchema = yup.object({
+  title: yup
+    .string()
+    .required('Title is required.')
+    .min(6, 'Title must be at least 6 characters.')
+    .max(126, 'Title must not exceed 126 characters.'),
+});

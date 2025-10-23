@@ -24,6 +24,7 @@ describe('DetailPage', () => {
       user: userEvent.setup(),
     };
   };
+  
 
   describe('all authenticated users', () => {
     beforeEach(async () => {
