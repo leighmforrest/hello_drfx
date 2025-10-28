@@ -7,7 +7,7 @@ import { TestUserProvider } from '../providers';
 import DetailPage from '../../src/pages/DetailPage';
 import { pictureFactory } from '../__mocks__/dataStore';
 import { BASE_URL } from '../../settings';
-import { expect } from 'vitest';
+import { describe, expect } from 'vitest';
 
 describe('DetailPage', () => {
   let picture;
@@ -24,7 +24,6 @@ describe('DetailPage', () => {
       user: userEvent.setup(),
     };
   };
-  
 
   describe('all authenticated users', () => {
     beforeEach(async () => {
@@ -124,6 +123,121 @@ describe('DetailPage', () => {
         totalLikes - 1,
       );
       expect(screen.getByTestId('like-button')).toBeInTheDocument();
+    });
+  });
+
+  describe('users who created picture', () => {
+    beforeEach(async () => {
+      picture = await pictureFactory.props({ is_user: () => true }).build();
+
+      server.use(
+        http.get(`${BASE_URL}/:pk`, () => {
+          return HttpResponse.json(picture);
+        }),
+      );
+
+      server.use(
+        http.patch(`${BASE_URL}/:pk`, async ({ request }) => {
+          const { title } = await request.json();
+          picture = { ...picture, title };
+          return HttpResponse.json(picture);
+        }),
+      );
+    });
+
+    it('should render edit and delete buttons', async () => {
+      renderComponent(picture.pk);
+
+      await waitFor(async () => {
+        const deleteButton = await screen.findByRole('button', {
+          name: /delete/i,
+        });
+        const editButton = await screen.findByRole('button', { name: /edit/i });
+
+        expect(editButton).toBeInTheDocument();
+        expect(deleteButton).toBeInTheDocument();
+      });
+    });
+
+    it('should render form when edit button is clicked', async () => {
+      const { user } = renderComponent(picture.pk);
+
+      await waitFor(async () => {
+        const editButton = await screen.findByRole('button', { name: /edit/i });
+        await user.click(editButton);
+
+        expect(screen.getByTestId('picture-edit-form')).toBeInTheDocument();
+      });
+    });
+
+    it('should reset when reset button is clicked', async () => {
+      const { user } = renderComponent(picture.pk);
+
+      await waitFor(async () => {
+        const editButton = await screen.findByRole('button', { name: /edit/i });
+        await user.click(editButton);
+      });
+
+      await waitFor(async () => {
+        const resetButton = await screen.findByRole('button', {
+          name: /reset/i,
+        });
+        const textarea = await screen.findByRole('textbox');
+
+        await user.type(textarea, 'this is dummy text');
+        await user.click(resetButton);
+
+        expect(textarea).not.toBeInTheDocument();
+        expect(screen.getByText(picture.title)).toBeInTheDocument();
+      });
+    });
+
+    it('should update when update button is clicked', async () => {
+      const { user } = renderComponent(picture.pk);
+
+      await waitFor(async () => {
+        const editButton = await screen.findByRole('button', { name: /edit/i });
+        await user.click(editButton);
+      });
+
+      await waitFor(async () => {
+        const updateButton = await screen.findByRole('button', {
+          name: /update/i,
+        });
+        const textarea = await screen.findByRole('textbox');
+
+        await user.clear(textarea);
+        await user.type(textarea, 'this is dummy text');
+        await user.click(updateButton);
+
+        expect(textarea).not.toBeInTheDocument();
+        expect(screen.getByText('this is dummy text')).toBeInTheDocument();
+        expect(
+          screen.getByText(/the picture has been updated/i),
+        ).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe('users who did not create picture', () => {
+    beforeEach(async () => {
+      picture = await pictureFactory.props({ is_user: () => false }).build();
+
+      server.use(
+        http.get(`${BASE_URL}/:pk`, () => {
+          return HttpResponse.json(picture);
+        }),
+      );
+    });
+
+    it('should not render edit and delete buttons', async () => {
+      renderComponent(picture.pk);
+
+      await waitFor(async () => {
+        const editDeleteBar = screen.queryByTestId("edit-delete-bar")
+        expect(editDeleteBar).not.toBeInTheDocument()
+
+      });
     });
   });
 });
