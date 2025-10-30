@@ -46,5 +46,13 @@ class TestPictureModel:
     def test_likes_five(self, test_model_picture_five_likes):
         assert test_model_picture_five_likes.likes.count() == 5
 
+    def test_comments(self, test_model_picture_five_comments, test_model_picture):
+        assert test_model_picture.picture_comments.count() == 5
+
+    def test_comments___str__(self, test_model_picture_five_comments, test_model_picture):
+        for comment in test_model_picture.picture_comments.all():
+            assert str(comment) == f"{comment.user.handle}:{comment.picture.title}"
+
+
     def test___str__(self, test_model_picture):
         assert str(test_model_picture) == test_model_picture.title

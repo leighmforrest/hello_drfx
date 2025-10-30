@@ -36,6 +36,7 @@ THIRD_PARTY_APPS = [
     "djoser",
     "rest_framework_simplejwt.token_blacklist",
     "storages",
+    "django_extensions"
 ]
 
 LOCAL_APPS = ["apps.accounts", "apps.api", "apps.pictures"]

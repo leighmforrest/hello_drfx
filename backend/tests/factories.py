@@ -3,7 +3,7 @@ from faker import Faker
 
 from django.contrib.auth import get_user_model
 
-from apps.pictures.models import Picture
+from apps.pictures.models import Picture, Comment
 from .helpers import generate_image_file
 
 
@@ -36,3 +36,12 @@ class PictureFactory(factory.django.DjangoModelFactory):
 
         # Add the iterable of likes using bulk addition
         self.likes.add(*extracted)
+
+
+class CommentFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Comment
+
+    user = factory.SubFactory(UserFactory)
+    picture = factory.SubFactory(PictureFactory)
+    comment = fake.paragraph(nb_sentences=10)

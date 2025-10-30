@@ -3,8 +3,9 @@ import pytest
 from rest_framework.test import APIClient
 from django.core.files.uploadedfile import SimpleUploadedFile
 
+from apps.pictures.models import Picture
 from tests.helpers import generate_image_file
-from tests.factories import UserFactory, PictureFactory
+from tests.factories import UserFactory, PictureFactory, CommentFactory
 
 
 @pytest.fixture(autouse=True)
@@ -86,10 +87,16 @@ def test_model_picture_five_likes(db, test_model_picture):
 
 @pytest.fixture
 def test_model_picture_liked_by_user(db, test_model_picture, test_user):
-    likers = UserFactory.create_batch(5)
-
     test_model_picture.likes.add(test_user)
 
     yield test_model_picture
 
     test_model_picture.likes.clear()
+
+
+@pytest.fixture
+def test_model_picture_five_comments(db, test_model_picture: Picture):
+    for _ in range(5):
+        CommentFactory(picture=test_model_picture)
+
+    yield test_model_picture
