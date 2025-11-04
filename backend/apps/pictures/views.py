@@ -6,8 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Picture
-from .serializers import PictureSerializer
+from .models import Picture, Comment
+from .serializers import PictureSerializer, CommentSerializer
 from .permissions import IsOwnerOrReadOnly
 
 
@@ -56,4 +56,16 @@ class LikeView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         
         return Response(status=status.HTTP_400_BAD_REQUEST)
-            
+
+
+class CommentsView(ListCreateAPIView):
+    serializer_class = CommentSerializer
+    
+    def get_queryset(self):
+        picture_id = self.kwargs.get("pk")
+        return Comment.objects.filter(picture__pk=picture_id).select_related("user", "picture")
+    
+    def perform_create(self, serializer):
+        picture_id = self.kwargs.get("pk")
+        picture = Picture.objects.get(pk=picture_id)
+        serializer.save(user=self.request.user, picture=picture)
