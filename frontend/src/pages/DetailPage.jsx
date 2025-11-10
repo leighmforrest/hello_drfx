@@ -1,23 +1,27 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom'; // ✅ react-router-dom
+import { toast } from 'react-toastify';
+import { useParams, useNavigate } from 'react-router-dom'; // ✅ react-router-dom
 import { usePictureQuery } from '../queries/usePictureQuery';
 import { useLikePicture } from '../mutations/likePictureMutation';
 import { useUpdatePicture } from '../mutations/updatePictureMutation';
+import { useDeletePicture } from "../mutations/deletePictureMutation";
 
 import Spinner from '../components/Spinner';
 
 import MainContainer from '../components/MainContainer';
 import DetailPanel from '../components/DetailPanel';
+import CommentsPanel from '../components/CommentsPanel';
 import NotFoundPage from './NotFoundPage';
 import ErrorPage from './ErrorPage';
-import { toast } from 'react-toastify';
 
 const DetailPage = () => {
   const { pk } = useParams();
+  const navigate = useNavigate();
 
   const { data: picture, isLoading, error } = usePictureQuery(pk);
   const { likeMutation, unlikeMutation } = useLikePicture(pk);
   const updateMutation = useUpdatePicture(pk);
+  const deleteMutation = useDeletePicture(pk);
 
   const [isEditing, setIsEditing] = useState(false);
   const toggleEditing = () => setIsEditing((prev) => !prev);
@@ -27,8 +31,12 @@ const DetailPage = () => {
     toast.success('The picture has been updated.');
     setIsEditing(false);
   };
+
   const onDeleteHandler = () => {
-    alert('DELETE');
+    deleteMutation.mutate()
+    toast.warning("The picture has been deleted.")
+    navigate("/")
+
   };
   const onLikeHandler = () => likeMutation.mutate();
   const onUnlikeHandler = () => unlikeMutation.mutate();
@@ -52,7 +60,7 @@ const DetailPage = () => {
           onUnlikeHandler={onUnlikeHandler}
           onDeleteHandler={onDeleteHandler}
         />
-        <div>Comments</div>
+        <CommentsPanel />
       </div>
     </MainContainer>
   );

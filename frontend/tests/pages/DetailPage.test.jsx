@@ -1,11 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import { mockNavigate } from '../__mocks__/reactRouterDomMock';
+
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Routes, Route } from 'react-router-dom';
 import { http, HttpResponse } from 'msw';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { server } from '../__mocks__/server';
-import { pictureFactory } from '../__mocks__/dataStore';
+import { pictureFactory, comments } from '../__mocks__/dataStore';
 import { TestUserProvider } from '../providers';
+import { paginatedResults } from '../helpers';
 import DetailPage from '../../src/pages/DetailPage';
 import { BASE_URL } from '../../settings';
 
@@ -14,18 +17,8 @@ const TEST_IDS = {
   EDIT_DELETE_BAR: 'edit-delete-bar',
   LIKE_BUTTON: 'like-button',
   UNLIKE_BUTTON: 'unlike-button',
+  COMMENTS_PANEL: 'comments-panel',
 };
-
-const renderComponent = (pictureId) => ({
-  ...render(
-    <TestUserProvider path={`/${pictureId}`}>
-      <Routes>
-        <Route path="/:pk" element={<DetailPage />} />
-      </Routes>
-    </TestUserProvider>,
-  ),
-  user: userEvent.setup(),
-});
 
 const mockPictureGet = (picture) => {
   server.use(
@@ -39,6 +32,21 @@ const mockPictureGet = (picture) => {
     }),
   );
 };
+
+const mockCommentsGet = () => {
+  server.use(
+    http.get(`${BASE_URL}/:pk/comments`, async ({ params, request }) => {
+      const data = paginatedResults({
+        allData: comments,
+        requestURL: request.url,
+        endpoint: `/${params.pk}/comments`,
+      });
+
+      return HttpResponse.json(data);
+    }),
+  );
+};
+
 
 // Register like/unlike handlers that close over the provided picture object.
 // Must be called inside the test's beforeEach so it mutates the right picture.
@@ -66,6 +74,17 @@ const registerLikeHandlers = (picture) => {
 let picture;
 
 describe('DetailPage', () => {
+  const renderComponent = (pictureId) => ({
+    ...render(
+      <TestUserProvider path={`/${pictureId}`}>
+        <Routes>
+          <Route path="/:pk" element={<DetailPage />} />
+        </Routes>
+      </TestUserProvider>,
+    ),
+    user: userEvent.setup(),
+  });
+
   describe('DetailPanel', () => {
     describe('authenticated users', () => {
       beforeEach(async () => {
@@ -77,6 +96,7 @@ describe('DetailPage', () => {
           .build();
 
         mockPictureGet(picture);
+        mockCommentsGet();
         registerLikeHandlers(picture); // must be per-test so handlers mutate this 'picture'
       });
 
@@ -102,11 +122,11 @@ describe('DetailPage', () => {
       });
 
       it.each([
-        { initialLiked: false, delta: +1, expected: TEST_IDS.UNLIKE_BUTTON },
-        { initialLiked: true, delta: -1, expected: TEST_IDS.LIKE_BUTTON },
+        { initialLiked: false, expected: TEST_IDS.UNLIKE_BUTTON },
+        { initialLiked: true, expected: TEST_IDS.LIKE_BUTTON },
       ])(
         'toggles like state (initialLiked=$initialLiked)',
-        async ({ initialLiked, delta, expected }) => {
+        async ({ initialLiked, expected }) => {
           // fresh per-test picture shape
           picture = { ...picture, is_liked: initialLiked, total_likes: 0 };
           // re-register handlers to close over new picture object
@@ -185,6 +205,28 @@ describe('DetailPage', () => {
           screen.getByText(/the picture has been updated/i),
         ).toBeInTheDocument();
       });
+
+      it('deletes picture when delete button is clicked', async () => {
+        server.use(
+          http.delete(`${BASE_URL}/:pk`, () => {
+            return new HttpResponse(null, { status: 204 });
+          }),
+        );
+
+        const { user } = renderComponent(picture.pk);
+
+        const deleteButton = await screen.findByRole('button', {
+          name: /delete/i,
+        });
+        await user.click(deleteButton);
+
+        await waitFor(() => {
+          expect(
+            screen.getByText(/the picture has been deleted/i),
+          ).toBeInTheDocument();
+          expect(mockNavigate).toHaveBeenCalledWith('/');
+        });
+      });
     });
 
     describe('users who did not create picture', () => {
@@ -200,6 +242,27 @@ describe('DetailPage', () => {
           screen.queryByTestId(TEST_IDS.EDIT_DELETE_BAR),
         ).not.toBeInTheDocument();
       });
+    });
+  });
+
+  describe('CommentsPanel', () => {
+    beforeEach(async () => {
+      picture = await pictureFactory
+        .props({
+          is_user: () => false,
+          total_likes: () => 1,
+        })
+        .build();
+
+      mockPictureGet(picture);
+      mockCommentsGet();
+    });
+
+    it('renders', async () => {
+      renderComponent(picture.pk);
+      expect(
+        await screen.findByTestId(TEST_IDS.COMMENTS_PANEL),
+      ).toBeInTheDocument();
     });
   });
 });

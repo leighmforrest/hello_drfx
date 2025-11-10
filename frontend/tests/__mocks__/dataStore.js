@@ -2,6 +2,7 @@ import { factory, seq } from '@factory-js/factory';
 import { faker } from '@faker-js/faker';
 
 export const PICTURE_SIZE = 50;
+export const COMMENT_SIZE = 50;
 
 export const userFactory = factory.define({
   props: {
@@ -34,5 +35,19 @@ export const pictureFactory = factory.define({
   vars: {},
 });
 
+
+export const commentFactory = factory.define({
+  props: {
+    pk: () => faker.number.bigInt(),
+    comment: () => faker.lorem.sentence(150),
+    is_user: () => false,
+    user: () =>
+      shortUserFactory.props({ email: () => faker.internet.email() }).build(),
+  },
+  vars: {},
+});
+
+
 export const picture = await pictureFactory.build();
 export const pictures = await pictureFactory.buildList(PICTURE_SIZE);
+export const comments = await commentFactory.buildList(COMMENT_SIZE)

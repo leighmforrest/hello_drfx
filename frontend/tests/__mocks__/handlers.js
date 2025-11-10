@@ -1,18 +1,18 @@
 import { http, HttpResponse } from 'msw';
 import { BASE_URL, endpoints } from '../../settings';
-import {
-  pictures,
-  pictureFactory,
-  userFactory,
-} from './dataStore';
+import { pictures, pictureFactory, userFactory } from './dataStore';
 import { authTokens, refreshedAuthTokens } from '../constants';
 import { paginatedResults } from '../helpers';
 
 export const handlers = [
   http.get(`${BASE_URL}${endpoints.index}`, async ({ request }) => {
-    const data = paginatedResults({allData: pictures, requestURL: request.url, endpoint: endpoints.index})
+    const data = paginatedResults({
+      allData: pictures,
+      requestURL: request.url,
+      endpoint: endpoints.index,
+    });
 
-        return HttpResponse.json(data);
+    return HttpResponse.json(data);
   }),
   http.post(`${BASE_URL}${endpoints.login}`, async ({ request }) => {
     const { email, password } = await request.json();
@@ -44,7 +44,7 @@ export const handlers = [
   }),
   http.post(`${BASE_URL}${endpoints.register}`, async ({ request }) => {
     const { email: registerEmail, handle } = await request.json();
-    console.log(handle)
+    console.log(handle);
     const user = userFactory.props({ email: () => registerEmail });
 
     return HttpResponse.json(user, { status: 201 });
