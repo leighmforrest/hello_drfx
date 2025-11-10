@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
+from apps.api.pagination import CommentsPaginationClass
 from .models import Picture, Comment
 from .serializers import PictureSerializer, CommentSerializer
 from .permissions import IsOwnerOrReadOnly
@@ -60,6 +61,7 @@ class LikeView(APIView):
 
 class CommentsView(ListCreateAPIView):
     serializer_class = CommentSerializer
+    pagination_class = CommentsPaginationClass
     
     def get_queryset(self):
         picture_id = self.kwargs.get("pk")

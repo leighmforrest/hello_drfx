@@ -31,3 +31,7 @@ class StandardPaginationClass(LimitOffsetPagination):
         else:
             # No offset parameter for first page
             return f"{url}?{urlencode(query_params)}" if query_params else url
+
+
+class CommentsPaginationClass(StandardPaginationClass):
+    default_limit = 10

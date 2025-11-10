@@ -1,9 +1,10 @@
 import uuid
 from datetime import datetime
-import pytest
+
 from django.urls import reverse, resolve
 from rest_framework.test import APIClient
 
+from tests.helpers import standard_pagination_tests
 from apps.pictures.views import CommentsView
 
 
@@ -46,6 +47,12 @@ class TestCommentsView:
 
         assert response_data["comment"] == "Gunter Glieben Glauten Globen"
         assert test_user.handle == response_data["user"]["handle"]
+    
+
+    def test_get_test_model_paginated_comments(self, test_model_picture_paginated_comments, authenticated_client):
+        url = self.get_url(test_model_picture_paginated_comments.pk)
+        standard_pagination_tests(url, authenticated_client, 10)
+
     
     def test_anonymous_user_cannot_get(self, test_model_picture_five_comments, api_client: APIClient):
         url = self.get_url(test_model_picture_five_comments.pk)

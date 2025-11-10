@@ -2,6 +2,7 @@ import pytest
 from django.urls import reverse, resolve
 from rest_framework.test import APIClient
 
+from tests.helpers import standard_pagination_tests
 from apps.pictures.views import IndexView
 
 
@@ -60,38 +61,7 @@ class TestIndexView:
         self, authenticated_client: APIClient, test_model_pictures_paginated
     ):
         url = self.url
-        all_results = []
-        previous_url = None
-
-        while url:
-            response = authenticated_client.get(url)
-            assert response.status_code == 200
-
-            data = response.data
-            results = data["results"]
-            all_results.extend(results)
-
-            # Assert page-specific things if needed, e.g. length
-            # For example, each page should have <= page size (6 in your case)
-            assert  0 < len(results) <= 6
-
-            # Check pagination links
-            next_url = data["next"]
-            prev_url = data["previous"]
-
-            # The previous url should either be None or not equal to current url
-            if previous_url:
-                assert prev_url is not None
-            previous_url = prev_url
-
-            url = next_url  # move to next page or exit if None
-
-        # After fetching all pages, verify total count matches
-        assert len(all_results) == data["count"]
-
-        # Optionally, verify uniqueness of PKs across all pages
-        all_pks = {item["pk"] for item in all_results}
-        assert len(all_pks) == len(all_results)
+        standard_pagination_tests(url, authenticated_client)
 
     def test_authenticated_upload_image(
         self, authenticated_client: APIClient, test_model_image_file, test_user

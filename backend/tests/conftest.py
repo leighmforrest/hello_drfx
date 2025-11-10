@@ -96,7 +96,14 @@ def test_model_picture_liked_by_user(db, test_model_picture, test_user):
 
 @pytest.fixture
 def test_model_picture_five_comments(db, test_model_picture: Picture):
-    for _ in range(5):
-        CommentFactory(picture=test_model_picture)
+
+    CommentFactory.create_batch(5, picture=test_model_picture)
+
+    yield test_model_picture
+
+
+@pytest.fixture
+def test_model_picture_paginated_comments(db, test_model_picture: Picture):
+    CommentFactory.create_batch(50, picture=test_model_picture)
 
     yield test_model_picture
