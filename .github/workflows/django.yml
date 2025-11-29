@@ -28,7 +28,8 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: 22
           script: | 
-            cd ${{secrets.APP_DIRECTORY}}/frontend
+            cd "${{secrets.APP_DIRECTORY}}/frontend" || exit 1
+            npm ci          # install dependencies
             npm run build
       - name: perform backend activities
         uses: appleboy/ssh-action@v0.1.7
