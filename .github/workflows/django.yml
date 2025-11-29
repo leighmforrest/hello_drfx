@@ -43,6 +43,6 @@ jobs:
             source .venv/bin/activate
             python manage.py migrate
             python manage.py collectstatic --noinput
-            sudo -S ${{secrets.SUDO_PASSWORD}} supervisorctl restart pictures
-            sudo -S ${{secrets.SUDO_PASSWORD}} systemctl reload nginx
+            echo ${{secrets.SUDO_PASSWORD}} > sudo -S supervisorctl restart pictures
+            echo ${{secrets.SUDO_PASSWORD}} > systemctl reload nginx
             
