@@ -6,11 +6,12 @@ import { Routes, Route } from 'react-router-dom';
 import { http, HttpResponse } from 'msw';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { server } from '../__mocks__/server';
-import { pictureFactory, comments } from '../__mocks__/dataStore';
+import { pictureFactory, commentFactory } from '../__mocks__/dataStore';
 import { TestUserProvider } from '../providers';
 import { paginatedResults } from '../helpers';
 import DetailPage from '../../src/pages/DetailPage';
 import { BASE_URL } from '../../settings';
+
 
 const TEST_IDS = {
   LIKE_BAR: 'like-bar',
@@ -33,7 +34,7 @@ const mockPictureGet = (picture) => {
   );
 };
 
-const mockCommentsGet = () => {
+const mockCommentsGet = (comments) => {
   server.use(
     http.get(`${BASE_URL}/:pk/comments`, async ({ params, request }) => {
       const data = paginatedResults({
@@ -46,7 +47,6 @@ const mockCommentsGet = () => {
     }),
   );
 };
-
 
 // Register like/unlike handlers that close over the provided picture object.
 // Must be called inside the test's beforeEach so it mutates the right picture.
@@ -72,20 +72,22 @@ const registerLikeHandlers = (picture) => {
 };
 
 let picture;
+let comments;
+
 
 describe('DetailPage', () => {
-  const renderComponent = (pictureId) => ({
-    ...render(
-      <TestUserProvider path={`/${pictureId}`}>
-        <Routes>
-          <Route path="/:pk" element={<DetailPage />} />
-        </Routes>
-      </TestUserProvider>,
-    ),
-    user: userEvent.setup(),
-  });
-
   describe('DetailPanel', () => {
+    const renderComponent = (pictureId) => ({
+      ...render(
+        <TestUserProvider path={`/${pictureId}`}>
+          <Routes>
+            <Route path="/:pk" element={<DetailPage />} />
+          </Routes>
+        </TestUserProvider>,
+      ),
+      user: userEvent.setup(),
+    });
+
     describe('authenticated users', () => {
       beforeEach(async () => {
         picture = await pictureFactory
@@ -94,9 +96,11 @@ describe('DetailPage', () => {
             total_likes: () => 1,
           })
           .build();
+        
+          comments = await commentFactory.buildList(10)
 
         mockPictureGet(picture);
-        mockCommentsGet();
+        mockCommentsGet(comments);
         registerLikeHandlers(picture); // must be per-test so handlers mutate this 'picture'
       });
 
@@ -246,23 +250,32 @@ describe('DetailPage', () => {
   });
 
   describe('CommentsPanel', () => {
-    beforeEach(async () => {
-      picture = await pictureFactory
-        .props({
-          is_user: () => false,
-          total_likes: () => 1,
-        })
-        .build();
-
-      mockPictureGet(picture);
-      mockCommentsGet();
+    const renderComponent = (pictureId) => ({
+      ...render(
+        <TestUserProvider path={`/${pictureId}`}>
+          <Routes>
+            <Route path="/:pk" element={<DetailPage />} />
+          </Routes>
+        </TestUserProvider>,
+      ),
+      user: userEvent.setup(),
     });
 
-    it('renders', async () => {
-      renderComponent(picture.pk);
-      expect(
-        await screen.findByTestId(TEST_IDS.COMMENTS_PANEL),
-      ).toBeInTheDocument();
+    describe('all authenticated users', () => {
+      beforeEach(async () => {
+        picture = await pictureFactory.build();
+        comments = await commentFactory.buildList(15)
+
+        mockPictureGet(picture);
+        mockCommentsGet(comments);
+      });
+
+      it('renders', async () => {
+        renderComponent(picture.pk);
+        expect(
+          await screen.findByTestId(TEST_IDS.COMMENTS_PANEL),
+        ).toBeInTheDocument();
+      });
     });
   });
 });

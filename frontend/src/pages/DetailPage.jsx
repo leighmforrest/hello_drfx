@@ -38,6 +38,7 @@ const DetailPage = () => {
     navigate("/")
 
   };
+  
   const onLikeHandler = () => likeMutation.mutate();
   const onUnlikeHandler = () => unlikeMutation.mutate();
 

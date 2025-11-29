@@ -50,4 +50,3 @@ export const commentFactory = factory.define({
 
 export const picture = await pictureFactory.build();
 export const pictures = await pictureFactory.buildList(PICTURE_SIZE);
-export const comments = await commentFactory.buildList(COMMENT_SIZE)

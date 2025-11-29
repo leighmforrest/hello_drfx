@@ -20,7 +20,7 @@ jobs:
           port: 22
           source: "."
           target: ${{ secrets.APP_DIRECTORY }}
-      - name: build frontend and move to /var/www via ssh
+      - name: build frontend via ssh
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_IP }}
@@ -30,5 +30,18 @@ jobs:
           script: | 
             cd ${{secrets.APP_DIRECTORY}}/frontend
             npm run build
-            cp -r ${{secrets.APP_DIRECTORY}}/frontend/dist/* /var/www/hello/frontend
-     
+      - name: perform backend activities
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: 22
+          script: | 
+            cd ${{secrets.APP_DIRECTORY}}/backend
+            source .venv/bin/activate
+            python manage.py migrate
+            python manage.py collectstatic --noinput
+            sudo -S ${{secrets.SUDO_PASSWORD}} supervisorctl restart pictures
+            sudo -S ${{secrets.SUDO_PASSWORD}} systemctl reload nginx
+            
