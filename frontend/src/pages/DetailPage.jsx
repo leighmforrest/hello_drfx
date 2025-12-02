@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'; // ✅ react-router-d
 import { usePictureQuery } from '../queries/usePictureQuery';
 import { useLikePicture } from '../mutations/likePictureMutation';
 import { useUpdatePicture } from '../mutations/updatePictureMutation';
-import { useDeletePicture } from "../mutations/deletePictureMutation";
+import { useDeletePicture } from '../mutations/deletePictureMutation';
 
 import Spinner from '../components/Spinner';
 
@@ -13,6 +13,7 @@ import DetailPanel from '../components/DetailPanel';
 import CommentsPanel from '../components/CommentsPanel';
 import NotFoundPage from './NotFoundPage';
 import ErrorPage from './ErrorPage';
+import { useInfiniteComments } from '../queries/useCommentsQuery';
 
 const DetailPage = () => {
   const { pk } = useParams();
@@ -20,6 +21,12 @@ const DetailPage = () => {
 
   const { data: picture, isLoading, error } = usePictureQuery(pk);
   const { likeMutation, unlikeMutation } = useLikePicture(pk);
+  const {
+    data: comments,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteComments(pk);
   const updateMutation = useUpdatePicture(pk);
   const deleteMutation = useDeletePicture(pk);
 
@@ -33,12 +40,11 @@ const DetailPage = () => {
   };
 
   const onDeleteHandler = () => {
-    deleteMutation.mutate()
-    toast.warning("The picture has been deleted.")
-    navigate("/")
-
+    deleteMutation.mutate();
+    toast.warning('The picture has been deleted.');
+    navigate('/');
   };
-  
+
   const onLikeHandler = () => likeMutation.mutate();
   const onUnlikeHandler = () => unlikeMutation.mutate();
 
@@ -61,7 +67,12 @@ const DetailPage = () => {
           onUnlikeHandler={onUnlikeHandler}
           onDeleteHandler={onDeleteHandler}
         />
-        <CommentsPanel />
+        <CommentsPanel
+          comments={comments}
+          fetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+        />
       </div>
     </MainContainer>
   );

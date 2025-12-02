@@ -1,4 +1,4 @@
-import { endpoints, LIMIT, BASE_URL } from '../settings';
+import { endpoints, LIMIT, COMMENTS_LIMIT, BASE_URL } from '../settings';
 import api from './apiClient';
 
 export const fetchPictures = async (offset= 0, limit=LIMIT) => {
@@ -50,4 +50,9 @@ export const updatePicture = async (pictureId, title) => {
 export const deletePicture = async (pictureId) => {
   const response = await api.delete(`${pictureId}`);
   return response.data;
+};
+
+export const fetchComments = async (pictureId, offset= 0, limit=COMMENTS_LIMIT) => {
+  const { data } = await api.get(`/${pictureId}/comments?offset=${offset}&limit=${limit}`);
+  return data;
 };

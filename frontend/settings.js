@@ -3,7 +3,7 @@ export const MAX_FILE_SIZE = 6 * 1024 * 1024
 export const VALID_IMAGE_TYPES = ['jpg', 'gif', 'png', 'jpeg']
 export const SUPPORTED_FORMATS = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif']
 export const LIMIT = 6
-export const COMMENTS_LIMIT = 10
+export const COMMENTS_LIMIT = 5
 
 export const endpoints = {
   login: '/accounts/jwt/create/',
